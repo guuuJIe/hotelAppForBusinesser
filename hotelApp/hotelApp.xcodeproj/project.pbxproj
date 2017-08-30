@@ -37,6 +37,7 @@
 		8482ED811F56979E00A95200 /* StorageMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 8482ED671F56979D00A95200 /* StorageMgr.m */; };
 		8482ED831F56979E00A95200 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8482ED6B1F56979D00A95200 /* Utilities.m */; };
 		8482ED871F56987A00A95200 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 8482ED861F56987A00A95200 /* Order.m */; };
+		FEB2C5CD1F56B49B00FBFEC0 /* Aviation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEB2C5CC1F56B49B00FBFEC0 /* Aviation.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		8482ED861F56987A00A95200 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		99E868AC9C06992D67E0DC28 /* libPods-hotelApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hotelApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B40C97B727EB1AC4F989536C /* Pods-hotelApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hotelApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hotelApp/Pods-hotelApp.debug.xcconfig"; sourceTree = "<group>"; };
+		FEB2C5CC1F56B49B00FBFEC0 /* Aviation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Aviation.storyboard; path = hotelApp/Aviation.storyboard; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 				8482ECF11F56931400A95200 /* ViewController.h */,
 				8482ECF21F56931400A95200 /* ViewController.m */,
 				8482ECF41F56931400A95200 /* Main.storyboard */,
+				FEB2C5CC1F56B49B00FBFEC0 /* Aviation.storyboard */,
 				8482ECFA1F56931400A95200 /* Assets.xcassets */,
 				8482ECFC1F56931400A95200 /* LaunchScreen.storyboard */,
 				8482ECFF1F56931400A95200 /* Info.plist */,
@@ -451,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8482ECFE1F56931400A95200 /* LaunchScreen.storyboard in Resources */,
+				FEB2C5CD1F56B49B00FBFEC0 /* Aviation.storyboard in Resources */,
 				8482ECFB1F56931400A95200 /* Assets.xcassets in Resources */,
 				8482ECF61F56931400A95200 /* Main.storyboard in Resources */,
 			);
