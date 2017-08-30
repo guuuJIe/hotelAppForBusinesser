@@ -9,27 +9,15 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="sBv-YF-vlp">
+        <!--Storyboard Reference-->
+        <scene sceneID="HRK-Gs-nAJ">
             <objects>
-                <viewController id="Rxk-mR-w9b" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Mk0-Ba-LGI"/>
-                        <viewControllerLayoutGuide type="bottom" id="X9W-dl-eiF"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="oWo-7X-pgo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Zvr-L6-1ZA"/>
-                    <connections>
-                        <segue destination="AFH-a8-rV4" kind="push" id="wQ9-r1-NKM"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lz1-LS-ovT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder id="sUw-WG-Kyj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="uVX-Yq-CSt"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T7G-9A-IPc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1380" y="428.63568215892059"/>
+            <point key="canvasLocation" x="1362" y="427"/>
         </scene>
         <!--Aviation-->
         <scene sceneID="rei-Zm-MG2">
@@ -109,7 +97,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Rxk-mR-w9b" kind="relationship" relationship="rootViewController" id="TkN-Ln-wUE"/>
+                        <segue destination="sUw-WG-Kyj" kind="push" id="a4M-Mi-FNN"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OW0-hO-XzA" userLabel="First Responder" sceneMemberID="firstResponder"/>
