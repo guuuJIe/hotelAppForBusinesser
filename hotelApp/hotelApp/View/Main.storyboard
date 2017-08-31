@@ -427,10 +427,23 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1Xd-QB-w0D" kind="push" id="Hj0-1V-5yr"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OW0-hO-XzA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="440.80000000000001" y="428.63568215892059"/>
+        </scene>
+        <!--MyHotel-->
+        <scene sceneID="Bv9-4u-hxe">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MyHotel" id="1Xd-QB-w0D" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="AJo-CS-7Ps"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C5U-qI-h7O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1337" y="428"/>
         </scene>
     </scenes>
     <resources>
