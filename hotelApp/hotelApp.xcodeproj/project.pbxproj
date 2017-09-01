@@ -176,6 +176,7 @@
 		0488E5681F5800AC004E0499 /* MyHotelView */ = {
 			isa = PBXGroup;
 			children = (
+				FEA443531F57A85400232DFE /* Main.storyboard */,
 				0488E5691F5800DD004E0499 /* MyHotelTableViewCell.h */,
 				0488E56A1F5800DD004E0499 /* MyHotelTableViewCell.m */,
 			);
@@ -353,7 +354,6 @@
 			isa = PBXGroup;
 			children = (
 				0488E5681F5800AC004E0499 /* MyHotelView */,
-				FEA443531F57A85400232DFE /* Main.storyboard */,
 				FEA443511F57A85400232DFE /* MyHotel.storyboard */,
 				FEA443521F57A85400232DFE /* LaunchScreen.storyboard */,
 			);

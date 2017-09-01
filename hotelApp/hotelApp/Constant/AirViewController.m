@@ -10,6 +10,7 @@
 #import "AirReleaseTableViewCell.h"
 #import "ExpiredTableViewCell.h"
 #import "HMSegmentedControl.h"
+#import "Utilities.h"
 @interface AirViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>{
     NSInteger offerPageNum;
     NSInteger overduePageNum;
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *overdueTableView;
 @property (weak, nonatomic) IBOutlet UIView *aviationView;
 @property (strong, nonatomic)HMSegmentedControl *segmentedControl;
+@property (strong,nonatomic) UIActivityIndicatorView *avi;
 @end
 
 @implementation AirViewController
@@ -118,6 +120,8 @@
         //NSLog(@"page = %ld", (long)page);
         //将_segmentedControl设置选中的index为page（scrollView当前显示的tableview）
         [_segmentedControl setSelectedSegmentIndex:page animated:YES];
+        //去掉scrollView横向滚动标示
+        _aviationScrollView.showsHorizontalScrollIndicator = NO;
     }
 }
 //scrollView已经结束滑动的动画
@@ -142,6 +146,32 @@
     return page;
 
 }
+#pragma mark - request
+//已获取任务网络请求
+- (void)acquireRequest{
+     NSDictionary *para =@{@"id":@1};
+    [RequestAPI requestURL:@"/selectDemand" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10001];
+        [ref endRefreshing];
+        
+        NSLog(@"acquire: %@", responseObject);
+        if ([responseObject[@"result"]intValue] == 1) {
+       
+        }else{
+            [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
+             }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10001];
+        [ref endRefreshing];
+        
+        [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
+        
+    }];
+}
+
 
 
 //有多少行
