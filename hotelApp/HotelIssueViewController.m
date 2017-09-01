@@ -8,7 +8,23 @@
 
 #import "HotelIssueViewController.h"
 
-@interface HotelIssueViewController ()
+@interface HotelIssueViewController ()<UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *hotelImgView;
+@property (weak, nonatomic) IBOutlet UITextField *hotelNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *isEarlyTextField;
+@property (weak, nonatomic) IBOutlet UITextField *bedTypeTextField;
+@property (weak, nonatomic) IBOutlet UITextField *hotelAreaTextField;
+@property (weak, nonatomic) IBOutlet UITextField *priceTextField;
+@property (weak, nonatomic) IBOutlet UITextField *addPriceTextField;
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+
+- (IBAction)cancelAction:(UIBarButtonItem *)sender;
+- (IBAction)confirmAction:(UIBarButtonItem *)sender;
+- (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 @end
 
@@ -34,4 +50,15 @@
 }
 */
 
+//取消事件
+- (IBAction)cancelAction:(UIBarButtonItem *)sender {
+}
+
+//确认事件
+- (IBAction)confirmAction:(UIBarButtonItem *)sender {
+}
+
+//选择酒店按钮事件
+- (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
 @end
