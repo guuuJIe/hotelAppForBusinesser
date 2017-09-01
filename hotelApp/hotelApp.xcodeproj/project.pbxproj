@@ -39,7 +39,7 @@
 		FEA4434E1F57A7DF00232DFE /* AirReleaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA443481F57A7DF00232DFE /* AirReleaseTableViewCell.m */; };
 		FEA4434F1F57A7DF00232DFE /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4434A1F57A7DF00232DFE /* AirViewController.m */; };
 		FEA443501F57A7DF00232DFE /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4434D1F57A7DF00232DFE /* ExpiredTableViewCell.m */; };
-		FEA443541F57A85400232DFE /* MyHotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA443511F57A85400232DFE /* MyHotel.storyboard */; };
+		FEA443541F57A85400232DFE /* HotelIssue.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA443511F57A85400232DFE /* HotelIssue.storyboard */; };
 		FEA443551F57A85400232DFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA443521F57A85400232DFE /* LaunchScreen.storyboard */; };
 		FEA443561F57A85400232DFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA443531F57A85400232DFE /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -127,7 +127,7 @@
 		FEA4434B1F57A7DF00232DFE /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = hotelApp/Constant/Constants.h; sourceTree = SOURCE_ROOT; };
 		FEA4434C1F57A7DF00232DFE /* ExpiredTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpiredTableViewCell.h; path = hotelApp/Constant/ExpiredTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		FEA4434D1F57A7DF00232DFE /* ExpiredTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpiredTableViewCell.m; path = hotelApp/Constant/ExpiredTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		FEA443511F57A85400232DFE /* MyHotel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyHotel.storyboard; sourceTree = "<group>"; };
+		FEA443511F57A85400232DFE /* HotelIssue.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HotelIssue.storyboard; sourceTree = "<group>"; };
 		FEA443521F57A85400232DFE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FEA443531F57A85400232DFE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -354,7 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				0488E5681F5800AC004E0499 /* MyHotelView */,
-				FEA443511F57A85400232DFE /* MyHotel.storyboard */,
+				FEA443511F57A85400232DFE /* HotelIssue.storyboard */,
 				FEA443521F57A85400232DFE /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -500,7 +500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEA443561F57A85400232DFE /* Main.storyboard in Resources */,
-				FEA443541F57A85400232DFE /* MyHotel.storyboard in Resources */,
+				FEA443541F57A85400232DFE /* HotelIssue.storyboard in Resources */,
 				FEA443551F57A85400232DFE /* LaunchScreen.storyboard in Resources */,
 				FEA443391F57A5EC00232DFE /* Assets.xcassets in Resources */,
 			);

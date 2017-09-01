@@ -502,7 +502,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="157"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B9f-7P-XLY" id="A8u-Dy-K5j">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="156.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天马行空大酒店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4t-y5-eK0">
@@ -604,29 +604,22 @@
                         <outlet property="iconImg" destination="3UU-7X-oRj" id="epV-aZ-ROc"/>
                         <outlet property="myHotelTableView" destination="hOI-yh-Yos" id="Xjh-2I-LBT"/>
                         <outlet property="titleLabel" destination="Pry-dH-xd4" id="7fg-Nv-8u1"/>
+                        <segue destination="Oxf-wI-6ih" kind="push" id="Dae-di-220"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PjT-B3-rR0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1380" y="428.63568215892059"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Jpk-Nk-VFp">
+        <!--HotelIssue-->
+        <scene sceneID="xrU-dR-0ty">
             <objects>
-                <viewController id="UvL-oZ-gbt" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RZg-YR-r5f"/>
-                        <viewControllerLayoutGuide type="bottom" id="ld0-Ub-6tU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Uy1-Ui-mqx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nc5-eU-iG8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="HotelIssue" id="Oxf-wI-6ih" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ySE-Sg-m25"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A0N-ZV-kqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2116" y="429"/>
+            <point key="canvasLocation" x="2180" y="428"/>
         </scene>
     </scenes>
     <resources>
