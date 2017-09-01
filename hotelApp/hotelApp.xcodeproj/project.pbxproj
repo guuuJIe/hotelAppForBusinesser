@@ -43,6 +43,8 @@
 		FEEDA2D81F59475F00AD1E89 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2D71F59475F00AD1E89 /* AirViewController.m */; };
 		FEEDA2DD1F5947CC00AD1E89 /* AirReleaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2DA1F5947CC00AD1E89 /* AirReleaseTableViewCell.m */; };
 		FEEDA2DE1F5947CC00AD1E89 /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2DC1F5947CC00AD1E89 /* ExpiredTableViewCell.m */; };
+		FEEDA2E51F59527800AD1E89 /* offerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2E41F59527800AD1E89 /* offerViewController.m */; };
+		FEEDA2E91F5953B000AD1E89 /* offerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2E81F5953B000AD1E89 /* offerTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +134,10 @@
 		FEEDA2DA1F5947CC00AD1E89 /* AirReleaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirReleaseTableViewCell.m; sourceTree = "<group>"; };
 		FEEDA2DB1F5947CC00AD1E89 /* ExpiredTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpiredTableViewCell.h; sourceTree = "<group>"; };
 		FEEDA2DC1F5947CC00AD1E89 /* ExpiredTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpiredTableViewCell.m; sourceTree = "<group>"; };
+		FEEDA2E31F59527800AD1E89 /* offerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = offerViewController.h; path = hotelApp/controller/offerViewController.h; sourceTree = SOURCE_ROOT; };
+		FEEDA2E41F59527800AD1E89 /* offerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = offerViewController.m; path = hotelApp/controller/offerViewController.m; sourceTree = SOURCE_ROOT; };
+		FEEDA2E71F5953B000AD1E89 /* offerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offerTableViewCell.h; sourceTree = "<group>"; };
+		FEEDA2E81F5953B000AD1E89 /* offerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = offerTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +324,7 @@
 		8482ED3D1F56979D00A95200 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FEEDA2DF1F59521300AD1E89 /* offer */,
 				0474DA661F59071E008CBE0D /* HotelIssue */,
 				0488E5641F57FF4B004E0499 /* MyHotel */,
 				FEA4433D1F57A64600232DFE /* AirRelease */,
@@ -364,6 +371,7 @@
 		8482ED6C1F56979D00A95200 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FEEDA2E61F59538900AD1E89 /* Offer */,
 				FEEDA2D51F5945A600AD1E89 /* AirRelease */,
 				0488E5681F5800AC004E0499 /* MyHotelView */,
 				FEEDA2D31F5910D400AD1E89 /* Main.storyboard */,
@@ -407,6 +415,24 @@
 				FEEDA2DC1F5947CC00AD1E89 /* ExpiredTableViewCell.m */,
 			);
 			name = AirRelease;
+			sourceTree = "<group>";
+		};
+		FEEDA2DF1F59521300AD1E89 /* offer */ = {
+			isa = PBXGroup;
+			children = (
+				FEEDA2E31F59527800AD1E89 /* offerViewController.h */,
+				FEEDA2E41F59527800AD1E89 /* offerViewController.m */,
+			);
+			name = offer;
+			sourceTree = "<group>";
+		};
+		FEEDA2E61F59538900AD1E89 /* Offer */ = {
+			isa = PBXGroup;
+			children = (
+				FEEDA2E71F5953B000AD1E89 /* offerTableViewCell.h */,
+				FEEDA2E81F5953B000AD1E89 /* offerTableViewCell.m */,
+			);
+			name = Offer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -595,10 +621,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8482ED831F56979E00A95200 /* Utilities.m in Sources */,
+				FEEDA2E51F59527800AD1E89 /* offerViewController.m in Sources */,
 				8482ED7E1F56979E00A95200 /* NSDateFormatter+Category.m in Sources */,
 				FEA4433C1F57A62600232DFE /* AppDelegate.m in Sources */,
 				8482ED7B1F56979D00A95200 /* JSONS.m in Sources */,
 				0474DA691F590768008CBE0D /* HotelIssueViewController.m in Sources */,
+				FEEDA2E91F5953B000AD1E89 /* offerTableViewCell.m in Sources */,
 				0488E56B1F5800DD004E0499 /* MyHotelTableViewCell.m in Sources */,
 				8482ECF91F56931400A95200 /* hotelApp.xcdatamodeld in Sources */,
 				FEEDA2D81F59475F00AD1E89 /* AirViewController.m in Sources */,
