@@ -13,7 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (weak, nonatomic) IBOutlet UIImageView *iconImg;
+@property (weak, nonatomic) IBOutlet UIButton *issueBtn;
+- (IBAction)issueAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UITableView *myHotelTableView;
 
 @end
@@ -29,6 +30,9 @@
     
     //把状态栏变成白色
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
+    //设置其背景图片为返回图片
+    [_issueBtn setBackgroundImage:[UIImage imageNamed:@"check_out"] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,5 +98,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)issueAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    [self performSegueWithIdentifier:@"hotelToIssue" sender:self];
+}
 
 @end
