@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0474DA691F590768008CBE0D /* HotelIssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0474DA681F590768008CBE0D /* HotelIssueViewController.m */; };
 		0488E5671F57FF9A004E0499 /* MyHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0488E5661F57FF9A004E0499 /* MyHotelViewController.m */; };
 		0488E56B1F5800DD004E0499 /* MyHotelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0488E56A1F5800DD004E0499 /* MyHotelTableViewCell.m */; };
 		69FABE80CA24D4CD7055259A /* libPods-hotelApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E868AC9C06992D67E0DC28 /* libPods-hotelApp.a */; };
@@ -62,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0474DA671F590768008CBE0D /* HotelIssueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelIssueViewController.h; sourceTree = SOURCE_ROOT; };
+		0474DA681F590768008CBE0D /* HotelIssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelIssueViewController.m; sourceTree = SOURCE_ROOT; };
 		0488E5651F57FF9A004E0499 /* MyHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotelViewController.h; sourceTree = SOURCE_ROOT; };
 		0488E5661F57FF9A004E0499 /* MyHotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHotelViewController.m; sourceTree = SOURCE_ROOT; };
 		0488E5691F5800DD004E0499 /* MyHotelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotelTableViewCell.h; sourceTree = "<group>"; };
@@ -164,6 +167,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0474DA661F59071E008CBE0D /* HotelIssue */ = {
+			isa = PBXGroup;
+			children = (
+				0474DA671F590768008CBE0D /* HotelIssueViewController.h */,
+				0474DA681F590768008CBE0D /* HotelIssueViewController.m */,
+			);
+			name = HotelIssue;
+			sourceTree = "<group>";
+		};
 		0488E5641F57FF4B004E0499 /* MyHotel */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +320,7 @@
 		8482ED3D1F56979D00A95200 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0474DA661F59071E008CBE0D /* HotelIssue */,
 				0488E5641F57FF4B004E0499 /* MyHotel */,
 				FEA4433D1F57A64600232DFE /* Air release */,
 			);
@@ -581,6 +594,7 @@
 				FEA4433C1F57A62600232DFE /* AppDelegate.m in Sources */,
 				FEA443501F57A7DF00232DFE /* ExpiredTableViewCell.m in Sources */,
 				8482ED7B1F56979D00A95200 /* JSONS.m in Sources */,
+				0474DA691F590768008CBE0D /* HotelIssueViewController.m in Sources */,
 				0488E56B1F5800DD004E0499 /* MyHotelTableViewCell.m in Sources */,
 				8482ECF91F56931400A95200 /* hotelApp.xcdatamodeld in Sources */,
 				8482ED6E1F56979D00A95200 /* BasicEncodingRules.m in Sources */,
