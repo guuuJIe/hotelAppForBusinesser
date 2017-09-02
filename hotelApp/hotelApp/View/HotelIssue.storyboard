@@ -239,6 +239,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="酒店发布" id="ujR-Cb-N9z"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="addPriceTextField" destination="G0g-9v-s9J" id="EfH-A0-36g"/>
                         <outlet property="bedTypeTextField" destination="4uY-kT-XN9" id="vjq-wu-Wab"/>
