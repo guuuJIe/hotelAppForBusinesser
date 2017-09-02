@@ -1021,12 +1021,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天马行空大酒店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4t-y5-eK0">
-                                                    <rect key="frame" x="15" y="10" width="136" height="51.5"/>
+                                                    <rect key="frame" x="15" y="5" width="136" height="61.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                                     <color key="textColor" red="0.32156862745098036" green="0.61311848958333337" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_image" translatesAutoresizingMaskIntoConstraints="NO" id="Ddf-w5-I9r">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotels" translatesAutoresizingMaskIntoConstraints="NO" id="Ddf-w5-I9r">
                                                     <rect key="frame" x="15" y="71.5" width="105" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Ddf-w5-I9r" secondAttribute="height" multiplier="3:2" id="hU3-0M-dio"/>
@@ -1070,11 +1070,11 @@
                                                 <constraint firstItem="ThL-68-EUU" firstAttribute="top" secondItem="5p7-z6-gVT" secondAttribute="bottom" constant="5" id="DSg-oA-2l7"/>
                                                 <constraint firstAttribute="trailing" secondItem="pkG-2c-yK3" secondAttribute="trailing" constant="15" id="ESl-X5-jug"/>
                                                 <constraint firstItem="bJv-12-PKx" firstAttribute="top" secondItem="klU-im-kaP" secondAttribute="top" id="G65-Ge-AEa"/>
-                                                <constraint firstItem="P4t-y5-eK0" firstAttribute="top" secondItem="A8u-Dy-K5j" secondAttribute="top" constant="10" id="PcV-bd-nv4"/>
+                                                <constraint firstItem="P4t-y5-eK0" firstAttribute="top" secondItem="A8u-Dy-K5j" secondAttribute="top" constant="5" id="PcV-bd-nv4"/>
                                                 <constraint firstItem="klU-im-kaP" firstAttribute="leading" secondItem="Ddf-w5-I9r" secondAttribute="trailing" constant="15" id="Q4t-1a-ZpG"/>
                                                 <constraint firstItem="Ddf-w5-I9r" firstAttribute="leading" secondItem="P4t-y5-eK0" secondAttribute="leading" id="Tsv-5u-Oef"/>
                                                 <constraint firstItem="pkG-2c-yK3" firstAttribute="centerY" secondItem="Ddf-w5-I9r" secondAttribute="centerY" id="WSN-K2-em1"/>
-                                                <constraint firstItem="Ddf-w5-I9r" firstAttribute="top" secondItem="P4t-y5-eK0" secondAttribute="bottom" constant="10" id="g4F-ho-VM5"/>
+                                                <constraint firstItem="Ddf-w5-I9r" firstAttribute="top" secondItem="P4t-y5-eK0" secondAttribute="bottom" constant="5" id="g4F-ho-VM5"/>
                                                 <constraint firstItem="ThL-68-EUU" firstAttribute="leading" secondItem="5p7-z6-gVT" secondAttribute="leading" id="gc0-uD-PZT"/>
                                                 <constraint firstItem="klU-im-kaP" firstAttribute="top" secondItem="Ddf-w5-I9r" secondAttribute="top" id="hK1-4q-fOA"/>
                                                 <constraint firstItem="bJv-12-PKx" firstAttribute="leading" secondItem="klU-im-kaP" secondAttribute="trailing" constant="10" id="jEd-Xs-g6s"/>
@@ -1141,7 +1141,7 @@
         <image name="aviation" width="22" height="22"/>
         <image name="hotel" width="22" height="22"/>
         <image name="hotel-1" width="22" height="22"/>
-        <image name="hotel_image" width="250" height="166"/>
+        <image name="hotels" width="82" height="61"/>
         <image name="origin" width="9" height="9"/>
         <image name="plane" width="45" height="45"/>
         <image name="plane副本" width="82" height="82"/>
