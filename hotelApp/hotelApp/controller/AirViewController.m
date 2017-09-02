@@ -147,7 +147,7 @@
 
 }
 #pragma mark - request
-//已获取任务网络请求
+//可报价网络请求
 - (void)acquireRequest{
      NSDictionary *para =@{@"id":@1};
     [RequestAPI requestURL:@"/selectDemand" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {

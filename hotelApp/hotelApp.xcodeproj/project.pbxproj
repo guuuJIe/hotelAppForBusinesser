@@ -324,10 +324,10 @@
 		8482ED3D1F56979D00A95200 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FEA4433D1F57A64600232DFE /* AirRelease */,
 				FEEDA2DF1F59521300AD1E89 /* offer */,
 				0474DA661F59071E008CBE0D /* HotelIssue */,
 				0488E5641F57FF4B004E0499 /* MyHotel */,
-				FEA4433D1F57A64600232DFE /* AirRelease */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
