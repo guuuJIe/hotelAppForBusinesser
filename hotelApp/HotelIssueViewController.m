@@ -34,6 +34,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //设置PickerView的背景颜色
+    _pickerView.backgroundColor = UIColorFromRGB(230, 230, 230);
+    //设置view的边框宽度
+    _headerView.layer.borderWidth = 1.0;
+    //设置view的边框颜色
+    _headerView.layer.borderColor = UIColorFromRGB(50, 130, 255).CGColor;
+    
     //调用导航栏设置
     [self setNavigationItem];
 }
@@ -89,6 +96,9 @@
     
 }
 
+
+
+
 /*
 #pragma mark - Navigation
 
@@ -99,15 +109,46 @@
 }
 */
 
+
+
+
 //取消事件
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    //隐藏ToolBar和PickerView
+    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
 }
 
 //确认事件
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    //隐藏ToolBar和PickerView
+    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
 }
 
 //选择酒店按钮事件
 - (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    //显示ToolBar和PickerView
+    _toolBar.hidden = NO;
+    _pickerView.hidden = NO;
 }
+
+//点击空白处收回ToolBar和PickerView
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    //让根视图结束编辑状态达到收起键盘的目的
+    [self.view endEditing:YES];
+    //隐藏ToolBar和PickerView
+    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
+    
+}
+
+//按键盘上的Return键收起键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+
 @end

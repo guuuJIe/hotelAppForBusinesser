@@ -49,7 +49,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="3Wo-Ji-HRM" firstAttribute="centerY" secondItem="hGc-NQ-aBV" secondAttribute="centerY" id="B11-eD-O5p"/>
                                     <constraint firstItem="3Wo-Ji-HRM" firstAttribute="centerX" secondItem="hGc-NQ-aBV" secondAttribute="centerX" constant="-5" id="Bv3-q3-A5Y"/>
@@ -167,10 +166,10 @@
                                     <outlet property="delegate" destination="v29-0O-WfJ" id="qut-KM-Xax"/>
                                 </connections>
                             </textField>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNC-a3-ibV">
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNC-a3-ibV">
                                 <rect key="frame" x="0.0" y="429" width="375" height="238"/>
                             </pickerView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wm3-d7-yD1">
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wm3-d7-yD1">
                                 <rect key="frame" x="0.0" y="385" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="取消" id="1Qk-Aw-yvf">
