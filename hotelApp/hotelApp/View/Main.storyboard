@@ -383,7 +383,7 @@
         <!--报价-->
         <scene sceneID="Zgv-KE-cpN">
             <objects>
-                <viewController id="n1g-ku-G0R" customClass="offerViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="n1g-ku-G0R" customClass="offerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nKL-my-pgP"/>
                         <viewControllerLayoutGuide type="bottom" id="8rD-gX-63O"/>
@@ -557,7 +557,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXm-Mg-Kn5">
                                         <rect key="frame" x="187.5" y="94" width="110" height="28"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="选择起飞日期 时间">
+                                        <state key="normal" title="选择到达日期 时间">
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -850,11 +850,15 @@
                                 <items>
                                     <barButtonItem title="取消" id="o32-1g-1ky">
                                         <connections>
-                                            <action selector="cancelItm:" destination="n1g-ku-G0R" id="Mr5-jr-f0N"/>
+                                            <action selector="cancelItm:" destination="n1g-ku-G0R" id="t69-T9-aGl"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="tDw-QZ-Rbz"/>
-                                    <barButtonItem title="确定" id="b1R-kK-53X"/>
+                                    <barButtonItem title="确定" id="b1R-kK-53X">
+                                        <connections>
+                                            <action selector="ConfirmItm:" destination="n1g-ku-G0R" id="10X-mN-hXX"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -886,7 +890,9 @@
                         <outlet property="ConfirmItm" destination="b1R-kK-53X" id="KFM-4j-UiO"/>
                         <outlet property="DateOfArrivalBtn" destination="KXm-Mg-Kn5" id="n1e-Hb-eUK"/>
                         <outlet property="DateOfDepartureBtn" destination="Xjr-Jo-C5l" id="Lne-J8-ml5"/>
+                        <outlet property="ToolBar" destination="oQC-AH-xHO" id="8tJ-mn-9DN"/>
                         <outlet property="airlinesLabel" destination="iqD-P2-p6a" id="ROI-96-SYG"/>
+                        <outlet property="cancelItm" destination="o32-1g-1ky" id="9oH-XB-Zd3"/>
                         <outlet property="datePicker" destination="iMc-VI-ZfA" id="2Ol-IJ-lAC"/>
                         <outlet property="destinationBtn" destination="ZNK-QT-WlK" id="1dt-MY-ddw"/>
                         <outlet property="determineBtn" destination="upJ-ie-nQb" id="J9H-nk-sMz"/>
