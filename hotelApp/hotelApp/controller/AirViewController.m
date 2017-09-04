@@ -37,6 +37,7 @@
     //刷新指示器
     [self setRefreshControl];
     [self setSegment];
+    [self offerRequest];
     // Do any additional setup after loading the view.
         //状态栏变成白色
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
@@ -148,15 +149,15 @@
 }
 #pragma mark - request
 //可报价网络请求
-- (void)acquireRequest{
+- (void)offerRequest{
      NSDictionary *para =@{@"id":@1};
-    [RequestAPI requestURL:@"/selectDemand" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    [RequestAPI requestURL:@"/findemandById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
         [_avi stopAnimating];
         UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10001];
         [ref endRefreshing];
         
-        NSLog(@"acquire: %@", responseObject);
+        NSLog(@"responseObject: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
        
         }else{
