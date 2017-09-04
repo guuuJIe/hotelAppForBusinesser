@@ -39,7 +39,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *offerTableView;
 @property (weak, nonatomic) IBOutlet UIToolbar *ToolBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelItm;
-
+@property (strong,nonatomic)offerTableViewCell *cell;
 
 
 @end
@@ -116,8 +116,8 @@
 }
 //细胞长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    offerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OfferCell" forIndexPath:indexPath];
-        return cell;
+    _cell = [tableView dequeueReusableCellWithIdentifier:@"OfferCell" forIndexPath:indexPath];
+        return _cell;
 }
 
 //设置细胞高度
@@ -130,8 +130,20 @@
     //取消细胞的选中状态
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
 
-
+}
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";//默认文字为 Delete
+}
 /*
 #pragma mark - Navigation
 
