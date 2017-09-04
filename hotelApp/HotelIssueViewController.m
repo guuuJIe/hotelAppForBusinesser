@@ -57,6 +57,31 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
+//当文本框开始编辑的时候调用
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    CGFloat offset = self.view.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 216 + 50);
+    if (offset <= 0) {
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = self.view.frame;
+            frame.origin.y = offset;
+            self.view.frame = frame;
+        }];
+    }
+    return YES;
+}
+
+//当文本框开始结束编辑的时候调用
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = self.view.frame;
+        frame.origin.y = 0.0;
+        self.view.frame = frame;
+    }];
+    return YES;
+}
+
 
 //设置导航样式
 - (void)setNavigationItem {
@@ -67,7 +92,7 @@
     //实例化一个button，类型为UIButtonTypeSystem
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    leftBtn.frame = CGRectMake(0, 0, 25, 25);
     //设置导航条是否隐藏
     self.navigationController.navigationBar.hidden = NO;
     //设置是否需要毛玻璃效果

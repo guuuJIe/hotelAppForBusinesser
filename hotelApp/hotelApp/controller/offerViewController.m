@@ -54,6 +54,9 @@
     _offerTableView.tableFooterView = [UIView new];
     _datePicker.backgroundColor = UIColorFromRGB(235, 235, 241);
     _datePicker.minimumDate = [NSDate date];
+    
+    //接收一个通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCity:) name:@"ResetHome" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -155,9 +158,13 @@
 */
 
 - (IBAction)originAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    flag = 1;
+    [self performSegueWithIdentifier:@"offerToCity" sender:self];
 }
 
 - (IBAction)destinationAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    flag = 0;
+    [self performSegueWithIdentifier:@"offerToCity" sender:self];
 }
 
 - (IBAction)DateOfDepartureAction:(UIButton *)sender forEvent:(UIEvent *)event {
@@ -198,5 +205,19 @@
     }
 
 }
+
+
+//接收通知执行的方法，将拿到的城市给相应的按钮
+-(void)changeCity:(NSNotification *)name{
+    NSString *citystr = name.object;
+    if (flag == 1) {
+        [_ChooseOriginBtn setTitle:citystr forState:UIControlStateNormal];
+    }else{
+        [_destinationBtn setTitle:citystr forState:UIControlStateNormal];
+        
+    }
+    
+}
+
 
 @end
