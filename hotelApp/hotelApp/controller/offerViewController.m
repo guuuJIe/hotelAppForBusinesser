@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *DateOfDepartureBtn;
 @property (weak, nonatomic) IBOutlet UIButton *DateOfArrivalBtn;
 @property (weak, nonatomic) IBOutlet UIButton *determineBtn;
+@property (strong,nonatomic) NSString *city;
 
 - (IBAction)originAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)destinationAction:(UIButton *)sender forEvent:(UIEvent *)event;
@@ -40,7 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *ToolBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelItm;
 @property (strong,nonatomic)offerTableViewCell *cell;
-
+@property (strong,nonatomic)UIActivityIndicatorView *avi;
 
 @end
 
@@ -71,7 +72,7 @@
     offerRef.tag = 10008;
     [_offerTableView addSubview:offerRef];
 }
-//可报价列表下拉刷新事件
+//报价列表下拉刷新事件
 - (void)offerRef{
    PageNum = 1;
     
@@ -106,11 +107,35 @@
     
 }
 
-//当前页面将要显示的时候，隐藏导航栏
+//当前页面将要显示的时候，显示导航栏
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
+}
+//报价网络请求
+- (void)offerRequest{
+    NSDictionary *para =@{@"Id":@1};
+    [RequestAPI requestURL:@"" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10008];
+        [ref endRefreshing];
+        
+        NSLog(@"responseObject: %@", responseObject);
+        if ([responseObject[@"result"]intValue] == 1) {
+            
+        }else{
+            [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10008];
+        [ref endRefreshing];
+        
+        [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
+        
+    }];
 }
 
 //有多少行
@@ -210,13 +235,16 @@
 //接收通知执行的方法，将拿到的城市给相应的按钮
 -(void)changeCity:(NSNotification *)name{
     NSString *citystr = name.object;
-    if (flag == 1) {
+     if (flag == 1) {
         [_ChooseOriginBtn setTitle:citystr forState:UIControlStateNormal];
-    }else{
-        [_destinationBtn setTitle:citystr forState:UIControlStateNormal];
+        _city = citystr;
+    }else if([_city isEqualToString:citystr]){
         
-    }
-    
+         [Utilities popUpAlertViewWithMsg:@"请正确选择城市" andTitle:nil onView:self];
+       
+    }else{
+     [_destinationBtn setTitle:citystr forState:UIControlStateNormal];
+}
 }
 
 

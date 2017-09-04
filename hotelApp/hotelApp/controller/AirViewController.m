@@ -136,9 +136,9 @@
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
     if (offerFlag == 1 && page == 1) {
         offerFlag = 0;
+        
         NSLog(@"第一次滑动scollview来到已报价");
-     
-    }
+         }
     if (overdueFlag == 1 && page == 2) {
         overdueFlag = 0;
         NSLog(@"第一次滑动scollview来到已过期");
@@ -150,7 +150,7 @@
 #pragma mark - request
 //可报价网络请求
 - (void)offerRequest{
-     NSDictionary *para =@{@"id":@1};
+     NSDictionary *para =@{@"Id":@1};
     [RequestAPI requestURL:@"/findemandById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
         [_avi stopAnimating];
