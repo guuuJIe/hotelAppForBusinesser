@@ -11,11 +11,8 @@
 
 @interface MyHotelViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (weak, nonatomic) IBOutlet UIButton *issueBtn;
-- (IBAction)issueAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UITableView *myHotelTableView;
+- (IBAction)issueAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 @end
 
@@ -32,7 +29,10 @@
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     //设置其背景图片为返回图片
-    [_issueBtn setBackgroundImage:[UIImage imageNamed:@"check_out"] forState:UIControlStateNormal];
+    //[_issueBtn setBackgroundImage:[UIImage imageNamed:@"check_out"] forState:UIControlStateNormal];
+    
+    //调用导航栏设置
+    [self setNavigationItem];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,14 +41,22 @@
 }
 
 
-//当前页面将要显示的时候，隐藏导航栏
+//当前页面将要显示的时候，显示导航栏
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
-
-
+//设置导航样式
+- (void)setNavigationItem {
+    //设置导航栏标题
+    self.navigationItem.title = @"我的酒店";
+    //设置导航条的标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:21],NSForegroundColorAttributeName : [UIColor whiteColor]};
+    //设置导航栏的背景颜色
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(50, 130, 255)];
+   
+}
 
 
 ////一共多少组
@@ -65,13 +73,6 @@
 //设置每一组中每一行的细胞长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyHotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myHotelCell" forIndexPath:indexPath];
-//    cell.hotelNameLabel.text = @"天马行空大酒店";
-//    cell.hotelImgView.image = [UIImage imageNamed:@"hotel_image"];
-//    cell.describeLabel.text = @"描述:含早";
-//    cell.areaLabel.text = @"面积:38平米";
-//    cell.priceLabel.text = @"价格¥:569";
-//    cell.bedTypeLabel.text = @"大床";
-//    cell.iconImgView.image = [UIImage imageNamed:@"hotel-1"];
     
     return cell;
 }
@@ -99,8 +100,12 @@
 }
 */
 
+
+
+
 - (IBAction)issueAction:(UIButton *)sender forEvent:(UIEvent *)event {
     [self performSegueWithIdentifier:@"hotelToIssue" sender:self];
 }
+
 
 @end

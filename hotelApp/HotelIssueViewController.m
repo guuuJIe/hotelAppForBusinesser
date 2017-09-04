@@ -96,7 +96,7 @@
     //设置导航条是否隐藏
     self.navigationController.navigationBar.hidden = NO;
     //设置是否需要毛玻璃效果
-    self.navigationController.navigationBar.translucent = YES;
+    //self.navigationController.navigationBar.translucent = YES;
     //设置背景图片为返回图片
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     //给按钮添加事件
