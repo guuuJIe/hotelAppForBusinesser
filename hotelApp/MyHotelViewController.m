@@ -49,10 +49,13 @@
 
 //设置导航样式
 - (void)setNavigationItem {
+    //隐藏返回下一个视图导航栏的标题
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = item;
     //设置导航栏标题
     self.navigationItem.title = @"我的酒店";
     //设置导航条的标题颜色
-    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:21],NSForegroundColorAttributeName : [UIColor whiteColor]};
+    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:23],NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航栏的背景颜色
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(50, 130, 255)];
    
