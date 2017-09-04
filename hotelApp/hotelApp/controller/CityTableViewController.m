@@ -35,26 +35,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+//当前页面将要显示的时候，显示导航栏
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
 -(void)naviConfig{
-    self.navigationController.title = @"选择城市";
-    //设置导航条的风格颜色
-    self.navigationController.navigationBar.barTintColor = [UIColor darkGrayColor];
+    //设置导航栏的标题
+    self.title = @"选择城市";
     //设置导航条标题颜色
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor] };
+    //设置导航栏的背景颜色
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(50, 130, 255)];
     //设置导航条是否隐藏
     self.navigationController.navigationBar.hidden = NO;
     //设置导航条上按钮的风格颜色
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
-    //为导航条左上角创建一个按钮
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
-    self.navigationItem.leftBarButtonItem = left;
+    
 }
-//用Modal方式返回上一页
-- (void)backAction {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    // [self.navigationController popViewControllerAnimated:YES];
-}
+
+
 #pragma mark - readplist
 
 -(void)InitalizeCityList{
