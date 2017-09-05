@@ -1006,6 +1006,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+<<<<<<< HEAD
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CXr-hn-QZD">
                                 <rect key="frame" x="67" y="269" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1045,120 +1046,136 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="157" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hOI-yh-Yos">
                                 <rect key="frame" x="0.0" y="80" width="375" height="538"/>
+=======
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="149" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RNP-gM-KS1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+>>>>>>> f98817ba9a8442692c6c26f979f6f0ab7a278711
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myHotelCell" rowHeight="157" id="B9f-7P-XLY" customClass="MyHotelTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="157"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myHotelCell" rowHeight="149" id="l8v-jB-cKE" customClass="MyHotelTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="149"/>
                                         <autoresizingMask key="autoresizingMask"/>
+<<<<<<< HEAD
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B9f-7P-XLY" id="A8u-Dy-K5j">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="156.5"/>
+=======
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l8v-jB-cKE" id="9t6-AJ-eC1">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+>>>>>>> f98817ba9a8442692c6c26f979f6f0ab7a278711
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天马行空大酒店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4t-y5-eK0">
-                                                    <rect key="frame" x="15" y="5" width="136" height="61.5"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
-                                                    <color key="textColor" red="0.32156862745098036" green="0.61311848958333337" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天马行空大酒店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9IB-eY-APp">
+                                                    <rect key="frame" x="15" y="0.0" width="121.5" height="68.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <color key="textColor" red="0.33333333333333331" green="0.56862745098039214" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotels" translatesAutoresizingMaskIntoConstraints="NO" id="Ddf-w5-I9r">
-                                                    <rect key="frame" x="15" y="71.5" width="105" height="70"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotels" translatesAutoresizingMaskIntoConstraints="NO" id="2G2-9E-bC3">
+                                                    <rect key="frame" x="15" y="68.5" width="97.5" height="65"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="Ddf-w5-I9r" secondAttribute="height" multiplier="3:2" id="hU3-0M-dio"/>
-                                                        <constraint firstAttribute="height" constant="70" id="yVr-Ni-v9b"/>
+                                                        <constraint firstAttribute="height" constant="65" id="0FW-kk-TCZ"/>
+                                                        <constraint firstAttribute="width" secondItem="2G2-9E-bC3" secondAttribute="height" multiplier="3:2" id="HxW-cc-0UP"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="描述:含早" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klU-im-kaP">
-                                                    <rect key="frame" x="135" y="71.5" width="66" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="描述:含早" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-zm-IiN">
+                                                    <rect key="frame" x="127.5" y="69" width="57.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="面积:38平米" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5p7-z6-gVT">
-                                                    <rect key="frame" x="135" y="97.5" width="85" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大床" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvh-wX-ma3">
+                                                    <rect key="frame" x="195" y="69" width="27" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="价格¥:569" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ThL-68-EUU">
-                                                    <rect key="frame" x="134.5" y="120.5" width="73.5" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="面积:38平米" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIF-f5-ouq">
+                                                    <rect key="frame" x="127.5" y="93.5" width="74" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大床" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJv-12-PKx">
-                                                    <rect key="frame" x="211" y="71.5" width="31" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="价格¥:569" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpm-H8-y50">
+                                                    <rect key="frame" x="127.5" y="114.5" width="64.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel-1" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-2c-yK3">
-                                                    <rect key="frame" x="310" y="81.5" width="50" height="50"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel-2" translatesAutoresizingMaskIntoConstraints="NO" id="pF8-3g-gL4">
+                                                    <rect key="frame" x="320" y="81" width="40" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="pkG-2c-yK3" secondAttribute="height" multiplier="1:1" id="1Z9-Tu-qOl"/>
-                                                        <constraint firstAttribute="height" constant="50" id="W9T-79-uTM"/>
+                                                        <constraint firstAttribute="height" constant="40" id="88R-5J-Hoa"/>
+                                                        <constraint firstAttribute="width" secondItem="pF8-3g-gL4" secondAttribute="height" multiplier="1:1" id="eaf-wr-3cU"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="Ddf-w5-I9r" secondAttribute="bottom" constant="15" id="75X-qz-4KI"/>
-                                                <constraint firstItem="ThL-68-EUU" firstAttribute="top" secondItem="5p7-z6-gVT" secondAttribute="bottom" constant="5" id="DSg-oA-2l7"/>
-                                                <constraint firstAttribute="trailing" secondItem="pkG-2c-yK3" secondAttribute="trailing" constant="15" id="ESl-X5-jug"/>
-                                                <constraint firstItem="bJv-12-PKx" firstAttribute="top" secondItem="klU-im-kaP" secondAttribute="top" id="G65-Ge-AEa"/>
-                                                <constraint firstItem="P4t-y5-eK0" firstAttribute="top" secondItem="A8u-Dy-K5j" secondAttribute="top" constant="5" id="PcV-bd-nv4"/>
-                                                <constraint firstItem="klU-im-kaP" firstAttribute="leading" secondItem="Ddf-w5-I9r" secondAttribute="trailing" constant="15" id="Q4t-1a-ZpG"/>
-                                                <constraint firstItem="Ddf-w5-I9r" firstAttribute="leading" secondItem="P4t-y5-eK0" secondAttribute="leading" id="Tsv-5u-Oef"/>
-                                                <constraint firstItem="pkG-2c-yK3" firstAttribute="centerY" secondItem="Ddf-w5-I9r" secondAttribute="centerY" id="WSN-K2-em1"/>
-                                                <constraint firstItem="Ddf-w5-I9r" firstAttribute="top" secondItem="P4t-y5-eK0" secondAttribute="bottom" constant="5" id="g4F-ho-VM5"/>
-                                                <constraint firstItem="ThL-68-EUU" firstAttribute="leading" secondItem="5p7-z6-gVT" secondAttribute="leading" id="gc0-uD-PZT"/>
-                                                <constraint firstItem="klU-im-kaP" firstAttribute="top" secondItem="Ddf-w5-I9r" secondAttribute="top" id="hK1-4q-fOA"/>
-                                                <constraint firstItem="bJv-12-PKx" firstAttribute="leading" secondItem="klU-im-kaP" secondAttribute="trailing" constant="10" id="jEd-Xs-g6s"/>
-                                                <constraint firstItem="5p7-z6-gVT" firstAttribute="leading" secondItem="klU-im-kaP" secondAttribute="leading" id="l8g-th-MhF"/>
-                                                <constraint firstItem="5p7-z6-gVT" firstAttribute="centerY" secondItem="Ddf-w5-I9r" secondAttribute="centerY" id="xhn-vZ-G7T"/>
-                                                <constraint firstItem="P4t-y5-eK0" firstAttribute="leading" secondItem="A8u-Dy-K5j" secondAttribute="leading" constant="15" id="z0v-3t-tZP"/>
+                                                <constraint firstItem="9IB-eY-APp" firstAttribute="leading" secondItem="9t6-AJ-eC1" secondAttribute="leading" constant="15" id="4Be-yg-9mp"/>
+                                                <constraint firstItem="cvh-wX-ma3" firstAttribute="top" secondItem="Mfs-zm-IiN" secondAttribute="top" id="4Fw-35-rXj"/>
+                                                <constraint firstItem="eIF-f5-ouq" firstAttribute="leading" secondItem="Mfs-zm-IiN" secondAttribute="leading" id="8cm-UL-bWB"/>
+                                                <constraint firstItem="eIF-f5-ouq" firstAttribute="centerY" secondItem="2G2-9E-bC3" secondAttribute="centerY" id="Hwa-uT-n9f"/>
+                                                <constraint firstAttribute="trailing" secondItem="pF8-3g-gL4" secondAttribute="trailing" constant="15" id="JwD-4r-oyQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="2G2-9E-bC3" secondAttribute="bottom" constant="15" id="LCy-ga-Zbw"/>
+                                                <constraint firstItem="9IB-eY-APp" firstAttribute="top" secondItem="9t6-AJ-eC1" secondAttribute="top" id="Rjh-oQ-tN7"/>
+                                                <constraint firstItem="Mfs-zm-IiN" firstAttribute="leading" secondItem="2G2-9E-bC3" secondAttribute="trailing" constant="15" id="Wz4-bp-mgo"/>
+                                                <constraint firstItem="rpm-H8-y50" firstAttribute="top" secondItem="eIF-f5-ouq" secondAttribute="bottom" constant="5" id="hqP-IK-mSM"/>
+                                                <constraint firstItem="pF8-3g-gL4" firstAttribute="centerY" secondItem="2G2-9E-bC3" secondAttribute="centerY" id="iWM-pu-Xse"/>
+                                                <constraint firstItem="Mfs-zm-IiN" firstAttribute="top" secondItem="2G2-9E-bC3" secondAttribute="top" id="nRJ-Rz-6CF"/>
+                                                <constraint firstItem="cvh-wX-ma3" firstAttribute="leading" secondItem="Mfs-zm-IiN" secondAttribute="trailing" constant="10" id="o1w-OV-1KI"/>
+                                                <constraint firstItem="2G2-9E-bC3" firstAttribute="leading" secondItem="9IB-eY-APp" secondAttribute="leading" id="pQY-ba-SGB"/>
+                                                <constraint firstItem="2G2-9E-bC3" firstAttribute="top" secondItem="9IB-eY-APp" secondAttribute="bottom" id="tnW-kA-oRm"/>
+                                                <constraint firstItem="rpm-H8-y50" firstAttribute="leading" secondItem="Mfs-zm-IiN" secondAttribute="leading" id="zx1-EF-Wdv"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
-                                            <outlet property="areaLabel" destination="5p7-z6-gVT" id="VB4-6N-ZAH"/>
-                                            <outlet property="bedTypeLabel" destination="bJv-12-PKx" id="PUK-UR-5Ka"/>
-                                            <outlet property="describeLabel" destination="klU-im-kaP" id="I8Z-Qf-v58"/>
-                                            <outlet property="hotelImgView" destination="Ddf-w5-I9r" id="qfu-Vt-maN"/>
-                                            <outlet property="hotelNameLabel" destination="P4t-y5-eK0" id="wkz-Ud-Crc"/>
-                                            <outlet property="iconImgView" destination="pkG-2c-yK3" id="7fe-xb-Y58"/>
-                                            <outlet property="priceLabel" destination="ThL-68-EUU" id="SMN-ch-br0"/>
+                                            <outlet property="areaLabel" destination="eIF-f5-ouq" id="dfG-3n-CXa"/>
+                                            <outlet property="bedTypeLabel" destination="cvh-wX-ma3" id="xW4-3F-Qsw"/>
+                                            <outlet property="describeLabel" destination="Mfs-zm-IiN" id="4XP-2U-g2o"/>
+                                            <outlet property="hotelImgView" destination="2G2-9E-bC3" id="3Fl-SH-4Xo"/>
+                                            <outlet property="hotelNameLabel" destination="9IB-eY-APp" id="z0o-gi-KY4"/>
+                                            <outlet property="iconImgView" destination="pF8-3g-gL4" id="FUH-gT-dqP"/>
+                                            <outlet property="priceLabel" destination="rpm-H8-y50" id="vdq-Bw-HWo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="1KO-TD-lDm" id="eRt-so-C4t"/>
-                                    <outlet property="delegate" destination="1KO-TD-lDm" id="92D-qB-1RN"/>
+                                    <outlet property="dataSource" destination="1KO-TD-lDm" id="X5d-eM-9tp"/>
+                                    <outlet property="delegate" destination="1KO-TD-lDm" id="Fe4-wZ-vmI"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hOI-yh-Yos" firstAttribute="leading" secondItem="Uns-sq-laP" secondAttribute="leading" id="6Ev-18-PcK"/>
-                            <constraint firstAttribute="trailing" secondItem="hOI-yh-Yos" secondAttribute="trailing" id="UDK-0f-e8g"/>
-                            <constraint firstItem="yhJ-5R-Rtc" firstAttribute="leading" secondItem="Uns-sq-laP" secondAttribute="leading" id="VbR-yL-F44"/>
-                            <constraint firstItem="j2J-VF-xxM" firstAttribute="top" secondItem="hOI-yh-Yos" secondAttribute="bottom" id="cev-je-fmi"/>
-                            <constraint firstAttribute="trailing" secondItem="yhJ-5R-Rtc" secondAttribute="trailing" id="e8v-7Y-g0B"/>
-                            <constraint firstItem="yhJ-5R-Rtc" firstAttribute="top" secondItem="Uns-sq-laP" secondAttribute="top" id="opn-SM-os3"/>
-                            <constraint firstItem="hOI-yh-Yos" firstAttribute="top" secondItem="yhJ-5R-Rtc" secondAttribute="bottom" id="pdB-FY-cQy"/>
+                            <constraint firstItem="RNP-gM-KS1" firstAttribute="leading" secondItem="Uns-sq-laP" secondAttribute="leading" id="k77-co-beY"/>
+                            <constraint firstAttribute="bottom" secondItem="RNP-gM-KS1" secondAttribute="bottom" id="kif-vO-6ym"/>
+                            <constraint firstAttribute="trailing" secondItem="RNP-gM-KS1" secondAttribute="trailing" id="qgn-jC-04P"/>
+                            <constraint firstItem="RNP-gM-KS1" firstAttribute="top" secondItem="Uns-sq-laP" secondAttribute="top" id="tqy-r5-dh4"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5un-ya-j7R"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="5un-ya-j7R">
+                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="bdZ-GV-2It">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zkA-yU-URF">
+                                <rect key="frame" x="334" y="12" width="25" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="check_out"/>
+                                <connections>
+                                    <action selector="issueAction:forEvent:" destination="1KO-TD-lDm" eventType="touchUpInside" id="EqG-1Z-sio"/>
+                                </connections>
+                            </button>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="headerView" destination="yhJ-5R-Rtc" id="CUm-VP-KUd"/>
-                        <outlet property="issueBtn" destination="klp-9H-jk8" id="81C-cp-UMp"/>
-                        <outlet property="myHotelTableView" destination="hOI-yh-Yos" id="Xjh-2I-LBT"/>
-                        <outlet property="titleLabel" destination="Pry-dH-xd4" id="7fg-Nv-8u1"/>
+                        <outlet property="myHotelTableView" destination="RNP-gM-KS1" id="qvT-Rp-zpN"/>
                         <segue destination="Oxf-wI-6ih" kind="show" identifier="hotelToIssue" id="0Yq-ll-K1e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PjT-B3-rR0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1773.5999999999999" y="597.75112443778119"/>
+            <point key="canvasLocation" x="1414" y="598"/>
         </scene>
         <!--HotelIssue-->
         <scene sceneID="xrU-dR-0ty">
@@ -1168,13 +1185,14 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A0N-ZV-kqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1774" y="1045"/>
+            <point key="canvasLocation" x="1414" y="1052"/>
         </scene>
     </scenes>
     <resources>
         <image name="aviation" width="22" height="22"/>
+        <image name="check_out" width="24" height="22"/>
         <image name="hotel" width="22" height="22"/>
-        <image name="hotel-1" width="22" height="22"/>
+        <image name="hotel-2" width="22" height="22"/>
         <image name="hotels" width="82" height="61"/>
         <image name="origin" width="9" height="9"/>
         <image name="plane" width="45" height="45"/>
