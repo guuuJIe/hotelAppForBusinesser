@@ -41,8 +41,8 @@
 		FEA4433C1F57A62600232DFE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4433B1F57A62600232DFE /* AppDelegate.m */; };
 		FEA443541F57A85400232DFE /* HotelIssue.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA443511F57A85400232DFE /* HotelIssue.storyboard */; };
 		FEA443551F57A85400232DFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA443521F57A85400232DFE /* LaunchScreen.storyboard */; };
+		FEC16B491F5E303F0036178B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEC16B481F5E303F0036178B /* Main.storyboard */; };
 		FED84D021F5D296800AEED50 /* AirlinesOffer.m in Sources */ = {isa = PBXBuildFile; fileRef = FED84D011F5D296800AEED50 /* AirlinesOffer.m */; };
-		FEEDA2D41F5910D400AD1E89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEEDA2D31F5910D400AD1E89 /* Main.storyboard */; };
 		FEEDA2D81F59475F00AD1E89 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2D71F59475F00AD1E89 /* AirViewController.m */; };
 		FEEDA2DD1F5947CC00AD1E89 /* AirReleaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2DA1F5947CC00AD1E89 /* AirReleaseTableViewCell.m */; };
 		FEEDA2DE1F5947CC00AD1E89 /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2DC1F5947CC00AD1E89 /* ExpiredTableViewCell.m */; };
@@ -133,9 +133,9 @@
 		FEA4433B1F57A62600232DFE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = View/AppDelegate.m; sourceTree = "<group>"; };
 		FEA443511F57A85400232DFE /* HotelIssue.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HotelIssue.storyboard; sourceTree = "<group>"; };
 		FEA443521F57A85400232DFE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FEC16B481F5E303F0036178B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FED84D001F5D296800AEED50 /* AirlinesOffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirlinesOffer.h; sourceTree = "<group>"; };
 		FED84D011F5D296800AEED50 /* AirlinesOffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirlinesOffer.m; sourceTree = "<group>"; };
-		FEEDA2D31F5910D400AD1E89 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FEEDA2D61F59475500AD1E89 /* AirViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AirViewController.h; path = hotelApp/controller/AirViewController.h; sourceTree = SOURCE_ROOT; };
 		FEEDA2D71F59475F00AD1E89 /* AirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AirViewController.m; path = hotelApp/controller/AirViewController.m; sourceTree = SOURCE_ROOT; };
 		FEEDA2D91F5947CC00AD1E89 /* AirReleaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirReleaseTableViewCell.h; sourceTree = "<group>"; };
@@ -395,9 +395,9 @@
 				FEEDA2E61F59538900AD1E89 /* Offer */,
 				FEEDA2D51F5945A600AD1E89 /* AirRelease */,
 				0488E5681F5800AC004E0499 /* MyHotelView */,
-				FEEDA2D31F5910D400AD1E89 /* Main.storyboard */,
 				FEA443511F57A85400232DFE /* HotelIssue.storyboard */,
 				FEA443521F57A85400232DFE /* LaunchScreen.storyboard */,
+				FEC16B481F5E303F0036178B /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -565,8 +565,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEEDA2D41F5910D400AD1E89 /* Main.storyboard in Resources */,
 				FEA443541F57A85400232DFE /* HotelIssue.storyboard in Resources */,
+				FEC16B491F5E303F0036178B /* Main.storyboard in Resources */,
 				046AEA391F5C1DA700893AC4 /* Cities.plist in Resources */,
 				FEA443551F57A85400232DFE /* LaunchScreen.storyboard in Resources */,
 				FEA443391F57A5EC00232DFE /* Assets.xcassets in Resources */,
