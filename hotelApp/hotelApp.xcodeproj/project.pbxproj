@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		046A49901F5E5D36002539E3 /* AviationOffer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046A498F1F5E5D36002539E3 /* AviationOffer.storyboard */; };
 		046AEA391F5C1DA700893AC4 /* Cities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046AEA381F5C1DA700893AC4 /* Cities.plist */; };
 		046AEA3D1F5C1DF500893AC4 /* CityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046AEA3C1F5C1DF500893AC4 /* CityTableViewController.m */; };
 		0474DA691F590768008CBE0D /* HotelIssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0474DA681F590768008CBE0D /* HotelIssueViewController.m */; };
@@ -68,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		046A498F1F5E5D36002539E3 /* AviationOffer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AviationOffer.storyboard; sourceTree = "<group>"; };
 		046AEA381F5C1DA700893AC4 /* Cities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Cities.plist; sourceTree = "<group>"; };
 		046AEA3B1F5C1DF500893AC4 /* CityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CityTableViewController.h; path = hotelApp/controller/CityTableViewController.h; sourceTree = SOURCE_ROOT; };
 		046AEA3C1F5C1DF500893AC4 /* CityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CityTableViewController.m; path = hotelApp/controller/CityTableViewController.m; sourceTree = SOURCE_ROOT; };
@@ -396,6 +398,7 @@
 				FEEDA2D51F5945A600AD1E89 /* AirRelease */,
 				0488E5681F5800AC004E0499 /* MyHotelView */,
 				FEC16B481F5E303F0036178B /* Main.storyboard */,
+				046A498F1F5E5D36002539E3 /* AviationOffer.storyboard */,
 				FEA443511F57A85400232DFE /* HotelIssue.storyboard */,
 				FEA443521F57A85400232DFE /* LaunchScreen.storyboard */,
 			);
@@ -568,6 +571,7 @@
 				FEA443541F57A85400232DFE /* HotelIssue.storyboard in Resources */,
 				FEC16B491F5E303F0036178B /* Main.storyboard in Resources */,
 				046AEA391F5C1DA700893AC4 /* Cities.plist in Resources */,
+				046A49901F5E5D36002539E3 /* AviationOffer.storyboard in Resources */,
 				FEA443551F57A85400232DFE /* LaunchScreen.storyboard in Resources */,
 				FEA443391F57A5EC00232DFE /* Assets.xcassets in Resources */,
 			);
