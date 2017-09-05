@@ -9,5 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface AirlinesOffer : NSObject
-
+@property (strong,nonatomic) NSString *date;
+@property (strong,nonatomic) NSString *airlines;
+@property (strong,nonatomic) NSString *origin;
+@property (strong,nonatomic) NSString *destination;
+@property (strong,nonatomic) NSString *finalPrice;
+@property (strong,nonatomic) NSString *highPrice;
+@property (strong,nonatomic) NSString *specificTime;
+-(instancetype)initWithDict:(NSDictionary *)dict;
 @end

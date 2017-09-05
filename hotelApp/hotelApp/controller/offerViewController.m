@@ -115,15 +115,16 @@
 }
 //报价网络请求
 - (void)offerRequest{
-    NSDictionary *para =@{@"Id":@1};
+    NSDictionary *para =@{@"Id":@""};
     [RequestAPI requestURL:@"" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        
         [_avi stopAnimating];
         UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10008];
         [ref endRefreshing];
         
         NSLog(@"responseObject: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
+            
+            
             
         }else{
             [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
