@@ -395,9 +395,9 @@
 				FEEDA2E61F59538900AD1E89 /* Offer */,
 				FEEDA2D51F5945A600AD1E89 /* AirRelease */,
 				0488E5681F5800AC004E0499 /* MyHotelView */,
+				FEC16B481F5E303F0036178B /* Main.storyboard */,
 				FEA443511F57A85400232DFE /* HotelIssue.storyboard */,
 				FEA443521F57A85400232DFE /* LaunchScreen.storyboard */,
-				FEC16B481F5E303F0036178B /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
