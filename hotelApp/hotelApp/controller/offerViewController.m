@@ -17,12 +17,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *ChooseOriginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *destinationBtn;
 @property (weak, nonatomic) IBOutlet UILabel *ticketLabel;
-@property (weak, nonatomic) IBOutlet UILabel *airlinesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *flightLabel;
-@property (weak, nonatomic) IBOutlet UILabel *spaceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *luggageLabel;
+
+@property (weak, nonatomic) IBOutlet UITextField *priceField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UITextField *airlinesField;
+@property (weak, nonatomic) IBOutlet UITextField *flightField;
+@property (weak, nonatomic) IBOutlet UITextField *spaceField;
+@property (weak, nonatomic) IBOutlet UITextField *weightField;
 @property (weak, nonatomic) IBOutlet UIButton *DateOfDepartureBtn;
 @property (weak, nonatomic) IBOutlet UIButton *DateOfArrivalBtn;
 @property (weak, nonatomic) IBOutlet UIButton *determineBtn;
@@ -42,7 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelItm;
 @property (strong,nonatomic)offerTableViewCell *cell;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
-
+@property (strong,nonatomic)UIView *mark;
 @end
 
 @implementation offerViewController
@@ -50,20 +51,52 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self naviConfig];
+    [self keyboard];
+    [self lookOfferRequest];
+ 
     // Do any additional setup after loading the view.
     //去掉tableview底部多余的线
     _offerTableView.tableFooterView = [UIView new];
     _datePicker.backgroundColor = UIColorFromRGB(235, 235, 241);
     _datePicker.minimumDate = [NSDate date];
-    
+    _mark = [UIView new];
+    _mark.frame = CGRectMake(0, self.offerView.frame.size.height + self.navigationController.navigationBar.frame.size.height  + 30, self.offerTableView.frame.size.width,self.offerView.frame.size.height);
+    _mark.backgroundColor = UIColorFromRGBA(104, 104, 104, 0.4);
+    [[UIApplication sharedApplication].keyWindow addSubview:_mark];
+    _mark.hidden  = YES;
     //接收一个通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCity:) name:@"ResetHome" object:nil];
+   
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)keyboard{
+    //监听键盘将要打开这一操作,打开后执行keyboardWillShow:方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //监听键盘将要隐藏这一操作,打开后执行keyboardWillHide:方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+//键盘出现
+- (void)keyboardWillShow: (NSNotification *)notification {
+    _mark.hidden = NO;
+   
+}
+//键盘隐藏
+- (void)keyboardWillHide: (NSNotification *)notification {
+    _mark.hidden = YES;
+    
+}
+//按ruturn按钮收回
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    //结束第一响应者
+    [textField resignFirstResponder];
+    return YES;
+}
+
 //创建刷新指示器的方法
 - (void)setRefreshControl{
     //已获取列表的刷新指示器
@@ -88,8 +121,6 @@
     self.navigationController.navigationBar.hidden = NO;
     //设置导航条上按钮的风格颜色
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    //设置是否需要毛玻璃效果
-    self.navigationController.navigationBar.translucent = YES;
     //实例化一个button，类型为UIButtonTypeSystem
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置位置大小
@@ -104,7 +135,7 @@
 -(void)leftButtonAction:(UIButton *)sender{
     //跳转回原来页
     [self.navigationController popViewControllerAnimated:YES];
-    
+    _mark = nil;
 }
 
 //当前页面将要显示的时候，显示导航栏
@@ -115,13 +146,37 @@
 }
 //报价网络请求
 - (void)offerRequest{
-    NSDictionary *para =@{@"Id":@""};
-    [RequestAPI requestURL:@"" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    NSInteger weight = [[NSString stringWithFormat:@"%@",_weightField.text] integerValue];
+    NSInteger price = [[NSString stringWithFormat:@"%@",_priceField.text] integerValue];
+    NSDictionary *para =@{@"business_id":@2,@"aviation_demand_id":@1,@"final_price":@(price),@"weight":@(weight),@"aviation_company":_airlinesField.text,@"aviation_cabin":_spaceField.text,@"in_time_str":_DateOfDepartureBtn.titleLabel.text,@"out_time_str":_DateOfArrivalBtn.titleLabel.text,@"departure":_ChooseOriginBtn.titleLabel.text,@"destination":_destinationBtn.titleLabel.text,@"flight_no":_flightField.text};
+    [RequestAPI requestURL:@"/offer_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        [_avi stopAnimating];
+        NSLog(@"responseObject: %@", responseObject);
+        if ([responseObject[@"result"]intValue] == 1) {
+            
+            
+            
+        }else{
+            [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
         UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10008];
         [ref endRefreshing];
         
-        NSLog(@"responseObject: %@", responseObject);
+        [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
+        
+    }];
+}
+//查看报价网络请求
+- (void)lookOfferRequest{
+    NSDictionary *para =@{@"Id" : @2};
+    [RequestAPI requestURL:@"/selectOffer_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10008];
+        [ref endRefreshing];
+        
+        NSLog(@"haha: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
             
             
@@ -151,7 +206,7 @@
 
 //设置细胞高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100.f;
+    return 130.f;
 }
 
 //细胞选中后调用
@@ -209,6 +264,7 @@
 }
 
 - (IBAction)determineAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    [self offerRequest];
 }
 
 - (IBAction)cancelItm:(UIBarButtonItem *)sender {
@@ -218,7 +274,6 @@
 }
 
 - (IBAction)ConfirmItm:(UIBarButtonItem *)sender {
-    
     _ToolBar.hidden = YES;
     _datePicker.hidden = YES;
     NSDate *date = _datePicker.date;
@@ -251,4 +306,6 @@
 }
 
 
+- (IBAction)priceBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
 @end
