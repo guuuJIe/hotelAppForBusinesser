@@ -841,8 +841,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="maD-yQ-368" id="eeF-TA-xpI"/>
-                                    <outlet property="delegate" destination="maD-yQ-368" id="xXJ-Up-2G0"/>
+                                    <outlet property="dataSource" destination="maD-yQ-368" id="oV5-Fs-ICm"/>
+                                    <outlet property="delegate" destination="maD-yQ-368" id="vy7-hq-uqS"/>
                                 </connections>
                             </tableView>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="mV0-tO-QPd">

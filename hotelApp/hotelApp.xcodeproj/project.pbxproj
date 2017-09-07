@@ -42,6 +42,7 @@
 		FEA4433C1F57A62600232DFE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA4433B1F57A62600232DFE /* AppDelegate.m */; };
 		FEA443541F57A85400232DFE /* HotelIssue.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA443511F57A85400232DFE /* HotelIssue.storyboard */; };
 		FEA443551F57A85400232DFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA443521F57A85400232DFE /* LaunchScreen.storyboard */; };
+		FEA76E761F5F9BD400926F83 /* lookOfferModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA76E751F5F9BD400926F83 /* lookOfferModel.m */; };
 		FEC16B491F5E303F0036178B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEC16B481F5E303F0036178B /* Main.storyboard */; };
 		FED84D021F5D296800AEED50 /* AirlinesOffer.m in Sources */ = {isa = PBXBuildFile; fileRef = FED84D011F5D296800AEED50 /* AirlinesOffer.m */; };
 		FEEDA2D81F59475F00AD1E89 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2D71F59475F00AD1E89 /* AirViewController.m */; };
@@ -135,6 +136,8 @@
 		FEA4433B1F57A62600232DFE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = View/AppDelegate.m; sourceTree = "<group>"; };
 		FEA443511F57A85400232DFE /* HotelIssue.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HotelIssue.storyboard; sourceTree = "<group>"; };
 		FEA443521F57A85400232DFE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FEA76E741F5F9BD400926F83 /* lookOfferModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lookOfferModel.h; sourceTree = "<group>"; };
+		FEA76E751F5F9BD400926F83 /* lookOfferModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lookOfferModel.m; sourceTree = "<group>"; };
 		FEC16B481F5E303F0036178B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FED84D001F5D296800AEED50 /* AirlinesOffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirlinesOffer.h; sourceTree = "<group>"; };
 		FED84D011F5D296800AEED50 /* AirlinesOffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirlinesOffer.m; sourceTree = "<group>"; };
@@ -356,6 +359,7 @@
 		8482ED3E1F56979D00A95200 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FEA76E731F5F9B9900926F83 /* lookOffer */,
 				FED84D001F5D296800AEED50 /* AirlinesOffer.h */,
 				FED84D011F5D296800AEED50 /* AirlinesOffer.m */,
 			);
@@ -428,6 +432,15 @@
 				FEEDA2D71F59475F00AD1E89 /* AirViewController.m */,
 			);
 			name = AirRelease;
+			sourceTree = "<group>";
+		};
+		FEA76E731F5F9B9900926F83 /* lookOffer */ = {
+			isa = PBXGroup;
+			children = (
+				FEA76E741F5F9BD400926F83 /* lookOfferModel.h */,
+				FEA76E751F5F9BD400926F83 /* lookOfferModel.m */,
+			);
+			name = lookOffer;
 			sourceTree = "<group>";
 		};
 		FEEDA2D51F5945A600AD1E89 /* AirRelease */ = {
@@ -649,6 +662,7 @@
 				8482ED831F56979E00A95200 /* Utilities.m in Sources */,
 				FEEDA2E51F59527800AD1E89 /* offerViewController.m in Sources */,
 				8482ED7E1F56979E00A95200 /* NSDateFormatter+Category.m in Sources */,
+				FEA76E761F5F9BD400926F83 /* lookOfferModel.m in Sources */,
 				FEA4433C1F57A62600232DFE /* AppDelegate.m in Sources */,
 				046AEA3D1F5C1DF500893AC4 /* CityTableViewController.m in Sources */,
 				8482ED7B1F56979D00A95200 /* JSONS.m in Sources */,

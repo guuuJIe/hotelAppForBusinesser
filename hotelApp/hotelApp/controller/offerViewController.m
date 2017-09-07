@@ -8,6 +8,7 @@
 
 #import "offerViewController.h"
 #import "offerTableViewCell.h"
+#import "lookOfferModel.h"
 @interface offerViewController ()<UITableViewDelegate,UITableViewDataSource>{
      NSTimeInterval followUpTime;
     NSInteger PageNum;
@@ -44,6 +45,9 @@
 @property (strong,nonatomic)offerTableViewCell *cell;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 @property (strong,nonatomic)UIView *mark;
+@property (strong,nonatomic)NSMutableArray *lookOfferArr;
+@property (strong,nonatomic)lookOfferModel *lookModel;
+@property (strong,nonatomic)NSMutableArray *deleteOfferArr;
 @end
 
 @implementation offerViewController
@@ -52,7 +56,12 @@
     [super viewDidLoad];
     [self naviConfig];
     [self keyboard];
+    _lookOfferArr = [NSMutableArray new];
+    _deleteOfferArr = [NSMutableArray new];
+    [self setRefreshControl];
     [self lookOfferRequest];
+
+    
  
     // Do any additional setup after loading the view.
     //去掉tableview底部多余的线
@@ -73,44 +82,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)keyboard{
-    //监听键盘将要打开这一操作,打开后执行keyboardWillShow:方法
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    //监听键盘将要隐藏这一操作,打开后执行keyboardWillHide:方法
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-//键盘出现
-- (void)keyboardWillShow: (NSNotification *)notification {
-    _mark.hidden = NO;
-   
-}
-//键盘隐藏
-- (void)keyboardWillHide: (NSNotification *)notification {
-    _mark.hidden = YES;
-    
-}
-//按ruturn按钮收回
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    //结束第一响应者
-    [textField resignFirstResponder];
-    return YES;
-}
-
-//创建刷新指示器的方法
-- (void)setRefreshControl{
-    //已获取列表的刷新指示器
-    UIRefreshControl *offerRef = [UIRefreshControl new];
-    [offerRef addTarget:self action:@selector(offerRef) forControlEvents:UIControlEventValueChanged];
-    offerRef.tag = 10008;
-    [_offerTableView addSubview:offerRef];
-}
-//报价列表下拉刷新事件
-- (void)offerRef{
-   PageNum = 1;
-    
-}
-
 - (void) naviConfig{
     
     //设置导航条的风格颜色
@@ -144,6 +115,53 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
 }
+
+-(void)keyboard{
+    //监听键盘将要打开这一操作,打开后执行keyboardWillShow:方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //监听键盘将要隐藏这一操作,打开后执行keyboardWillHide:方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+//键盘出现
+- (void)keyboardWillShow: (NSNotification *)notification {
+    _mark.hidden = NO;
+   
+}
+//键盘隐藏
+- (void)keyboardWillHide: (NSNotification *)notification {
+    _mark.hidden = YES;
+    
+}
+//按ruturn按钮收回
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    //结束第一响应者
+    [textField resignFirstResponder];
+    return YES;
+}
+
+//创建刷新指示器的方法
+- (void)setRefreshControl{
+    //刷新指示器
+    UIRefreshControl *offerRef = [UIRefreshControl new];
+    [offerRef addTarget:self action:@selector(offerRef) forControlEvents:UIControlEventValueChanged];
+    offerRef.tag = 10008;
+    [_offerTableView addSubview:offerRef];
+    [_offerTableView reloadData];
+}
+//报价列表下拉刷新事件
+- (void)offerRef{
+   PageNum = 1;
+    [self lookOfferRequest];
+    
+}
+//第一次进行网络请求的时候需要盖上朦层，所以我们把第一次网络请求和下拉刷新分开
+-(void)acquireInitalizeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self lookOfferRequest];
+}
+
+
 //报价网络请求
 - (void)offerRequest{
     NSInteger weight = [[NSString stringWithFormat:@"%@",_weightField.text] integerValue];
@@ -161,9 +179,6 @@
         }
     } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
-        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10008];
-        [ref endRefreshing];
-        
         [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
         
     }];
@@ -176,11 +191,19 @@
         UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10008];
         [ref endRefreshing];
         
-        NSLog(@"haha: %@", responseObject);
+        NSLog(@"responseObject: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
-            
-            
-            
+             NSDictionary *content = responseObject[@"content"];
+            //下拉刷新的时候不仅要把页码变为1，还有将数组中原来数据清空
+          if(PageNum == 1){
+                [_lookOfferArr removeAllObjects];
+           }
+            for(NSDictionary *dict in content) {
+                _lookModel = [[lookOfferModel alloc]initWithDict:dict];
+                [_lookOfferArr addObject:_lookModel];
+            }
+            [_offerTableView reloadData];
+
         }else{
             [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
         }
@@ -193,14 +216,46 @@
         
     }];
 }
+//删除报价网络请求
+- (void)deleteOfferRequest{
+   // NSInteger ID = [[NSString stringWithFormat:@"%@",_lookModel.id] integerValue];
+    NSDictionary *para =@{@"Id": _lookModel.id};
+    [RequestAPI requestURL:@"/deleteOfferById_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        [_avi stopAnimating];
+        NSLog(@"responseObject: %@", responseObject);
+        if ([responseObject[@"result"]intValue] == 1) {
+            
+        }else{
+            [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
+        
+    }];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+    }
 
 //有多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return _lookOfferArr.count;
 }
 //细胞长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    _cell = [tableView dequeueReusableCellWithIdentifier:@"OfferCell" forIndexPath:indexPath];
+    _cell = [tableView dequeueReusableCellWithIdentifier:@"OfferCell"forIndexPath:indexPath];
+    lookOfferModel *lookModel = _lookOfferArr[indexPath.row];
+    _cell.originLabel.text = _lookModel.departure;
+    _cell.endLabel.text = _lookModel.destination;
+    _cell.companyLabel.text = [NSString stringWithFormat:@"%@%@",lookModel.cabin,lookModel.company];
+    _cell.priceLabel.text = _lookModel.price;
+     NSString *starTimeStr = [Utilities dateStrFromCstampTime:(long)_lookModel.startTime withDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *endTimeStr = [Utilities dateStrFromCstampTime:(long)_lookModel.endTime withDateFormat:@"yyyy-MM-dd HH:mm"];
+
+    _cell.timeLabel.text =[NSString stringWithFormat:@"%@——%@",starTimeStr,endTimeStr];
+    _cell.luggageLabel.text = _lookModel.weight;
         return _cell;
 }
 
@@ -220,8 +275,26 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确认要删除该条报价么？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionA = [UIAlertAction actionWithTitle:@"确定" style:
+        UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self deleteOfferRequest];
+            // 删除模型
+            [_lookOfferArr removeObjectAtIndex:indexPath.row];
+            
+            // 刷新
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+          
+            [self lookOfferRequest];
+            
+        }];
+        UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:actionA];
+        [alert addAction:actionB];
+        [self presentViewController:alert animated:YES completion:nil];
+        
     }
 
 }
