@@ -7,6 +7,7 @@
 //
 
 #import "HotelIssueViewController.h"
+#import "HotelModel.h"
 
 @interface HotelIssueViewController ()<UITextFieldDelegate>
 
@@ -21,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *addPriceTextField;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (strong, nonatomic) UIActivityIndicatorView *avi;//蒙层
+@property (strong, nonatomic) HotelModel *issueModel;
 
 - (IBAction)cancelAction:(UIBarButtonItem *)sender;
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
@@ -85,6 +88,8 @@
 
 //设置导航样式
 - (void)setNavigationItem {
+    //设置导航栏标题
+    self.navigationItem.title = @"酒店发布";
     //设置导航条的标题颜色
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航栏的背景颜色
@@ -102,11 +107,30 @@
 
 //自定义的发布按钮事件
 - (void)issueAction {
-    
+    [self hotelIssueRequest];
 }
 
 
+#pragma mark - request 网络请求
 
+- (void)hotelIssueRequest {
+    _avi = [Utilities getCoverOnView:self.view];
+    //参数
+    NSDictionary *para = @{@"business_id" : @(_issueModel.businessId),@"hotel_name" : _chooseBtn.titleLabel.text,@"hotel_type" :[NSString stringWithFormat:@"%@%@%@%@",_hotelNameTextField.text,_isEarlyTextField.text,_bedTypeTextField.text,_hotelAreaTextField.text]};
+    //网络请求
+    [RequestAPI requestURL:@"/addHotel" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        //成功以后要做的事情在此处执行
+        NSLog(@"酒店发布：%@", responseObject);
+        //当网络请求成功的时候停止动画(菊花膜/蒙层停止转动消失)
+        [_avi stopAnimating];
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        //当网络请求成功的时候停止动画(菊花膜/蒙层停止转动消失)
+        [_avi stopAnimating];
+        //失败提示框
+        [Utilities popUpAlertViewWithMsg:@"网络错误，请稍后再试" andTitle:@"提示" onView:self];
+    }];
+}
 
 /*
 #pragma mark - Navigation
