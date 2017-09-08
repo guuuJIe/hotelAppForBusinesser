@@ -20,5 +20,6 @@
 #import "HMSegmentedControl.h"
 #import "NSString+Crypt.h"
 #import "NSDate+Utility.h"
+#import "JSONS.h"
 
 #endif /* PrefixHeader_pch */
