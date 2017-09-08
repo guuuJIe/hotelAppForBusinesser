@@ -12,13 +12,13 @@
 -(instancetype)initWithDict:(NSDictionary *)dict{
     self = [super init];
     if(self){
-        _date =[Utilities nullAndNilCheck:dict[@"set_low_time"] replaceBy:@""];
+        _date =[Utilities nullAndNilCheck:dict[@"start_time"] replaceBy:@""];
         _airlines =[Utilities nullAndNilCheck:dict[@"aviation_demand_title"] replaceBy:@""];
-        _finalPrice =[Utilities nullAndNilCheck:dict[@"final_price"] replaceBy:@""];
+        _finalPrice =[Utilities nullAndNilCheck:dict[@"low_price"] replaceBy:@""];
         _highPrice =[Utilities nullAndNilCheck:dict[@"high_price"] replaceBy:@""];
         _origin =[Utilities nullAndNilCheck:dict[@"departure"] replaceBy:@""];
         _destination =[Utilities nullAndNilCheck:dict[@"destination"] replaceBy:@""];
-        _specificTime =[Utilities nullAndNilCheck:dict[@""] replaceBy:@""];
+        _detail =[Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""];
     }
     
     return self;

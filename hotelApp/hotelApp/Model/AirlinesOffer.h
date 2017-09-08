@@ -16,5 +16,6 @@
 @property (strong,nonatomic) NSString *finalPrice;
 @property (strong,nonatomic) NSString *highPrice;
 @property (strong,nonatomic) NSString *specificTime;
+@property (strong,nonatomic) NSString *detail;
 -(instancetype)initWithDict:(NSDictionary *)dict;
 @end

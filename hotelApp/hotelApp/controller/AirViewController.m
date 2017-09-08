@@ -11,12 +11,14 @@
 #import "ExpiredTableViewCell.h"
 #import "HMSegmentedControl.h"
 #import "Utilities.h"
+#import "AirlinesOffer.h"
 @interface AirViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>{
     NSInteger offerPageNum;
     NSInteger overduePageNum;
     NSInteger offerFlag;
     NSInteger overdueFlag;
-
+    BOOL offerLast;
+    BOOL overdueLast;
 }
 @property (weak, nonatomic) IBOutlet UILabel *aviationLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *aviationScrollView;
@@ -25,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIView *aviationView;
 @property (strong, nonatomic)HMSegmentedControl *segmentedControl;
 @property (strong,nonatomic) UIActivityIndicatorView *avi;
+@property (strong,nonatomic)NSMutableArray *offerArr;
+@property (strong,nonatomic)NSMutableArray *overdueArr;
 @end
 
 @implementation AirViewController
@@ -33,11 +37,16 @@
     [super viewDidLoad];
     offerFlag = 1;
     overdueFlag = 1;
-
+    
+    offerPageNum =1;
+    overduePageNum = 1;
     //刷新指示器
     [self setRefreshControl];
     [self setSegment];
-    [self offerRequest];
+    [self offerInitalizeData];
+    _offerArr = [NSMutableArray new];
+    _overdueArr = [NSMutableArray new];
+
     // Do any additional setup after loading the view.
         //状态栏变成白色
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
@@ -105,13 +114,25 @@
 //可报价列表下拉刷新事件
 - (void)offerRef{
     offerPageNum = 1;
-
+    [self offerRequest];
 }
 //已过期列表下拉刷新事件
 - (void)overdueRef{
     overduePageNum = 1;
-   
+    [self overdueRequest];
 }
+//第一次进行网络请求的时候需要盖上朦层，所以我们把第一次网络请求和下拉刷新分开
+-(void)offerInitalizeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self offerRequest];
+}
+
+
+-(void)overDueInitalizeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self overdueRequest];
+}
+
 #pragma mark - scrollView
 
 //scrollView已经停止减速
@@ -134,14 +155,16 @@
 //判断scrollView滑动到那里了
 - (NSInteger)scrollCheck: (UIScrollView *)scrollView{
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
-    if (offerFlag == 1 && page == 1) {
+    if (offerFlag == 1 && page == 0) {
         offerFlag = 0;
         
         NSLog(@"第一次滑动scollview来到已报价");
+        [self offerRequest];
          }
-    if (overdueFlag == 1 && page == 2) {
+    if (overdueFlag == 1 && page == 1) {
         overdueFlag = 0;
         NSLog(@"第一次滑动scollview来到已过期");
+        [self overdueRequest];
         
     }
     return page;
@@ -150,8 +173,8 @@
 #pragma mark - request
 //可报价网络请求
 - (void)offerRequest{
-     NSDictionary *para =@{@"Id":@1};
-    [RequestAPI requestURL:@"/findemandById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    NSDictionary *para =@{@"type":@1,@"pageNum" : @(offerPageNum),@"pageSize" : @4};
+    [RequestAPI requestURL:@"/findAlldemandByType_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
         [_avi stopAnimating];
         UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10001];
@@ -159,7 +182,20 @@
         
         NSLog(@"responseObject: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
-       
+            NSDictionary *content = responseObject[@"content"];
+            NSDictionary *Aviation_demand = content[@"Aviation_demand"];
+             NSArray *list = Aviation_demand[@"list"];
+            offerLast= [Aviation_demand[@"isLastPage"]boolValue];
+            //下拉刷新的时候不仅要把页码变为1，还有将数组中原来数据清空
+            if(offerPageNum == 1){
+                [_offerArr removeAllObjects];
+            }
+            for(NSDictionary *dict in list){
+                AirlinesOffer *offerModel = [[AirlinesOffer alloc]initWithDict:dict];
+                [_offerArr addObject:offerModel];
+            }
+            [_offerTableView reloadData];
+            
         }else{
             [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
              }
@@ -172,20 +208,80 @@
         
     }];
 }
+//已过期网络请求
+- (void)overdueRequest{
+    NSDictionary *para =@{@"type":@0,@"pageNum" : @(overduePageNum),@"pageSize" : @4};
+    [RequestAPI requestURL:@"/findAlldemandByType_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10001];
+        [ref endRefreshing];
+        
+        NSLog(@"responseObject: %@", responseObject);
+        if ([responseObject[@"result"]intValue] == 1) {
+            NSDictionary *content = responseObject[@"content"];
+            NSDictionary *Aviation_demand = content[@"Aviation_demand"];
+            NSArray *list = Aviation_demand[@"list"];
+            overdueLast= [Aviation_demand[@"isLastPage"]boolValue];
+            //下拉刷新的时候不仅要把页码变为1，还有将数组中原来数据清空
+            if(overduePageNum == 1){
+                [_overdueArr removeAllObjects];
+            }
+            for(NSDictionary *dict in list){
+                AirlinesOffer *offerModel = [[AirlinesOffer alloc]initWithDict:dict];
+                [_overdueArr addObject:offerModel];
+            }
+            [_overdueTableView reloadData];
+            
+        }else{
+            [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10001];
+        [ref endRefreshing];
+        
+        [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
+        
+    }];
+}
+
 
 
 
 //有多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    if (tableView == _offerTableView) {
+        return _offerArr.count;
+    } else {
+        return _overdueArr.count;
+    }
+    
 }
 //细胞长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView == _offerTableView) {
         AirReleaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AirReleaseCell" forIndexPath:indexPath];
+       AirlinesOffer *offerModel = _offerArr[indexPath.row];
+         NSString *starTimeStr = [Utilities dateStrFromCstampTime:(long)offerModel.date withDateFormat:@"MM-dd"];
+        cell.dateLabel.text = starTimeStr;
+        cell.originLabel.text = offerModel.origin;
+        cell.endLabel.text = offerModel.destination;
+        cell.priceLabel.text = [NSString stringWithFormat:@"%@-%@",offerModel.finalPrice,offerModel.highPrice];
+         NSString *outTimeStr = [Utilities dateStrFromCstampTime:(long)offerModel.date withDateFormat:@"HH:mm"];
+        cell.timeLabel.text = outTimeStr;
+        cell.companyLabel.text = offerModel.detail;
         return cell;
     }else{
         ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExpiredCell" forIndexPath:indexPath];
+          AirlinesOffer *offerModel = _overdueArr[indexPath.row];
+        NSString *overTimeStr = [Utilities dateStrFromCstampTime:(long)offerModel.date withDateFormat:@"MM-dd"];
+        cell.overdueDateLabel.text = overTimeStr;
+        cell.overdueOriginLabel.text = offerModel.origin;
+        cell.overdueEndLabel.text = offerModel.destination;
+        cell.overduePriceLabel.text = [NSString stringWithFormat:@"%@-%@",offerModel.finalPrice,offerModel.highPrice];
+        NSString *overOutTimeStr = [Utilities dateStrFromCstampTime:(long)offerModel.date withDateFormat:@"HH:mm"];
+        cell.overdueTimeLabel.text = overOutTimeStr;
         return cell;
     }
     
@@ -201,7 +297,24 @@
     //取消细胞的选中状态
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
+//细胞将要出现时调用（上拉翻页方法)
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(tableView ==_offerTableView){
+        if(indexPath.row == _offerArr.count-1){
+            if(!offerLast){
+                offerPageNum++;
+                [self offerRequest];
+            }
+        }
+    }else{
+        if(indexPath.row ==_overdueArr.count-1){
+            if(!overdueLast){
+                overduePageNum++;
+                [self overdueRequest];
+            }
+        }
+    }
+ }
 
 /*
 #pragma mark - Navigation

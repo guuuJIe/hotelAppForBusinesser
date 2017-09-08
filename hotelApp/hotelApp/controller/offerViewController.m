@@ -47,6 +47,7 @@
 @property (strong,nonatomic)UIView *mark;
 @property (strong,nonatomic)NSMutableArray *lookOfferArr;
 @property (strong,nonatomic)lookOfferModel *lookModel;
+@property (weak, nonatomic) IBOutlet UIView *layerView;
 @property (strong,nonatomic)NSMutableArray *deleteOfferArr;
 @end
 
@@ -172,7 +173,7 @@
         NSLog(@"responseObject: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
             
-            
+    
             
         }else{
             [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
@@ -222,7 +223,7 @@
     NSDictionary *para =@{@"Id": _lookModel.id};
     [RequestAPI requestURL:@"/deleteOfferById_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
-        NSLog(@"responseObject: %@", responseObject);
+        NSLog(@"删除报价: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
             
         }else{
@@ -324,31 +325,32 @@
 }
 
 - (IBAction)DateOfDepartureAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    _datePicker.hidden = NO;
-    _ToolBar.hidden = NO;
+      [self.view endEditing:YES];
+    _layerView.hidden = NO;
+  
+    
     flag = 1;
 }
 
 - (IBAction)DateOfArrivalAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    _datePicker.hidden = NO;
-    _ToolBar.hidden = NO;
-    flag = 0;
+     [self.view endEditing:YES];
+    _layerView.hidden = NO;
+   
+      flag = 0;
 
 }
 
 - (IBAction)determineAction:(UIButton *)sender forEvent:(UIEvent *)event {
     [self offerRequest];
-}
-
-- (IBAction)cancelItm:(UIBarButtonItem *)sender {
-    _ToolBar.hidden = YES;
-    _datePicker.hidden = YES;
     
 }
 
+- (IBAction)cancelItm:(UIBarButtonItem *)sender {
+    _layerView.hidden = YES;
+   }
+
 - (IBAction)ConfirmItm:(UIBarButtonItem *)sender {
-    _ToolBar.hidden = YES;
-    _datePicker.hidden = YES;
+     _layerView.hidden = YES;
     NSDate *date = _datePicker.date;
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     formatter.dateFormat = @"yyyy-MM-dd HH:mm";
