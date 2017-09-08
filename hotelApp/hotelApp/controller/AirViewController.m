@@ -238,7 +238,7 @@
         }
     } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
-        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10001];
+        UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10002];
         [ref endRefreshing];
         
         [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
@@ -268,8 +268,10 @@
         cell.originLabel.text = offerModel.origin;
         cell.endLabel.text = offerModel.destination;
         cell.priceLabel.text = [NSString stringWithFormat:@"%@-%@",offerModel.finalPrice,offerModel.highPrice];
-         NSString *outTimeStr = [Utilities dateStrFromCstampTime:(long)offerModel.date withDateFormat:@"HH:mm"];
-        cell.timeLabel.text = outTimeStr;
+     
+        NSDate *detailedDate = [NSDate dateWithTimeIntervalSince1970:offerModel.date/1000];
+        NSString *times = [detailedDate formattedTime];
+        cell.timeLabel.text = [NSString stringWithFormat:@"%@左右",times];
         cell.companyLabel.text = offerModel.detail;
         return cell;
     }else{
@@ -280,8 +282,9 @@
         cell.overdueOriginLabel.text = offerModel.origin;
         cell.overdueEndLabel.text = offerModel.destination;
         cell.overduePriceLabel.text = [NSString stringWithFormat:@"%@-%@",offerModel.finalPrice,offerModel.highPrice];
-        NSString *overOutTimeStr = [Utilities dateStrFromCstampTime:(long)offerModel.date withDateFormat:@"HH:mm"];
-        cell.overdueTimeLabel.text = overOutTimeStr;
+        NSDate *detailDate = [NSDate dateWithTimeIntervalSince1970:offerModel.date/1000];
+      NSString *overTimes = [detailDate formattedTime];
+        cell.overdueTimeLabel.text = [NSString stringWithFormat:@"%@左右",overTimes];
         return cell;
     }
     

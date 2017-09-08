@@ -453,7 +453,7 @@
                                         <rect key="frame" x="290" y="21" width="57.5" height="16"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <outlet property="delegate" destination="maD-yQ-368" id="ckO-yL-86K"/>
                                         </connections>
@@ -613,7 +613,7 @@
                                         <rect key="frame" x="34" y="143.5" width="111" height="16"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <outlet property="delegate" destination="maD-yQ-368" id="XcV-dy-kAz"/>
                                         </connections>

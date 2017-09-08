@@ -13,6 +13,7 @@
      NSTimeInterval followUpTime;
     NSInteger PageNum;
     NSInteger  flag;
+    NSTimeInterval datetime;
 }
 @property (weak, nonatomic) IBOutlet UIView *offerView;
 @property (weak, nonatomic) IBOutlet UIButton *ChooseOriginBtn;
@@ -49,6 +50,7 @@
 @property (strong,nonatomic)lookOfferModel *lookModel;
 @property (weak, nonatomic) IBOutlet UIView *layerView;
 @property (strong,nonatomic)NSMutableArray *deleteOfferArr;
+@property (strong,nonatomic)NSMutableArray *airlinesArr;
 @end
 
 @implementation offerViewController
@@ -59,8 +61,10 @@
     [self keyboard];
     _lookOfferArr = [NSMutableArray new];
     _deleteOfferArr = [NSMutableArray new];
+    _airlinesArr = [NSMutableArray new];
     [self setRefreshControl];
     [self lookOfferRequest];
+    //[self airlinesRequest];
 
     
  
@@ -235,6 +239,33 @@
         
     }];
 }
+//航空公司网络请求
+//- (void)airlinesRequest{
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://apis.haoservice.com/efficient/flightorder/companycode?&key=5c301176d6b84bd3b3813587f913c936"]
+//        cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+//    [request setHTTPMethod:@"GET"];
+//    
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+//        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        if (error) {
+//            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+//                        NSLog(@"哈哈%@", error);
+//        } else {
+//
+
+//            id jsonObject = [data JSONCol];
+//            NSLog(@"%@", jsonObject);
+//            NSDictionary *result  = jsonObject[@"result"];
+//            for(NSDictionary *dict in result){
+//                [_airlinesArr addObject:dict];
+//                NSLog(@"数组%@",_airlinesArr);
+//            }
+//            }
+//    }];
+//    [dataTask resume];
+//}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -251,7 +282,7 @@
     _cell.originLabel.text = _lookModel.departure;
     _cell.endLabel.text = _lookModel.destination;
     _cell.companyLabel.text = [NSString stringWithFormat:@"%@%@",lookModel.cabin,lookModel.company];
-    _cell.priceLabel.text = _lookModel.price;
+      _cell.priceLabel.text = _lookModel.price;
      NSString *starTimeStr = [Utilities dateStrFromCstampTime:(long)_lookModel.startTime withDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *endTimeStr = [Utilities dateStrFromCstampTime:(long)_lookModel.endTime withDateFormat:@"yyyy-MM-dd HH:mm"];
 
@@ -358,10 +389,12 @@
     followUpTime = [Utilities cTimestampFromString:thDate format:@"yyyy-MM-dd HH:mm"];
     if(flag == 1){
         [_DateOfDepartureBtn setTitle:thDate forState:UIControlStateNormal];
-    }else{
-        [_DateOfArrivalBtn setTitle:thDate forState:UIControlStateNormal];
-    }
+        datetime = [Utilities cTimestampFromString:thDate format:@"yyyy-MM-dd HH:mm"];
 
+    }else if(followUpTime <= datetime){
+         [Utilities popUpAlertViewWithMsg:@"请正确选择日期" andTitle:@"提示" onView:self];
+    }
+[_DateOfArrivalBtn setTitle:thDate forState:UIControlStateNormal];
 }
 
 

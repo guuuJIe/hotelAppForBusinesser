@@ -12,7 +12,7 @@
 -(instancetype)initWithDict:(NSDictionary *)dict{
     self = [super init];
     if(self){
-        _date =[Utilities nullAndNilCheck:dict[@"start_time"] replaceBy:@""];
+        _date =[dict[@"start_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 : (NSTimeInterval)[dict[@"start_time"]integerValue] ;
         _airlines =[Utilities nullAndNilCheck:dict[@"aviation_demand_title"] replaceBy:@""];
         _finalPrice =[Utilities nullAndNilCheck:dict[@"low_price"] replaceBy:@""];
         _highPrice =[Utilities nullAndNilCheck:dict[@"high_price"] replaceBy:@""];
