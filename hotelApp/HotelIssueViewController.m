@@ -208,9 +208,10 @@
      NSURL *url = [NSURL URLWithString:@"http://img3.imgtn.bdimg.com/it/u=1308521812,278920127&fm=23&gp=0.jpg"];
     //依靠SDWebImage来异步的下载一张远程路径下的图片，并三级缓存在项目中，同时为下载的时间周期过程中设置一张临时占位图
     [_hotelImgView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"room_imgs"]];
-    NSString *str = [NSString stringWithFormat:@"%@", url];
+    NSString *str =@"http://img3.imgtn.bdimg.com/it/u=1308521812,278920127&fm=23&gp=0.jpg";
+    //[NSString stringWithFormat:@"%@", url];
     //参数
-    NSDictionary *para = @{@"business_id" : @1,@"hotel_name" : _chooseBtn.titleLabel.text,@"hotel_type" :[NSString stringWithFormat:@"%@%@%@%@",_hotelNameTextField.text,_isEarlyTextField.text,_bedTypeTextField.text,_hotelAreaTextField.text],@"room_imgs":str};
+    NSDictionary *para = @{@"business_id" : @1,@"hotel_name" : _chooseBtn.titleLabel.text,@"hotel_type" :[NSString stringWithFormat:@"%@,%@,%@,%@",_hotelNameTextField.text,_isEarlyTextField.text,_bedTypeTextField.text,_hotelAreaTextField.text],@"room_imgs":str,@"price":_priceTextField.text};
     //网络请求
     [RequestAPI requestURL:@"/addHotel" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         //成功以后要做的事情在此处执行
@@ -218,7 +219,14 @@
         //当网络请求成功的时候停止动画(菊花膜/蒙层停止转动消失)
         [_avi stopAnimating];
         if([responseObject[@"result"] integerValue] == 1) {
-
+            //[Utilities popUpAlertViewWithMsg:@"恭喜您发布成功！" andTitle:@"提示" onView:self];
+            //[self.navigationController popViewControllerAnimated:NO];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"恭喜您发布成功！" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self.navigationController popViewControllerAnimated:NO];
+            }];
+            [alert addAction:action];
+            [self presentViewController:alert animated:YES completion:nil];
         } else {
             [_avi stopAnimating];
             //业务逻辑失败的情况下

@@ -12,7 +12,9 @@
 #import "HotelModel.h"
 #import <UIImageView+WebCache.h>
 
-@interface MyHotelViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MyHotelViewController ()<UITableViewDataSource,UITableViewDelegate> {
+    NSInteger pageNum;
+}
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -33,6 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    pageNum = 1;
     //初始化可变数组，分配内存
     _tableArr = [NSMutableArray new];
     _roomInfoArr = [NSMutableArray new];
@@ -89,7 +92,9 @@
 
 //刷新指示器的事件
 - (void)refreshPage{
+    pageNum = 1;
     [self myHotelRequest];
+    
 }
 
 //查看自己发布的酒店接口
@@ -106,8 +111,10 @@
         [_avi stopAnimating];
         if([responseObject[@"result"] integerValue] == 1) {
             NSArray *content = responseObject[@"content"];
-            //每次请求成功先把数组清空再插入数据
-            [_tableArr removeAllObjects];
+            if (pageNum == 1) {
+                //把数组清空再插入数据
+                [_tableArr removeAllObjects];
+            }
             //遍历content
             for (NSDictionary *dict in content) {
                 NSString *roomInfoJSONStr = dict[@"hotel_type"];
@@ -150,8 +157,9 @@
         NSLog(@"删除酒店：%@", responseObject);
         //当网络请求成功的时候停止动画(菊花膜/蒙层停止转动消失)
         [_avi stopAnimating];
-        if([responseObject[@"result"] integerValue] == 1) {
-            
+        if([responseObject[@"result"] integerValue] == -104) {
+            //单独将酒店id存储进单例化的全局变量中
+            [[StorageMgr singletonStorageMgr] addKey:@"MemberId" andValue:@(_hotelModel.Id)];
         } else {
             [_avi stopAnimating];
             //业务逻辑失败的情况下
@@ -231,6 +239,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+//让细胞在可编辑状态
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
 
 //设置细胞被编辑时执行什么操作
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -243,20 +256,20 @@
             //创建取消按钮
             UIAlertAction *actionA = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 //刷新表格，重载数据
-                [_myHotelTableView reloadData];
+                //[_myHotelTableView reloadData];
             }];
             //创建确定按钮
             UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
                 //调用删除酒店网络接口
                 [self deleteHotelRequest];
+        
                 [_tableArr removeObjectAtIndex:indexPath.row];
-                [_myHotelTableView beginUpdates];
+                //[_myHotelTableView beginUpdates];
                 //删除界面上的细胞
                 [_myHotelTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                [_myHotelTableView endUpdates];
                 //刷新表格，重载数据
-                //[_delectTableView reloadData];
-                [self myHotelRequest];
+                [_myHotelTableView reloadData];
+                //[self myHotelRequest];
             }];
             [alert addAction:actionA];
             [alert addAction:actionB];

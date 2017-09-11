@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         _Id = [[Utilities nullAndNilCheck:dict[@"id"] replaceBy:0] integerValue];
-        _businessId = [Utilities nullAndNilCheck:dict[@"business_id"] replaceBy:@""] ;
+        _businessId = [[Utilities nullAndNilCheck:dict[@"business_id"] replaceBy:0] integerValue];
         _hotelName = [Utilities nullAndNilCheck:dict[@"hotel_name"] replaceBy:@""];
         _hotelType = [Utilities nullAndNilCheck:dict[@"hotel_type"] replaceBy:@""];
         _hotelImgs = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@""];
