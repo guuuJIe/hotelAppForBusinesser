@@ -115,6 +115,10 @@
 
 //自定义的发布按钮事件
 - (void)issueAction {
+    if ([_chooseBtn.titleLabel.text isEqualToString:@"请选择酒店"]) {
+        [Utilities popUpAlertViewWithMsg:@"请选择酒店" andTitle:@"提示" onView:self];
+        return;
+    }
     if (_hotelNameTextField.text.length == 0) {
         [Utilities popUpAlertViewWithMsg:@"请填写房间名称" andTitle:@"提示" onView:self];
         return;

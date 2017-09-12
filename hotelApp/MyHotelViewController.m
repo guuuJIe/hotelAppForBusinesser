@@ -124,8 +124,10 @@
                 
                 HotelModel *hotelModel = [[HotelModel alloc] initWithDict:dict];
                 [_tableArr addObject:hotelModel];
+                //单独将酒店的id存储进单例化全局变量中
+                [[StorageMgr singletonStorageMgr] addKey:@"MemberId" andValue:@(hotelModel.Id)];
             }
-           
+            
             //重载数据
             [_myHotelTableView reloadData];
         } else {
@@ -147,8 +149,9 @@
 
 //删除酒店接口
 - (void)deleteHotelRequest {
+    HotelModel *model = [[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"];
     //参数
-    NSDictionary *para = @{@"id" : @1};
+    NSDictionary *para = @{@"id" : model};
     //网络请求
     [RequestAPI requestURL:@"/deleteHotel" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         UIRefreshControl *ref = (UIRefreshControl *)[_myHotelTableView viewWithTag:10005];
@@ -157,9 +160,9 @@
         NSLog(@"删除酒店：%@", responseObject);
         //当网络请求成功的时候停止动画(菊花膜/蒙层停止转动消失)
         [_avi stopAnimating];
-        if([responseObject[@"result"] integerValue] == -104) {
+        if([responseObject[@"result"] integerValue] == 1) {
             //单独将酒店id存储进单例化的全局变量中
-            [[StorageMgr singletonStorageMgr] addKey:@"MemberId" andValue:@(_hotelModel.Id)];
+            //[[StorageMgr singletonStorageMgr] addKey:@"MemberId" andValue:@(_hotelModel.Id)];
         } else {
             [_avi stopAnimating];
             //业务逻辑失败的情况下

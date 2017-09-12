@@ -10,7 +10,7 @@
 
 @interface HotelModel : NSObject
 
-@property (nonatomic) NSInteger Id;  //酒店id
+@property (nonatomic) NSInteger Id;       //酒店id
 @property (nonatomic) NSInteger businessId;
 @property (strong, nonatomic) NSString *hotelName;
 @property (strong, nonatomic) NSString *hotelType;
