@@ -10,7 +10,6 @@
 		045FFC321F612D6800E6D92D /* HotelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045FFC311F612D6800E6D92D /* HotelModel.m */; };
 		046A49901F5E5D36002539E3 /* AviationOffer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046A498F1F5E5D36002539E3 /* AviationOffer.storyboard */; };
 		046AEA391F5C1DA700893AC4 /* Cities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046AEA381F5C1DA700893AC4 /* Cities.plist */; };
-		046AEA3D1F5C1DF500893AC4 /* CityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046AEA3C1F5C1DF500893AC4 /* CityTableViewController.m */; };
 		0474DA691F590768008CBE0D /* HotelIssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0474DA681F590768008CBE0D /* HotelIssueViewController.m */; };
 		0488E5671F57FF9A004E0499 /* MyHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0488E5661F57FF9A004E0499 /* MyHotelViewController.m */; };
 		0488E56B1F5800DD004E0499 /* MyHotelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0488E56A1F5800DD004E0499 /* MyHotelTableViewCell.m */; };
@@ -46,6 +45,9 @@
 		FEA76E761F5F9BD400926F83 /* lookOfferModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA76E751F5F9BD400926F83 /* lookOfferModel.m */; };
 		FEC16B491F5E303F0036178B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEC16B481F5E303F0036178B /* Main.storyboard */; };
 		FED84D021F5D296800AEED50 /* AirlinesOffer.m in Sources */ = {isa = PBXBuildFile; fileRef = FED84D011F5D296800AEED50 /* AirlinesOffer.m */; };
+		FEE23F801F6626FD000B3559 /* CityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE23F7F1F6626FD000B3559 /* CityTableViewController.m */; };
+		FEE23F831F662726000B3559 /* AviationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE23F821F662726000B3559 /* AviationTableViewController.m */; };
+		FEE23F851F666986000B3559 /* 1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FEE23F841F666986000B3559 /* 1.txt */; };
 		FEEDA2D81F59475F00AD1E89 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2D71F59475F00AD1E89 /* AirViewController.m */; };
 		FEEDA2DD1F5947CC00AD1E89 /* AirReleaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2DA1F5947CC00AD1E89 /* AirReleaseTableViewCell.m */; };
 		FEEDA2DE1F5947CC00AD1E89 /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDA2DC1F5947CC00AD1E89 /* ExpiredTableViewCell.m */; };
@@ -75,8 +77,6 @@
 		045FFC311F612D6800E6D92D /* HotelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelModel.m; sourceTree = "<group>"; };
 		046A498F1F5E5D36002539E3 /* AviationOffer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AviationOffer.storyboard; sourceTree = "<group>"; };
 		046AEA381F5C1DA700893AC4 /* Cities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Cities.plist; sourceTree = "<group>"; };
-		046AEA3B1F5C1DF500893AC4 /* CityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CityTableViewController.h; path = hotelApp/controller/CityTableViewController.h; sourceTree = SOURCE_ROOT; };
-		046AEA3C1F5C1DF500893AC4 /* CityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CityTableViewController.m; path = hotelApp/controller/CityTableViewController.m; sourceTree = SOURCE_ROOT; };
 		0474DA671F590768008CBE0D /* HotelIssueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelIssueViewController.h; sourceTree = SOURCE_ROOT; };
 		0474DA681F590768008CBE0D /* HotelIssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelIssueViewController.m; sourceTree = SOURCE_ROOT; };
 		0488E5651F57FF9A004E0499 /* MyHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotelViewController.h; sourceTree = SOURCE_ROOT; };
@@ -144,6 +144,11 @@
 		FEC16B481F5E303F0036178B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FED84D001F5D296800AEED50 /* AirlinesOffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirlinesOffer.h; sourceTree = "<group>"; };
 		FED84D011F5D296800AEED50 /* AirlinesOffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirlinesOffer.m; sourceTree = "<group>"; };
+		FEE23F7E1F6626FD000B3559 /* CityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CityTableViewController.h; path = hotelApp/controller/CityTableViewController.h; sourceTree = SOURCE_ROOT; };
+		FEE23F7F1F6626FD000B3559 /* CityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CityTableViewController.m; path = hotelApp/controller/CityTableViewController.m; sourceTree = SOURCE_ROOT; };
+		FEE23F811F662726000B3559 /* AviationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AviationTableViewController.h; sourceTree = "<group>"; };
+		FEE23F821F662726000B3559 /* AviationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AviationTableViewController.m; sourceTree = "<group>"; };
+		FEE23F841F666986000B3559 /* 1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 1.txt; path = ../../../1.txt; sourceTree = "<group>"; };
 		FEEDA2D61F59475500AD1E89 /* AirViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AirViewController.h; path = hotelApp/controller/AirViewController.h; sourceTree = SOURCE_ROOT; };
 		FEEDA2D71F59475F00AD1E89 /* AirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AirViewController.m; path = hotelApp/controller/AirViewController.m; sourceTree = SOURCE_ROOT; };
 		FEEDA2D91F5947CC00AD1E89 /* AirReleaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirReleaseTableViewCell.h; sourceTree = "<group>"; };
@@ -200,8 +205,8 @@
 		046AEA3A1F5C1DDB00893AC4 /* City */ = {
 			isa = PBXGroup;
 			children = (
-				046AEA3B1F5C1DF500893AC4 /* CityTableViewController.h */,
-				046AEA3C1F5C1DF500893AC4 /* CityTableViewController.m */,
+				FEE23F7E1F6626FD000B3559 /* CityTableViewController.h */,
+				FEE23F7F1F6626FD000B3559 /* CityTableViewController.m */,
 			);
 			name = City;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 		8482ECEA1F56931400A95200 /* hotelApp */ = {
 			isa = PBXGroup;
 			children = (
+				FEE23F841F666986000B3559 /* 1.txt */,
 				8482ED311F56979D00A95200 /* 3rd */,
 				8482ED3B1F56979D00A95200 /* Constant */,
 				8482ED3D1F56979D00A95200 /* Controller */,
@@ -359,6 +365,7 @@
 		8482ED3D1F56979D00A95200 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FEE23F771F6621A3000B3559 /* Aviation */,
 				046AEA3A1F5C1DDB00893AC4 /* City */,
 				FEA4433D1F57A64600232DFE /* AirRelease */,
 				FEEDA2DF1F59521300AD1E89 /* offer */,
@@ -454,6 +461,15 @@
 				FEA76E751F5F9BD400926F83 /* lookOfferModel.m */,
 			);
 			name = lookOffer;
+			sourceTree = "<group>";
+		};
+		FEE23F771F6621A3000B3559 /* Aviation */ = {
+			isa = PBXGroup;
+			children = (
+				FEE23F811F662726000B3559 /* AviationTableViewController.h */,
+				FEE23F821F662726000B3559 /* AviationTableViewController.m */,
+			);
+			name = Aviation;
 			sourceTree = "<group>";
 		};
 		FEEDA2D51F5945A600AD1E89 /* AirRelease */ = {
@@ -596,6 +612,7 @@
 			files = (
 				FEA443541F57A85400232DFE /* HotelIssue.storyboard in Resources */,
 				FEC16B491F5E303F0036178B /* Main.storyboard in Resources */,
+				FEE23F851F666986000B3559 /* 1.txt in Resources */,
 				046AEA391F5C1DA700893AC4 /* Cities.plist in Resources */,
 				046A49901F5E5D36002539E3 /* AviationOffer.storyboard in Resources */,
 				FEA443551F57A85400232DFE /* LaunchScreen.storyboard in Resources */,
@@ -677,15 +694,16 @@
 				8482ED7E1F56979E00A95200 /* NSDateFormatter+Category.m in Sources */,
 				FEA76E761F5F9BD400926F83 /* lookOfferModel.m in Sources */,
 				FEA4433C1F57A62600232DFE /* AppDelegate.m in Sources */,
-				046AEA3D1F5C1DF500893AC4 /* CityTableViewController.m in Sources */,
 				8482ED7B1F56979D00A95200 /* JSONS.m in Sources */,
 				0474DA691F590768008CBE0D /* HotelIssueViewController.m in Sources */,
+				FEE23F801F6626FD000B3559 /* CityTableViewController.m in Sources */,
 				FEEDA2E91F5953B000AD1E89 /* offerTableViewCell.m in Sources */,
 				0488E56B1F5800DD004E0499 /* MyHotelTableViewCell.m in Sources */,
 				8482ECF91F56931400A95200 /* hotelApp.xcdatamodeld in Sources */,
 				045FFC321F612D6800E6D92D /* HotelModel.m in Sources */,
 				FEEDA2D81F59475F00AD1E89 /* AirViewController.m in Sources */,
 				8482ED6E1F56979D00A95200 /* BasicEncodingRules.m in Sources */,
+				FEE23F831F662726000B3559 /* AviationTableViewController.m in Sources */,
 				8482ED801F56979E00A95200 /* RequestAPI.m in Sources */,
 				FEEDA2DD1F5947CC00AD1E89 /* AirReleaseTableViewCell.m in Sources */,
 				8482ED7A1F56979D00A95200 /* ErrorHandler.m in Sources */,

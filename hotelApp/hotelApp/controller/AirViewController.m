@@ -29,6 +29,7 @@
 @property (strong,nonatomic) UIActivityIndicatorView *avi;
 @property (strong,nonatomic)NSMutableArray *offerArr;
 @property (strong,nonatomic)NSMutableArray *overdueArr;
+@property (strong,nonatomic)AirlinesOffer *offerModel;
 @end
 
 @implementation AirViewController
@@ -44,6 +45,7 @@
     [self setRefreshControl];
     [self setSegment];
     [self offerInitalizeData];
+    [self offerRequest];
     _offerArr = [NSMutableArray new];
     _overdueArr = [NSMutableArray new];
 
@@ -191,8 +193,8 @@
                 [_offerArr removeAllObjects];
             }
             for(NSDictionary *dict in list){
-                AirlinesOffer *offerModel = [[AirlinesOffer alloc]initWithDict:dict];
-                [_offerArr addObject:offerModel];
+                _offerModel = [[AirlinesOffer alloc]initWithDict:dict];
+                [_offerArr addObject:_offerModel];
             }
             [_offerTableView reloadData];
             
@@ -228,8 +230,8 @@
                 [_overdueArr removeAllObjects];
             }
             for(NSDictionary *dict in list){
-                AirlinesOffer *offerModel = [[AirlinesOffer alloc]initWithDict:dict];
-                [_overdueArr addObject:offerModel];
+                _offerModel = [[AirlinesOffer alloc]initWithDict:dict];
+                [_overdueArr addObject:_offerModel];
             }
             [_overdueTableView reloadData];
             
@@ -262,27 +264,27 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView == _offerTableView) {
         AirReleaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AirReleaseCell" forIndexPath:indexPath];
-       AirlinesOffer *offerModel = _offerArr[indexPath.row];
-         NSString *starTimeStr = [Utilities dateStrFromCstampTime:(long)offerModel.date withDateFormat:@"MM-dd"];
+       _offerModel = _offerArr[indexPath.row];
+         NSString *starTimeStr = [Utilities dateStrFromCstampTime:(long)_offerModel.date withDateFormat:@"MM-dd"];
         cell.dateLabel.text = starTimeStr;
-        cell.originLabel.text = offerModel.origin;
-        cell.endLabel.text = offerModel.destination;
-        cell.priceLabel.text = [NSString stringWithFormat:@"%@-%@",offerModel.finalPrice,offerModel.highPrice];
+        cell.originLabel.text = _offerModel.origin;
+        cell.endLabel.text = _offerModel.destination;
+        cell.priceLabel.text = [NSString stringWithFormat:@"%@-%@",_offerModel.finalPrice,_offerModel.highPrice];
      
-        NSDate *detailedDate = [NSDate dateWithTimeIntervalSince1970:offerModel.date/1000];
+        NSDate *detailedDate = [NSDate dateWithTimeIntervalSince1970:_offerModel.date/1000];
         NSString *times = [detailedDate formattedTime];
         cell.timeLabel.text = [NSString stringWithFormat:@"%@左右",times];
-        cell.companyLabel.text = offerModel.detail;
+        cell.companyLabel.text = _offerModel.detail;
         return cell;
     }else{
         ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExpiredCell" forIndexPath:indexPath];
-          AirlinesOffer *offerModel = _overdueArr[indexPath.row];
-        NSString *overTimeStr = [Utilities dateStrFromCstampTime:(long)offerModel.date withDateFormat:@"MM-dd"];
+          _offerModel= _overdueArr[indexPath.row];
+        NSString *overTimeStr = [Utilities dateStrFromCstampTime:(long)_offerModel.date withDateFormat:@"MM-dd"];
         cell.overdueDateLabel.text = overTimeStr;
-        cell.overdueOriginLabel.text = offerModel.origin;
-        cell.overdueEndLabel.text = offerModel.destination;
-        cell.overduePriceLabel.text = [NSString stringWithFormat:@"%@-%@",offerModel.finalPrice,offerModel.highPrice];
-        NSDate *detailDate = [NSDate dateWithTimeIntervalSince1970:offerModel.date/1000];
+        cell.overdueOriginLabel.text = _offerModel.origin;
+        cell.overdueEndLabel.text = _offerModel.destination;
+        cell.overduePriceLabel.text = [NSString stringWithFormat:@"%@-%@",_offerModel.finalPrice,_offerModel.highPrice];
+        NSDate *detailDate = [NSDate dateWithTimeIntervalSince1970:_offerModel.date/1000];
       NSString *overTimes = [detailDate formattedTime];
         cell.overdueTimeLabel.text = [NSString stringWithFormat:@"%@左右",overTimes];
         return cell;
@@ -299,6 +301,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //取消细胞的选中状态
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //单利化全局变量
+  [[StorageMgr singletonStorageMgr] addKey:@"LocCity" andValue:_offerModel];
 }
 //细胞将要出现时调用（上拉翻页方法)
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -9,6 +9,7 @@
 #import "offerViewController.h"
 #import "offerTableViewCell.h"
 #import "lookOfferModel.h"
+#import "AviationTableViewController.h"
 @interface offerViewController ()<UITableViewDelegate,UITableViewDataSource>{
      NSTimeInterval followUpTime;
     NSInteger PageNum;
@@ -22,7 +23,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *priceField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
-@property (weak, nonatomic) IBOutlet UITextField *airlinesField;
+@property (weak, nonatomic) IBOutlet UIButton *airlinesBtn;
+
 @property (weak, nonatomic) IBOutlet UITextField *flightField;
 @property (weak, nonatomic) IBOutlet UITextField *spaceField;
 @property (weak, nonatomic) IBOutlet UITextField *weightField;
@@ -38,6 +40,7 @@
 - (IBAction)determineAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)cancelItm:(UIBarButtonItem *)sender;
 - (IBAction)ConfirmItm:(UIBarButtonItem *)sender;
+- (IBAction)airlinesBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *ConfirmItm;
 @property (weak, nonatomic) IBOutlet UITableView *offerTableView;
@@ -51,6 +54,7 @@
 @property (weak, nonatomic) IBOutlet UIView *layerView;
 @property (strong,nonatomic)NSMutableArray *deleteOfferArr;
 @property (strong,nonatomic)NSMutableArray *airlinesArr;
+@property(strong,nonatomic)NSArray *aviation;
 @end
 
 @implementation offerViewController
@@ -64,7 +68,7 @@
     _airlinesArr = [NSMutableArray new];
     [self setRefreshControl];
     [self lookOfferRequest];
-    //[self airlinesRequest];
+   // [self airlinesRequest];
 
     
  
@@ -78,14 +82,21 @@
     _mark.backgroundColor = UIColorFromRGBA(104, 104, 104, 0.4);
     [[UIApplication sharedApplication].keyWindow addSubview:_mark];
     _mark.hidden  = YES;
-    //接收一个通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCity:) name:@"ResetHome" object:nil];
-   
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+    //接收一个通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeairlines:) name:@"Homer" object:nil];
+    //接收一个通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeCity:) name:@"ResetHome" object:nil];
+    
+
 }
 - (void) naviConfig{
     
@@ -114,12 +125,6 @@
     _mark = nil;
 }
 
-//当前页面将要显示的时候，显示导航栏
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
-}
 
 -(void)keyboard{
     //监听键盘将要打开这一操作,打开后执行keyboardWillShow:方法
@@ -171,7 +176,7 @@
 - (void)offerRequest{
     NSInteger weight = [[NSString stringWithFormat:@"%@",_weightField.text] integerValue];
     NSInteger price = [[NSString stringWithFormat:@"%@",_priceField.text] integerValue];
-    NSDictionary *para =@{@"business_id":@2,@"aviation_demand_id":@1,@"final_price":@(price),@"weight":@(weight),@"aviation_company":_airlinesField.text,@"aviation_cabin":_spaceField.text,@"in_time_str":_DateOfDepartureBtn.titleLabel.text,@"out_time_str":_DateOfArrivalBtn.titleLabel.text,@"departure":_ChooseOriginBtn.titleLabel.text,@"destination":_destinationBtn.titleLabel.text,@"flight_no":_flightField.text};
+    NSDictionary *para =@{@"business_id":@2,@"aviation_demand_id":@1,@"final_price":@(price),@"weight":@(weight),@"aviation_company":_airlinesBtn.titleLabel.text,@"aviation_cabin":_spaceField.text,@"in_time_str":_DateOfDepartureBtn.titleLabel.text,@"out_time_str":_DateOfArrivalBtn.titleLabel.text,@"departure":_ChooseOriginBtn.titleLabel.text,@"destination":_destinationBtn.titleLabel.text,@"flight_no":_flightField.text};
     [RequestAPI requestURL:@"/offer_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"responseObject: %@", responseObject);
@@ -239,7 +244,7 @@
         
     }];
 }
-//航空公司网络请求
+////航空公司网络请求
 //- (void)airlinesRequest{
 //    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://apis.haoservice.com/efficient/flightorder/companycode?&key=5c301176d6b84bd3b3813587f913c936"]
 //        cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
@@ -253,14 +258,15 @@
 //                        NSLog(@"哈哈%@", error);
 //        } else {
 //
-
+//
 //            id jsonObject = [data JSONCol];
 //            NSLog(@"%@", jsonObject);
 //            NSDictionary *result  = jsonObject[@"result"];
 //            for(NSDictionary *dict in result){
 //                [_airlinesArr addObject:dict];
-//                NSLog(@"数组%@",_airlinesArr);
-//            }
+//                           }
+//            NSLog(@"数组%@",_airlinesArr);
+//
 //            }
 //    }];
 //    [dataTask resume];
@@ -372,6 +378,35 @@
 }
 
 - (IBAction)determineAction:(UIButton *)sender forEvent:(UIEvent *)event {
+ 
+    if(_ChooseOriginBtn.titleLabel.text.length == 0){
+        return;
+    }
+    if(_determineBtn.titleLabel.text.length == 0){
+        return;
+    }
+    if(_priceField.text.length == 0 ){
+        return;
+    }
+    if(_airlinesBtn.titleLabel.text.length == 0){
+        return;
+    }
+    if(_flightField.text.length == 0){
+       return;
+    }
+    if(_spaceField.text.length == 0){
+       return;
+    }
+    if(_DateOfArrivalBtn.titleLabel.text.length == 0){
+        return;
+    }
+    if(_DateOfDepartureBtn.titleLabel.text.length == 0){
+        return;
+    }
+    if(_weightField.text.length == 0){
+        return;
+    }
+    [self.view endEditing:YES];
     [self offerRequest];
     
 }
@@ -394,7 +429,17 @@
     }else if(followUpTime <= datetime){
          [Utilities popUpAlertViewWithMsg:@"请正确选择日期" andTitle:@"提示" onView:self];
     }
-[_DateOfArrivalBtn setTitle:thDate forState:UIControlStateNormal];
+else{
+  [_DateOfArrivalBtn setTitle:thDate forState:UIControlStateNormal];
+}
+
+}
+- (IBAction)airlinesBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    AviationTableViewController*purchaseVC = [Utilities getStoryboardInstance:@"AviationOffer" byIdentity:@"purchaseNavi"];
+    //传参
+    purchaseVC.arr =_airlinesArr;
+    //push跳转
+    [self.navigationController pushViewController:purchaseVC animated:YES];
 }
 
 
@@ -412,7 +457,10 @@
      [_destinationBtn setTitle:citystr forState:UIControlStateNormal];
 }
 }
-
+-(void)changeairlines:(NSNotification *)name{
+    NSString *aviationstr = name.object;
+    [_airlinesBtn setTitle:aviationstr forState:UIControlStateNormal];
+}
 
 - (IBAction)priceBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
