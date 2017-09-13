@@ -25,7 +25,7 @@
 @property (strong, nonatomic) NSMutableArray *tableArr;
 @property (strong, nonatomic) NSMutableArray *roomInfoArr;
 @property (strong, nonatomic) NSArray *arr;
-@property (strong, nonatomic) HotelModel *hotelModel;
+
 
 @end
 
@@ -125,7 +125,7 @@
                 HotelModel *hotelModel = [[HotelModel alloc] initWithDict:dict];
                 [_tableArr addObject:hotelModel];
                 //单独将酒店的id存储进单例化全局变量中
-                [[StorageMgr singletonStorageMgr] addKey:@"MemberId" andValue:@(hotelModel.Id)];
+                //[[StorageMgr singletonStorageMgr] addKey:@"MemberId" andValue:@(hotelModel.Id)];
             }
             
             //重载数据
@@ -148,10 +148,11 @@
 }
 
 //删除酒店接口
-- (void)deleteHotelRequest {
-    HotelModel *model = [[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"];
+- (void)deleteHotelRequest: (NSIndexPath *)indexPath {
+    //HotelModel *model = [[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"];
+    HotelModel *model = _tableArr[indexPath.row];
     //参数
-    NSDictionary *para = @{@"id" : model};
+    NSDictionary *para = @{@"id" : @(model.Id)};
     //网络请求
     [RequestAPI requestURL:@"/deleteHotel" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         UIRefreshControl *ref = (UIRefreshControl *)[_myHotelTableView viewWithTag:10005];
@@ -264,7 +265,7 @@
             //创建确定按钮
             UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
                 //调用删除酒店网络接口
-                [self deleteHotelRequest];
+                [self deleteHotelRequest:indexPath];
         
                 [_tableArr removeObjectAtIndex:indexPath.row];
                 //[_myHotelTableView beginUpdates];
