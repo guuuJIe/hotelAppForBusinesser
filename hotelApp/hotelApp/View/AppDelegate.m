@@ -17,6 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //设置窗口的背景颜色
+    //_window.backgroundColor = [UIColor whiteColor];
+    
     return YES;
 }
 

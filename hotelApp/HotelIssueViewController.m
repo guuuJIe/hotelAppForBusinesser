@@ -10,8 +10,9 @@
 #import "HotelModel.h"
 #import <UIImageView+WebCache.h>
 
-@interface HotelIssueViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface HotelIssueViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *hotelImgView;
@@ -38,6 +39,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //给scrollView签协议
+    _scrollView.delegate = self;
+    //初始化一个单击手势，设置响应的事件为touchScrollView
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchScrollView)];
+    [recognizer setNumberOfTapsRequired:1];
+    [recognizer setNumberOfTouchesRequired:1];
+    [_scrollView addGestureRecognizer:recognizer];
     
     //给pickerview签协议
     _pickerView.dataSource = self;
@@ -71,12 +80,12 @@
 //当文本框开始编辑的时候调用
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    CGFloat offset = self.view.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 216 + 50);
+    CGFloat offset = _scrollView.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 216 + 60);
     if (offset <= 0) {
         [UIView animateWithDuration:0.3 animations:^{
-            CGRect frame = self.view.frame;
+            CGRect frame = _scrollView.frame;
             frame.origin.y = offset;
-            self.view.frame = frame;
+            _scrollView.frame = frame;
         }];
     }
     return YES;
@@ -86,9 +95,9 @@
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     [UIView animateWithDuration:0.3 animations:^{
-        CGRect frame = self.view.frame;
+        CGRect frame = _scrollView.frame;
         frame.origin.y = 0.0;
-        self.view.frame = frame;
+        _scrollView.frame = frame;
     }];
     return YES;
 }
@@ -306,6 +315,7 @@
     [self selectHotel];
 }
 
+/*
 //点击空白处收回ToolBar和PickerView
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     //让根视图结束编辑状态达到收起键盘的目的
@@ -315,6 +325,7 @@
     _pickerView.hidden = YES;
     
 }
+*/
 
 //按键盘上的Return键收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -323,5 +334,13 @@
     return YES;
 }
 
+//单击手势响应事件
+- (void)touchScrollView {
+    //让根视图结束编辑状态达到收起键盘的目的
+    [self.view endEditing:YES];
+    //隐藏ToolBar和PickerView
+    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
+}
 
 @end
