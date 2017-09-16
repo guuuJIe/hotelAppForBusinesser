@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
+@property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *hotelImgView;
 @property (weak, nonatomic) IBOutlet UITextField *hotelNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *isEarlyTextField;
@@ -31,6 +32,7 @@
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
 - (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSMutableArray *pickerArr;
+@property (strong, nonatomic) UIView *fullView;//全屏蒙层
 
 @end
 
@@ -63,12 +65,14 @@
     //调用导航栏设置
     [self setNavigationItem];
     
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 //当前页面将要显示的时候，显示导航栏
@@ -80,9 +84,9 @@
 //当文本框开始编辑的时候调用
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    CGFloat offset = _scrollView.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 216 + 60);
+    CGFloat offset = _scrollView.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 258 + 75);
     if (offset <= 0) {
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIScrollView animateWithDuration:0.3 animations:^{
             CGRect frame = _scrollView.frame;
             frame.origin.y = offset;
             _scrollView.frame = frame;
@@ -91,15 +95,28 @@
     return YES;
 }
 
-//当文本框开始结束编辑的时候调用
+//当文本框结束编辑的时候调用
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIScrollView animateWithDuration:0.3 animations:^{
         CGRect frame = _scrollView.frame;
         frame.origin.y = 0.0;
         _scrollView.frame = frame;
     }];
     return YES;
+}
+
+//当文本框已经开始编辑的时候调用
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    _fullView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
+    _fullView.backgroundColor = UIColorFromRGBA(135, 135, 135, 0.3);
+    [_scrollView addSubview:_fullView];
+}
+
+//当文本框已经结束编辑的时候调用
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [_fullView removeFromSuperview];
+    _fullView = nil;
 }
 
 
@@ -288,6 +305,7 @@
 
 //取消事件
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    _symbolLabel.text = @"▽";
     //隐藏ToolBar和PickerView
     _toolBar.hidden = YES;
     _pickerView.hidden = YES;
@@ -295,6 +313,7 @@
 
 //确认事件
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    _symbolLabel.text = @"▽";
     //拿到某一列中选中的行号
     NSInteger row = [_pickerView selectedRowInComponent:0];
     //根据上面拿到的行号，找到对应的数据（选中行的标题）
@@ -308,11 +327,13 @@
 
 //选择酒店按钮事件
 - (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    //显示ToolBar和PickerView
-    _toolBar.hidden = NO;
-    _pickerView.hidden = NO;
-    //调用选择酒店接口
-    [self selectHotel];
+        _symbolLabel.text = @"△";
+        //显示ToolBar和PickerView
+        _toolBar.hidden = NO;
+        _pickerView.hidden = NO;
+        //调用选择酒店接口
+        [self selectHotel];
+    
 }
 
 /*
@@ -336,11 +357,16 @@
 
 //单击手势响应事件
 - (void)touchScrollView {
-    //让根视图结束编辑状态达到收起键盘的目的
-    [self.view endEditing:YES];
+    //让scrollView结束编辑状态达到收起键盘的目的
+    [_scrollView endEditing:YES];
     //隐藏ToolBar和PickerView
     _toolBar.hidden = YES;
     _pickerView.hidden = YES;
+    _symbolLabel.text = @"▽";
+    [_fullView removeFromSuperview];
+    _fullView = nil;
 }
+
+
 
 @end
