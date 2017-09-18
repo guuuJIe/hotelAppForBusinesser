@@ -10,10 +10,12 @@
 #import "HotelModel.h"
 #import <UIImageView+WebCache.h>
 
-@interface HotelIssueViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface HotelIssueViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
+@property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *hotelImgView;
 @property (weak, nonatomic) IBOutlet UITextField *hotelNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *isEarlyTextField;
@@ -30,6 +32,7 @@
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
 - (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSMutableArray *pickerArr;
+@property (strong, nonatomic) UIView *fullView;//全屏蒙层
 
 @end
 
@@ -38,6 +41,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //给scrollView签协议
+    _scrollView.delegate = self;
+    //初始化一个单击手势，设置响应的事件为touchScrollView
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchScrollView)];
+    [recognizer setNumberOfTapsRequired:1];
+    [recognizer setNumberOfTouchesRequired:1];
+    [_scrollView addGestureRecognizer:recognizer];
     
     //给pickerview签协议
     _pickerView.dataSource = self;
@@ -54,12 +65,14 @@
     //调用导航栏设置
     [self setNavigationItem];
     
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 //当前页面将要显示的时候，显示导航栏
@@ -71,26 +84,41 @@
 //当文本框开始编辑的时候调用
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    CGFloat offset = self.view.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 216 + 50);
+    CGFloat offset = _scrollView.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 258 + 75);
     if (offset <= 0) {
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect frame = self.view.frame;
+        [UIScrollView animateWithDuration:0.3 animations:^{
+            CGRect frame = _scrollView.frame;
             frame.origin.y = offset;
-            self.view.frame = frame;
+            _scrollView.frame = frame;
         }];
     }
     return YES;
 }
 
-//当文本框开始结束编辑的时候调用
+//当文本框结束编辑的时候调用
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    [UIView animateWithDuration:0.3 animations:^{
-        CGRect frame = self.view.frame;
+    [UIScrollView animateWithDuration:0.3 animations:^{
+        CGRect frame = _scrollView.frame;
         frame.origin.y = 0.0;
-        self.view.frame = frame;
+        _scrollView.frame = frame;
     }];
     return YES;
+}
+
+//当文本框已经开始编辑的时候调用
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    //设置全屏蒙层的位置大小
+    _fullView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
+    //设置全屏蒙层的背景颜色
+    _fullView.backgroundColor = UIColorFromRGBA(135, 135, 135, 0.3);
+    [_scrollView addSubview:_fullView];
+}
+
+//当文本框已经结束编辑的时候调用
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [_fullView removeFromSuperview];
+    _fullView = nil;
 }
 
 
@@ -178,6 +206,8 @@
         //当网络请求成功的时候停止动画(菊花膜/蒙层停止转动消失)
         [_avi stopAnimating];
         if([responseObject[@"result"] integerValue] == 1) {
+            //每次请求成功先把数组清空再插入数据
+            [_pickerArr removeAllObjects];
             NSArray *content = responseObject[@"content"];
             //遍历content
             for (NSDictionary *dict in content) {
@@ -187,7 +217,7 @@
             //将得到的数据重载(刷新数据)！！！
             [_pickerView reloadAllComponents];
             
-            NSLog(@"_pickerArr:%@",_pickerArr);
+            //NSLog(@"_pickerArr:%@",_pickerArr);
         } else {
             [_avi stopAnimating];
             //业务逻辑失败的情况下
@@ -279,6 +309,11 @@
 
 //取消事件
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
+    _symbolLabel.text = @"▽";
+    //设置label的文本颜色
+     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
     //隐藏ToolBar和PickerView
     _toolBar.hidden = YES;
     _pickerView.hidden = YES;
@@ -286,6 +321,11 @@
 
 //确认事件
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
+    _symbolLabel.text = @"▽";
+    //设置label的文本颜色
+     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
     //拿到某一列中选中的行号
     NSInteger row = [_pickerView selectedRowInComponent:0];
     //根据上面拿到的行号，找到对应的数据（选中行的标题）
@@ -299,13 +339,20 @@
 
 //选择酒店按钮事件
 - (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(150, 150, 150, 1) forState:UIControlStateNormal];
+    _symbolLabel.text = @"△";
+    //设置label的文本颜色
+    _symbolLabel.textColor = UIColorFromRGBA(150, 150, 150, 1);
     //显示ToolBar和PickerView
     _toolBar.hidden = NO;
     _pickerView.hidden = NO;
     //调用选择酒店接口
     [self selectHotel];
+    
 }
 
+/*
 //点击空白处收回ToolBar和PickerView
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     //让根视图结束编辑状态达到收起键盘的目的
@@ -315,6 +362,7 @@
     _pickerView.hidden = YES;
     
 }
+*/
 
 //按键盘上的Return键收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -322,6 +370,23 @@
     
     return YES;
 }
+
+//单击手势响应事件
+- (void)touchScrollView {
+    //让scrollView结束编辑状态达到收起键盘的目的
+    [_scrollView endEditing:YES];
+    //隐藏ToolBar和PickerView
+    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
+    _symbolLabel.text = @"▽";
+    //设置label的文本颜色
+     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
+    [_fullView removeFromSuperview];
+    _fullView = nil;
+}
+
 
 
 @end
