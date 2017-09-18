@@ -273,7 +273,7 @@
                 [_myHotelTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
                 //刷新表格，重载数据
                 [_myHotelTableView reloadData];
-                //[self myHotelRequest];
+                [self myHotelRequest];
             }];
             [alert addAction:actionA];
             [alert addAction:actionB];

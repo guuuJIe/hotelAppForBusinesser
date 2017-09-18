@@ -108,7 +108,9 @@
 
 //当文本框已经开始编辑的时候调用
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    //设置全屏蒙层的位置大小
     _fullView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
+    //设置全屏蒙层的背景颜色
     _fullView.backgroundColor = UIColorFromRGBA(135, 135, 135, 0.3);
     [_scrollView addSubview:_fullView];
 }
@@ -204,6 +206,8 @@
         //当网络请求成功的时候停止动画(菊花膜/蒙层停止转动消失)
         [_avi stopAnimating];
         if([responseObject[@"result"] integerValue] == 1) {
+            //每次请求成功先把数组清空再插入数据
+            [_pickerArr removeAllObjects];
             NSArray *content = responseObject[@"content"];
             //遍历content
             for (NSDictionary *dict in content) {
@@ -213,7 +217,7 @@
             //将得到的数据重载(刷新数据)！！！
             [_pickerView reloadAllComponents];
             
-            NSLog(@"_pickerArr:%@",_pickerArr);
+            //NSLog(@"_pickerArr:%@",_pickerArr);
         } else {
             [_avi stopAnimating];
             //业务逻辑失败的情况下
@@ -305,7 +309,11 @@
 
 //取消事件
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
     _symbolLabel.text = @"▽";
+    //设置label的文本颜色
+     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
     //隐藏ToolBar和PickerView
     _toolBar.hidden = YES;
     _pickerView.hidden = YES;
@@ -313,7 +321,11 @@
 
 //确认事件
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
     _symbolLabel.text = @"▽";
+    //设置label的文本颜色
+     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
     //拿到某一列中选中的行号
     NSInteger row = [_pickerView selectedRowInComponent:0];
     //根据上面拿到的行号，找到对应的数据（选中行的标题）
@@ -327,12 +339,16 @@
 
 //选择酒店按钮事件
 - (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event {
-        _symbolLabel.text = @"△";
-        //显示ToolBar和PickerView
-        _toolBar.hidden = NO;
-        _pickerView.hidden = NO;
-        //调用选择酒店接口
-        [self selectHotel];
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(150, 150, 150, 1) forState:UIControlStateNormal];
+    _symbolLabel.text = @"△";
+    //设置label的文本颜色
+    _symbolLabel.textColor = UIColorFromRGBA(150, 150, 150, 1);
+    //显示ToolBar和PickerView
+    _toolBar.hidden = NO;
+    _pickerView.hidden = NO;
+    //调用选择酒店接口
+    [self selectHotel];
     
 }
 
@@ -362,7 +378,11 @@
     //隐藏ToolBar和PickerView
     _toolBar.hidden = YES;
     _pickerView.hidden = YES;
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
     _symbolLabel.text = @"▽";
+    //设置label的文本颜色
+     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
     [_fullView removeFromSuperview];
     _fullView = nil;
 }
