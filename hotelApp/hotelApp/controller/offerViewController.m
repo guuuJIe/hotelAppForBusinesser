@@ -1,3 +1,4 @@
+
 //
 //  offerViewController.m
 //  hotelApp
@@ -55,6 +56,8 @@
 @property (strong,nonatomic)NSMutableArray *deleteOfferArr;
 @property (strong,nonatomic)NSMutableArray *airlinesArr;
 @property(strong,nonatomic)NSArray *aviation;
+@property (strong,nonatomic)NSString *startTime;
+@property (strong,nonatomic)NSString *ToEndTime;
 @end
 
 @implementation offerViewController
@@ -68,6 +71,12 @@
     _airlinesArr = [NSMutableArray new];
     [self setRefreshControl];
     [self lookOfferRequest];
+    datetime = 33062449980000;
+    NSDate *startDate = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm";
+    NSString *star = [formatter stringFromDate:startDate];
+    _startTime =star;
    // [self airlinesRequest];
 
     
@@ -82,6 +91,8 @@
     _mark.backgroundColor = UIColorFromRGBA(104, 104, 104, 0.4);
     [[UIApplication sharedApplication].keyWindow addSubview:_mark];
     _mark.hidden  = YES;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -149,6 +160,12 @@
     [textField resignFirstResponder];
     return YES;
 }
+//键盘收回
+- (void) touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    //让根视图结束编辑状态来达到收起键盘的目的
+    [self.view endEditing:YES];
+}
+
 
 //创建刷新指示器的方法
 - (void)setRefreshControl{
@@ -176,10 +193,10 @@
 - (void)offerRequest{
     NSInteger weight = [[NSString stringWithFormat:@"%@",_weightField.text] integerValue];
     NSInteger price = [[NSString stringWithFormat:@"%@",_priceField.text] integerValue];
-    NSDictionary *para =@{@"business_id":@2,@"aviation_demand_id":@1,@"final_price":@(price),@"weight":@(weight),@"aviation_company":_airlinesBtn.titleLabel.text,@"aviation_cabin":_spaceField.text,@"in_time_str":_DateOfDepartureBtn.titleLabel.text,@"out_time_str":_DateOfArrivalBtn.titleLabel.text,@"departure":_ChooseOriginBtn.titleLabel.text,@"destination":_destinationBtn.titleLabel.text,@"flight_no":_flightField.text};
+    NSDictionary *para =@{@"business_id":@2,@"aviation_demand_id":@(_Id),@"final_price":@(price),@"weight":@(weight),@"aviation_company":_airlinesBtn.titleLabel.text,@"aviation_cabin":_spaceField.text,@"in_time_str":_DateOfDepartureBtn.titleLabel.text,@"out_time_str":_DateOfArrivalBtn.titleLabel.text,@"departure":_ChooseOriginBtn.titleLabel.text,@"destination":_destinationBtn.titleLabel.text,@"flight_no":_flightField.text};
     [RequestAPI requestURL:@"/offer_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
-        NSLog(@"responseObject: %@", responseObject);
+        NSLog(@"responseOb: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
             
     
@@ -195,13 +212,13 @@
 }
 //查看报价网络请求
 - (void)lookOfferRequest{
-    NSDictionary *para =@{@"Id" : @2};
+    NSDictionary *para =@{@"Id" : @(_Id)};
     [RequestAPI requestURL:@"/selectOffer_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         UIRefreshControl *ref = (UIRefreshControl *)[_offerTableView viewWithTag:10008];
         [ref endRefreshing];
         
-        NSLog(@"responseObject: %@", responseObject);
+        NSLog(@"查看报价: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
              NSDictionary *content = responseObject[@"content"];
             //下拉刷新的时候不仅要把页码变为1，还有将数组中原来数据清空
@@ -229,7 +246,7 @@
 //删除报价网络请求
 - (void)deleteOfferRequest{
    // NSInteger ID = [[NSString stringWithFormat:@"%@",_lookModel.id] integerValue];
-    NSDictionary *para =@{@"Id": _lookModel.id};
+    NSDictionary *para =@{@"Id": _lookModel.Id};
     [RequestAPI requestURL:@"/deleteOfferById_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"删除报价: %@", responseObject);
@@ -287,10 +304,10 @@
     lookOfferModel *lookModel = _lookOfferArr[indexPath.row];
     _cell.originLabel.text = _lookModel.departure;
     _cell.endLabel.text = _lookModel.destination;
-    _cell.companyLabel.text = [NSString stringWithFormat:@"%@%@",lookModel.cabin,lookModel.company];
-      _cell.priceLabel.text = _lookModel.price;
-     NSString *starTimeStr = [Utilities dateStrFromCstampTime:(long)_lookModel.startTime withDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSString *endTimeStr = [Utilities dateStrFromCstampTime:(long)_lookModel.endTime withDateFormat:@"yyyy-MM-dd HH:mm"];
+    _cell.companyLabel.text = [NSString stringWithFormat:@"%@%@",lookModel.company,lookModel.cabin];
+    _cell.priceLabel.text = _lookModel.price;
+    NSString *starTimeStr =[Utilities dateStrFromCstampTime:lookModel.startTime withDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *endTimeStr = [Utilities dateStrFromCstampTime:lookModel.endTime withDateFormat:@"yyyy-MM-dd HH:mm"];
 
     _cell.timeLabel.text =[NSString stringWithFormat:@"%@——%@",starTimeStr,endTimeStr];
     _cell.luggageLabel.text = _lookModel.weight;
@@ -364,46 +381,60 @@
 - (IBAction)DateOfDepartureAction:(UIButton *)sender forEvent:(UIEvent *)event {
       [self.view endEditing:YES];
     _layerView.hidden = NO;
-  
-    
     flag = 1;
+
 }
 
 - (IBAction)DateOfArrivalAction:(UIButton *)sender forEvent:(UIEvent *)event {
      [self.view endEditing:YES];
     _layerView.hidden = NO;
-   
       flag = 0;
-
-}
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm";
+    NSDate *date = [formatter dateFromString:_startTime];
+    NSDate *nextDat = [NSDate dateWithTimeInterval:2*60 sinceDate:date];//后一天
+    _datePicker.minimumDate = nextDat;
+    
+    }
 
 - (IBAction)determineAction:(UIButton *)sender forEvent:(UIEvent *)event {
  
     if(_ChooseOriginBtn.titleLabel.text.length == 0){
+          [Utilities popUpAlertViewWithMsg:@"请选择出发地" andTitle:@"提示" onView:self];
         return;
     }
     if(_determineBtn.titleLabel.text.length == 0){
+        [Utilities popUpAlertViewWithMsg:@"请选择目的地" andTitle:@"提示" onView:self];
+
         return;
     }
     if(_priceField.text.length == 0 ){
+           [Utilities popUpAlertViewWithMsg:@"请填写价格" andTitle:@"提示" onView:self];
         return;
     }
     if(_airlinesBtn.titleLabel.text.length == 0){
+        [Utilities popUpAlertViewWithMsg:@"请选择航空公司" andTitle:@"提示" onView:self];
+
         return;
     }
     if(_flightField.text.length == 0){
+          [Utilities popUpAlertViewWithMsg:@"请填写航班" andTitle:@"提示" onView:self];
        return;
     }
     if(_spaceField.text.length == 0){
+        [Utilities popUpAlertViewWithMsg:@"请填写舱位" andTitle:@"提示" onView:self];
        return;
     }
     if(_DateOfArrivalBtn.titleLabel.text.length == 0){
+        [Utilities popUpAlertViewWithMsg:@"请选择出发时间" andTitle:@"提示" onView:self];
         return;
     }
     if(_DateOfDepartureBtn.titleLabel.text.length == 0){
+        [Utilities popUpAlertViewWithMsg:@"请选择到达时间" andTitle:@"提示" onView:self];
         return;
     }
     if(_weightField.text.length == 0){
+         [Utilities popUpAlertViewWithMsg:@"请填写重量" andTitle:@"提示" onView:self];
         return;
     }
     [self.view endEditing:YES];
@@ -422,17 +453,23 @@
     formatter.dateFormat = @"yyyy-MM-dd HH:mm";
     NSString *thDate = [formatter stringFromDate:date];
     followUpTime = [Utilities cTimestampFromString:thDate format:@"yyyy-MM-dd HH:mm"];
-    if(flag == 1){
-        [_DateOfDepartureBtn setTitle:thDate forState:UIControlStateNormal];
+    if(flag == 0){
+        [_DateOfArrivalBtn setTitle:thDate forState:UIControlStateNormal];
         datetime = [Utilities cTimestampFromString:thDate format:@"yyyy-MM-dd HH:mm"];
+       
+    }else{
+        [_DateOfDepartureBtn  setTitle:thDate forState:UIControlStateNormal];
+        _startTime = thDate;
+        if(followUpTime >= datetime){
+             //NSDate *date = [formatter dateFromString:datetime];
+            NSDate *nextDat = [NSDate dateWithTimeInterval:24*60*60 sinceDate:date];//后一天
+            NSString *endTime =  [formatter stringFromDate:nextDat];
+            [_DateOfArrivalBtn  setTitle:endTime forState:UIControlStateNormal];
+            
 
-    }else if(followUpTime <= datetime){
-         [Utilities popUpAlertViewWithMsg:@"请正确选择日期" andTitle:@"提示" onView:self];
+
     }
-else{
-  [_DateOfArrivalBtn setTitle:thDate forState:UIControlStateNormal];
-}
-
+    }
 }
 - (IBAction)airlinesBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
     AviationTableViewController*purchaseVC = [Utilities getStoryboardInstance:@"AviationOffer" byIdentity:@"purchaseNavi"];

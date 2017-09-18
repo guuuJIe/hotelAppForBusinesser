@@ -12,6 +12,7 @@
 #import "HMSegmentedControl.h"
 #import "Utilities.h"
 #import "AirlinesOffer.h"
+#import "offerViewController.h"
 @interface AirViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>{
     NSInteger offerPageNum;
     NSInteger overduePageNum;
@@ -36,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+      [self setSegment];
     offerFlag = 1;
     overdueFlag = 1;
     
@@ -55,7 +57,7 @@
     //去掉tableview底部多余的线
     _overdueTableView.tableFooterView = [UIView new];
     _offerTableView.tableFooterView = [UIView new];
-    [self setSegment];
+  
 
 }
 
@@ -194,7 +196,8 @@
             }
             for(NSDictionary *dict in list){
                 _offerModel = [[AirlinesOffer alloc]initWithDict:dict];
-                [_offerArr addObject:_offerModel];
+            [_offerArr addObject:_offerModel];
+                
             }
             [_offerTableView reloadData];
             
@@ -301,9 +304,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //取消细胞的选中状态
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //单利化全局变量
-  [[StorageMgr singletonStorageMgr] addKey:@"LocCity" andValue:_offerModel];
-}
+   // offerViewController *purchaseVC = [Utilities getStoryboardInstance:@"AviationOffer" byIdentity:@"purchase"];
+    //传参
+    
+    //push跳转
+    //[self.navigationController pushViewController:purchaseVC animated:YES];
+  
+    }
 //细胞将要出现时调用（上拉翻页方法)
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView ==_offerTableView){
@@ -323,14 +330,21 @@
     }
  }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
+    if([segue.identifier isEqualToString:@"purchase"]){
+        NSIndexPath *indexPath = [_offerTableView indexPathForSelectedRow];
+        _offerModel = _offerArr[indexPath.row];
+        offerViewController *Offer = segue.destinationViewController;
+        Offer.Id = [_offerModel.Id integerValue];
+    }
+  
+     //Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AirlinesOffer.h"
+
 @interface offerViewController : UIViewController
-@property (strong,nonatomic)AirlinesOffer *AirlinesModel;
+@property (nonatomic)NSInteger Id;
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface AirlinesOffer : NSObject
+@property (strong,nonatomic) NSString * Id;
 @property (nonatomic) NSTimeInterval date;
 @property (strong,nonatomic) NSString *airlines;
 @property (strong,nonatomic) NSString *origin;
