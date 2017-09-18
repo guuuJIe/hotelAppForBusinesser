@@ -305,7 +305,10 @@
         return _pickerArr[row];
 }
 
-
+//每行的高度
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 30;
+}
 
 //取消事件
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
