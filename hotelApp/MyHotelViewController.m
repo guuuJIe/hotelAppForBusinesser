@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSArray *arr;
 
 
+
 @end
 
 @implementation MyHotelViewController
@@ -39,6 +40,7 @@
     //初始化可变数组，分配内存
     _tableArr = [NSMutableArray new];
     _roomInfoArr = [NSMutableArray new];
+   
     
     //去掉tableview底部多余的线
     _myHotelTableView.tableFooterView = [UIView new];
@@ -216,18 +218,15 @@
     cell.priceLabel.text = [NSString stringWithFormat:@"价格¥:%ld",(long)hotelModel.price];
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImgs];
     [cell.hotelImgView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"hotel_img"]];
-  
-    if (_arr.count == 4) {
-        //遍历数组
-        for (_arr in _roomInfoArr) {
-            cell.describeLabel.text = [NSString stringWithFormat:@"描述:%@",_arr[1]];
-            cell.bedTypeLabel.text = _arr[2];
-            //截取字符串
-            NSString *str = [_arr[3] substringToIndex:2];
-            cell.areaLabel.text = [NSString stringWithFormat:@"面积:%@平米",str];
-        }
-
-    }
+    _arr = _roomInfoArr[indexPath.row];
+            if (_arr.count == 4) {
+                cell.describeLabel.text = [NSString stringWithFormat:@"描述:%@",_arr[1]];
+                cell.bedTypeLabel.text = _arr[2];
+                //截取字符串
+                NSString *str = [_arr[3] substringToIndex:2];
+                cell.areaLabel.text = [NSString stringWithFormat:@"面积:%@平米",str];
+            }
+    
     return cell;
 }
 
