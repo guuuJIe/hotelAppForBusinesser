@@ -13,6 +13,7 @@
 
 @interface HotelIssueViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate> {
     NSInteger flag;
+    
 }
 
 
@@ -56,6 +57,7 @@
     // Do any additional setup after loading the view.
     
     flag = 1;
+   
     _isEarlyBtn.enabled = NO;
     //给scrollView签协议
     _scrollView.delegate = self;
@@ -254,8 +256,8 @@
         return;
     }
     NSString *area = _hotelAreaTextField.text;
-    if ([area integerValue] < 15 || [area integerValue] > 50) {
-        [Utilities popUpAlertViewWithMsg:@"房间面积在15~50之间" andTitle:@"提示" onView:self];
+    if ([area integerValue] < 15 || [area integerValue] > 100) {
+        [Utilities popUpAlertViewWithMsg:@"房间面积在15~100之间" andTitle:@"提示" onView:self];
         return;
     }
 
@@ -268,8 +270,8 @@
         return;
     }
     NSString *price = _priceTextField.text;
-    if ([price integerValue] < 199 || [price integerValue] > 1099) {
-        [Utilities popUpAlertViewWithMsg:@"价格在199~1199之间" andTitle:@"提示" onView:self];
+    if ([price integerValue] < 199 || [price integerValue] > 2000) {
+        [Utilities popUpAlertViewWithMsg:@"价格在199~2000之间" andTitle:@"提示" onView:self];
         return;
     }
     
@@ -282,8 +284,8 @@
         return;
     }
     NSString *addPrice = _addPriceTextField.text;
-    if ([addPrice integerValue] < 39 || [addPrice integerValue] > 599) {
-        [Utilities popUpAlertViewWithMsg:@"周末节假日加价在39~599之间" andTitle:@"提示" onView:self];
+    if ([addPrice integerValue] < 39 || [addPrice integerValue] > 1000) {
+        [Utilities popUpAlertViewWithMsg:@"周末节假日加价在39~1000之间" andTitle:@"提示" onView:self];
         return;
     }
     
@@ -414,7 +416,7 @@
 
 //设置房间名称类型
 - (void)roomNameType {
-    _roomNameTagView = [[SKTagView alloc] initWithFrame:CGRectMake(0, _roomNameBtn.frame.origin.y + 35, _scrollView.frame.size.width, _scrollView.frame.size.height)];
+    _roomNameTagView = [[SKTagView alloc] initWithFrame:CGRectMake(0, _roomNameBtn.frame.origin.y + 35, self.view.frame.size.width, self.view.frame.size.height)];
     
     NSArray *roomArr = @[@"经济房",@"标准房",@"豪华房",@"商务房",@"行政房",@"双床房",@"大床房",@"单人房",@"无烟房",@"套房"];
     //内间距
@@ -474,7 +476,7 @@
 
 //设置床型
 - (void)bedType {
-     _bedTypeTagView = [[SKTagView alloc] initWithFrame:CGRectMake(0, _bedTypeBtn.frame.origin.y + 35, _scrollView.frame.size.width, _scrollView.frame.size.height)];
+     _bedTypeTagView = [[SKTagView alloc] initWithFrame:CGRectMake(0, _bedTypeBtn.frame.origin.y + 35, self.view.frame.size.width, self.view.frame.size.height)];
     
     NSArray *bedArr = @[@"小型床",@"小床",@"小型大床",@"大床",@"超大型床",@"单人床",@"双人床",@"豪华大床"];
     //内间距
@@ -699,7 +701,7 @@
 
 //填写床型按钮事件
 - (IBAction)bedTypeBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    flag = 1;
+     flag = 1;
     [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ ▽",[_chooseBtn.titleLabel.text substringToIndex:_chooseBtn.titleLabel.text.length - 2]] forState:UIControlStateNormal];
     //设置按钮标题的颜色
     [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
@@ -708,8 +710,7 @@
     _pickerView.hidden = YES;
     _bedTypeTagView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [_scrollView addSubview:_bedTypeTagView];
-        _bedTypeTagView.hidden = NO;
-
+    _bedTypeTagView.hidden = NO;
     
     
 }
