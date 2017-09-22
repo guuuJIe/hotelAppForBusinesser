@@ -96,9 +96,9 @@
     //选中时的标记的位置
     _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     //设置未选中的标题样式
-    _segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(240, 240, 240, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:19]};
+    _segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(154, 154, 154, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
     //选中时的标题样式
-    _segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(154, 154, 154, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:17]};
+    _segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(240,240,240, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:19]};
     
     __weak typeof(self) weakSelf = self;
     [_segmentedControl setIndexChangeBlock:^(NSInteger index) {

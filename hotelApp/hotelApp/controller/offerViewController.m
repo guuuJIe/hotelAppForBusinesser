@@ -177,7 +177,7 @@
 //当tableView没有数据时显示图片的方法
 - (void)nothingForTableView{
     _LookOfferNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _LookOfferNothingImg.frame = CGRectMake((UI_SCREEN_W - 100) / 2, self.view.frame.size.height-(self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height+_layerView.frame.size.height)+40, 100, 100);
+    _LookOfferNothingImg.frame = CGRectMake((UI_SCREEN_W - 100) / 2, self.view.frame.size.height-(self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height+_layerView.frame.size.height + 80), 100, 100);
     [_offerTableView addSubview:_LookOfferNothingImg];
 }
 
