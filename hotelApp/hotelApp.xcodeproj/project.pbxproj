@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04512ECA1F720C2700E946D5 /* SKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 04512EC51F720C2700E946D5 /* SKTag.m */; };
+		04512ECB1F720C2700E946D5 /* SKTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 04512EC71F720C2700E946D5 /* SKTagButton.m */; };
+		04512ECC1F720C2700E946D5 /* SKTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04512EC91F720C2700E946D5 /* SKTagView.m */; };
 		045FFC321F612D6800E6D92D /* HotelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045FFC311F612D6800E6D92D /* HotelModel.m */; };
 		046A49901F5E5D36002539E3 /* AviationOffer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046A498F1F5E5D36002539E3 /* AviationOffer.storyboard */; };
 		046AEA391F5C1DA700893AC4 /* Cities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046AEA381F5C1DA700893AC4 /* Cities.plist */; };
@@ -73,6 +76,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04512EC41F720C2700E946D5 /* SKTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTag.h; sourceTree = "<group>"; };
+		04512EC51F720C2700E946D5 /* SKTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTag.m; sourceTree = "<group>"; };
+		04512EC61F720C2700E946D5 /* SKTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagButton.h; sourceTree = "<group>"; };
+		04512EC71F720C2700E946D5 /* SKTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagButton.m; sourceTree = "<group>"; };
+		04512EC81F720C2700E946D5 /* SKTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagView.h; sourceTree = "<group>"; };
+		04512EC91F720C2700E946D5 /* SKTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagView.m; sourceTree = "<group>"; };
 		045FFC301F612D6800E6D92D /* HotelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelModel.h; sourceTree = "<group>"; };
 		045FFC311F612D6800E6D92D /* HotelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelModel.m; sourceTree = "<group>"; };
 		046A498F1F5E5D36002539E3 /* AviationOffer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AviationOffer.storyboard; sourceTree = "<group>"; };
@@ -193,6 +202,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04512EC31F720C2700E946D5 /* SKTagView */ = {
+			isa = PBXGroup;
+			children = (
+				04512EC41F720C2700E946D5 /* SKTag.h */,
+				04512EC51F720C2700E946D5 /* SKTag.m */,
+				04512EC61F720C2700E946D5 /* SKTagButton.h */,
+				04512EC71F720C2700E946D5 /* SKTagButton.m */,
+				04512EC81F720C2700E946D5 /* SKTagView.h */,
+				04512EC91F720C2700E946D5 /* SKTagView.m */,
+			);
+			path = SKTagView;
+			sourceTree = "<group>";
+		};
 		045FFC2F1F612D1C00E6D92D /* HotelModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +342,7 @@
 		8482ED311F56979D00A95200 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				04512EC31F720C2700E946D5 /* SKTagView */,
 				8482ED321F56979D00A95200 /* HMSegmentedControl */,
 				8482ED351F56979D00A95200 /* SCZBasicEncodingRules */,
 				8482ED381F56979D00A95200 /* ZLImageViewDisplayView */,
@@ -701,6 +724,7 @@
 				0488E56B1F5800DD004E0499 /* MyHotelTableViewCell.m in Sources */,
 				8482ECF91F56931400A95200 /* hotelApp.xcdatamodeld in Sources */,
 				045FFC321F612D6800E6D92D /* HotelModel.m in Sources */,
+				04512ECC1F720C2700E946D5 /* SKTagView.m in Sources */,
 				FEEDA2D81F59475F00AD1E89 /* AirViewController.m in Sources */,
 				8482ED6E1F56979D00A95200 /* BasicEncodingRules.m in Sources */,
 				FEE23F831F662726000B3559 /* AviationTableViewController.m in Sources */,
@@ -715,9 +739,11 @@
 				8482ED811F56979E00A95200 /* StorageMgr.m in Sources */,
 				FED84D021F5D296800AEED50 /* AirlinesOffer.m in Sources */,
 				8482ED7C1F56979D00A95200 /* NSData+Base64.m in Sources */,
+				04512ECA1F720C2700E946D5 /* SKTag.m in Sources */,
 				8482ED7D1F56979D00A95200 /* NSDate+Utility.m in Sources */,
 				0488E5671F57FF9A004E0499 /* MyHotelViewController.m in Sources */,
 				8482ED6D1F56979D00A95200 /* HMSegmentedControl.m in Sources */,
+				04512ECB1F720C2700E946D5 /* SKTagButton.m in Sources */,
 				FEEDA2DE1F5947CC00AD1E89 /* ExpiredTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
