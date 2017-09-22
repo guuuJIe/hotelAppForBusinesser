@@ -61,6 +61,9 @@
     [_myHotelTableView addSubview:ref];
     
     [self initializeData];
+    
+    //接收通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshPage) name:@"IssueRefresh" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,6 +76,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self myHotelRequest];
 }
 
 //设置导航样式
@@ -116,6 +120,7 @@
             if (pageNum == 1) {
                 //把数组清空再插入数据
                 [_tableArr removeAllObjects];
+                [_roomInfoArr removeAllObjects];
             }
             //遍历content
             for (NSDictionary *dict in content) {
@@ -223,8 +228,8 @@
                 cell.describeLabel.text = [NSString stringWithFormat:@"描述:%@",_arr[1]];
                 cell.bedTypeLabel.text = _arr[2];
                 //截取字符串
-                NSString *str = [_arr[3] substringToIndex:2];
-                cell.areaLabel.text = [NSString stringWithFormat:@"面积:%@平米",str];
+                //NSString *str = [_arr[3] substringToIndex:2];
+                cell.areaLabel.text = [NSString stringWithFormat:@"面积:%@平米",_arr[3]];
             }
     
     return cell;

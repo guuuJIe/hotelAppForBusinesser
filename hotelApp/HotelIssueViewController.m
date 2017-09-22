@@ -11,7 +11,7 @@
 #import <UIImageView+WebCache.h>
 #import "SKTagView.h"
 
-@interface HotelIssueViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
+@interface HotelIssueViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate> {
     BOOL flag;
 }
 
@@ -19,15 +19,16 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
-@property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *hotelImgView;
 @property (weak, nonatomic) IBOutlet UIButton *roomImgBtn;
 - (IBAction)roomImgBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UITextField *roomNameTextField;
 @property (weak, nonatomic) IBOutlet UIButton *roomNameBtn;
 - (IBAction)roomNameBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIButton *isEarlyBtn;
 
 - (IBAction)switchAction:(UISwitch *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UITextField *bedTypeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *bedTypeBtn;
 - (IBAction)bedTypeBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UITextField *hotelAreaTextField;
@@ -46,7 +47,7 @@
 @property (strong, nonatomic) UIImagePickerController *imagePC;
 @property (strong, nonatomic) IBOutlet SKTagView *roomNameTagView;
 @property (strong, nonatomic) IBOutlet SKTagView *bedTypeTagView;
-
+@property (strong, nonatomic) NSString *hotelTitle;
 
 @end
 
@@ -59,12 +60,13 @@
     flag = YES;
     //给scrollView签协议
     _scrollView.delegate = self;
-    //初始化一个单击手势，设置响应的事件为touchScrollView
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchScrollView)];
-    [recognizer setNumberOfTapsRequired:1];
-    [recognizer setNumberOfTouchesRequired:1];
-    [_scrollView addGestureRecognizer:recognizer];
-    
+//    //初始化一个单击手势，设置响应的事件为touchScrollView
+//    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchScrollView)];
+//    [recognizer setNumberOfTapsRequired:1];
+//    [recognizer setNumberOfTouchesRequired:1];
+//    [_scrollView addGestureRecognizer:recognizer];
+    //给scrollView添加手势
+    [self addTapGestureRecognizer:_scrollView];
     //给pickerview签协议
     _pickerView.dataSource = self;
     _pickerView.delegate = self;
@@ -86,6 +88,9 @@
     //调用选择房间和床型方法
     [self roomNameType];
     [self bedType];
+    
+    //发送通知
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"IssueRefresh" object:nil];
 
 }
 
@@ -163,7 +168,7 @@
 //当文本框开始编辑的时候调用
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    CGFloat offset = _scrollView.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 216 + 75);
+    CGFloat offset = _scrollView.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 258 + 70);
     if (offset <= 0) {
         [UIScrollView animateWithDuration:0.3 animations:^{
             CGRect frame = _scrollView.frame;
@@ -192,6 +197,16 @@
     //设置全屏蒙层的背景颜色
     _fullView.backgroundColor = UIColorFromRGBA(135, 135, 135, 0.3);
     [_scrollView addSubview:_fullView];
+    if (textField == _roomNameTextField) {
+        [self roomNameType];
+        _roomNameTagView.hidden = NO;
+        _fullView.hidden = YES;
+    } else if (textField == _bedTypeTextField) {
+        [self bedType];
+        _bedTypeTagView.hidden = NO;
+         _fullView.hidden = YES;
+    }
+    
 }
 
 //当文本框已经结束编辑的时候调用
@@ -222,11 +237,11 @@
 
 //自定义的发布按钮事件
 - (void)issueAction {
-    if ([_chooseBtn.titleLabel.text isEqualToString:@"请选择酒店"]) {
+    if ([_chooseBtn.titleLabel.text isEqualToString:@"请选择酒店 ▽"]) {
         [Utilities popUpAlertViewWithMsg:@"请选择酒店" andTitle:@"提示" onView:self];
         return;
     }
-    if ([_roomNameBtn.titleLabel.text isEqualToString:@"填写房间名称"]) {
+    if (_roomNameTextField.text.length == 0) {
         [Utilities popUpAlertViewWithMsg:@"请填写房间名称" andTitle:@"提示" onView:self];
         return;
     }
@@ -235,7 +250,7 @@
         return;
     }
     
-    if ([_bedTypeBtn.titleLabel.text isEqualToString:@"填写床型"]) {
+    if (_bedTypeTextField.text.length == 0) {
         [Utilities popUpAlertViewWithMsg:@"请填写床型" andTitle:@"提示" onView:self];
         return;
     }
@@ -264,7 +279,7 @@
         return;
     }
     NSString *price = _priceTextField.text;
-    if ([price integerValue] < 199 || [price integerValue] > 1199) {
+    if ([price integerValue] < 199 || [price integerValue] > 1099) {
         [Utilities popUpAlertViewWithMsg:@"价格在199~1199之间" andTitle:@"提示" onView:self];
         return;
     }
@@ -335,10 +350,10 @@
      NSURL *url = [NSURL URLWithString:@"http://img3.imgtn.bdimg.com/it/u=1308521812,278920127&fm=23&gp=0.jpg"];
     //依靠SDWebImage来异步的下载一张远程路径下的图片，并三级缓存在项目中，同时为下载的时间周期过程中设置一张临时占位图
     [_hotelImgView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"room_imgs"]];
-    NSString *str =@"http://img3.imgtn.bdimg.com/it/u=1308521812,278920127&fm=23&gp=0.jpg";
+    NSString *str =[NSString stringWithFormat:@"%@",url];
     //[NSString stringWithFormat:@"%@", url];
     //参数
-    NSDictionary *para = @{@"business_id" : @1,@"hotel_name" : _chooseBtn.titleLabel.text,@"hotel_type" :[NSString stringWithFormat:@"%@,%@,%@,%@",_roomNameBtn.titleLabel.text,_isEarlyBtn.titleLabel.text,_bedTypeBtn.titleLabel.text,_hotelAreaTextField.text],@"room_imgs":str,@"price":_priceTextField.text};
+    NSDictionary *para = @{@"business_id" : @1,@"hotel_name" : _hotelTitle,@"hotel_type" :[NSString stringWithFormat:@"%@,%@,%@,%@",_roomNameBtn.titleLabel.text,_isEarlyBtn.titleLabel.text,_bedTypeBtn.titleLabel.text,_hotelAreaTextField.text],@"price":_priceTextField.text,@"room_imgs":str};
     //网络请求
     [RequestAPI requestURL:@"/addHotel" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         //成功以后要做的事情在此处执行
@@ -383,6 +398,8 @@
 */
 
 
+#pragma mark - PickerView
+
 //有多少列
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
@@ -405,7 +422,6 @@
 
 
 #pragma mark - SKTagView
-
 
 //设置房间名称类型
 - (void)roomNameType {
@@ -462,6 +478,7 @@
         [weakViews insertTag:tag atIndex:index];
         [_roomNameBtn setTitle:roomArr[index] forState:UIControlStateNormal];
         _roomNameTagView.hidden = YES;
+        [_roomNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     };
    
 }
@@ -470,7 +487,7 @@
 - (void)bedType {
      _bedTypeTagView = [[SKTagView alloc] initWithFrame:CGRectMake(0, _bedTypeBtn.frame.origin.y + 35, _scrollView.frame.size.width, _scrollView.frame.size.height)];
     
-    NSArray *bedArr = @[@"小型床",@"小床",@"小型大床",@"大床",@"超大型床",@"豪华大床",@"单人床",@"双人床"];
+    NSArray *bedArr = @[@"小型床",@"小床",@"小型大床",@"大床",@"超大型床",@"单人床",@"双人床",@"豪华大床"];
     //内间距
     _bedTypeTagView.padding = UIEdgeInsetsMake(10, 50, 10, 50);
     //行间距
@@ -486,8 +503,6 @@
         tag.fontSize = 13;
         //文字上下左右的内边距
         tag.padding = UIEdgeInsetsMake(6, 15, 6, 15);
-        //设置背景颜色
-        //tag.bgColor = UNSELECTE_BTN_BG;
         //设置边框颜色
         tag.borderColor = UNSELECTE_BORDER_COLOR;
         //设置边框宽度
@@ -521,65 +536,21 @@
         [weakView insertTag:tag atIndex:index];
         [_bedTypeBtn setTitle:bedArr[index] forState:UIControlStateNormal];
         _bedTypeTagView.hidden = YES;
+         [_bedTypeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     };
 }
 
-//取消事件
-- (IBAction)cancelAction:(UIBarButtonItem *)sender {
-    //设置按钮标题的颜色
-    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
-    _symbolLabel.text = @"▽";
-    //设置label的文本颜色
-     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
-    //隐藏ToolBar和PickerView
-    _toolBar.hidden = YES;
-    _pickerView.hidden = YES;
-}
-
-//确认事件
-- (IBAction)confirmAction:(UIBarButtonItem *)sender {
-    //设置按钮标题的颜色
-    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
-    _symbolLabel.text = @"▽";
-    //设置label的文本颜色
-     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
-    //拿到某一列中选中的行号
-    NSInteger row = [_pickerView selectedRowInComponent:0];
-    //根据上面拿到的行号，找到对应的数据（选中行的标题）
-    NSString *title = _pickerArr[row];
-    //把拿到的标题显示在按钮上
-    [_chooseBtn setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
-    //隐藏ToolBar和PickerView
-    _toolBar.hidden = YES;
-    _pickerView.hidden = YES;
-}
-
-//选择酒店按钮事件
-- (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    //设置按钮标题的颜色
-    [_chooseBtn setTitleColor:UIColorFromRGBA(150, 150, 150, 1) forState:UIControlStateNormal];
-    _symbolLabel.text = @"△";
-    //设置label的文本颜色
-    _symbolLabel.textColor = UIColorFromRGBA(150, 150, 150, 1);
-    //显示ToolBar和PickerView
-    _toolBar.hidden = NO;
-    _pickerView.hidden = NO;
-    //调用选择酒店接口
-    [self selectHotel];
-    
-}
-
 /*
-//点击空白处收回ToolBar和PickerView
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    //让根视图结束编辑状态达到收起键盘的目的
-    [self.view endEditing:YES];
-    //隐藏ToolBar和PickerView
-    _toolBar.hidden = YES;
-    _pickerView.hidden = YES;
-    
-}
-*/
+ //点击空白处收回ToolBar和PickerView
+ - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+ //让根视图结束编辑状态达到收起键盘的目的
+ [self.view endEditing:YES];
+ //隐藏ToolBar和PickerView
+ _toolBar.hidden = YES;
+ _pickerView.hidden = YES;
+ 
+ }
+ */
 
 //按键盘上的Return键收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -588,58 +559,161 @@
     return YES;
 }
 
-//单击手势响应事件
-- (void)touchScrollView {
+
+#pragma mark - TapGestureRecognizer
+
+//添加单击手势事件
+- (void)addTapGestureRecognizer:(id)any {
+    //初始化一个单击手势，设置响应事件为tapClick：
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick:)];
+    tap.delegate = self;
+    //将手势添加给入参
+    [any addGestureRecognizer:tap];
+}
+
+//单击手势事件代理方法
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     //让scrollView结束编辑状态达到收起键盘的目的
     [_scrollView endEditing:YES];
+    if ([touch.view isDescendantOfView:_roomNameTagView] || [touch.view isDescendantOfView:_bedTypeTagView] || [touch.view isDescendantOfView:_toolBar]) {
+        return NO;
+    }
+    return YES;
+}
+
+//单击手势响应事件
+- (void) tapClick:(UILongPressGestureRecognizer *)tap {
+    if (tap.state == UIGestureRecognizerStateRecognized) {
+        flag = !flag;
+        //隐藏ToolBar和PickerView
+        _toolBar.hidden = YES;
+        _pickerView.hidden = YES;
+         [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ ▽",[_chooseBtn.titleLabel.text substringToIndex:_chooseBtn.titleLabel.text.length - 2]] forState:UIControlStateNormal];
+        //设置按钮标题的颜色
+        [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
+        [_fullView removeFromSuperview];
+        _fullView = nil;
+        _roomNameTagView.hidden = YES;
+        _bedTypeTagView.hidden = YES;
+        
+    }
+}
+
+#pragma mark - buttonAction
+
+//取消事件
+- (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    flag = !flag;
+    [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ ▽",[_chooseBtn.titleLabel.text substringToIndex:_chooseBtn.titleLabel.text.length - 2]] forState:UIControlStateNormal];
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
     //隐藏ToolBar和PickerView
     _toolBar.hidden = YES;
     _pickerView.hidden = YES;
+}
+
+//确认事件
+- (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    flag = !flag;
     //设置按钮标题的颜色
     [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
-    _symbolLabel.text = @"▽";
-    //设置label的文本颜色
-     _symbolLabel.textColor = UIColorFromRGBA(0, 120, 255, 1);
-    [_fullView removeFromSuperview];
-    _fullView = nil;
-    
-    _roomNameTagView.hidden = YES;
-    _bedTypeTagView.hidden = YES;
+    //拿到某一列中选中的行号
+    NSInteger row = [_pickerView selectedRowInComponent:0];
+    //根据上面拿到的行号，找到对应的数据（选中行的标题）
+     _hotelTitle = _pickerArr[row];
+    //把拿到的标题显示在按钮上
+    [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ ▽",_hotelTitle] forState:UIControlStateNormal];
+    //隐藏ToolBar和PickerView
+    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
+}
+
+//选择酒店按钮事件
+- (IBAction)chooseAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    if (flag) {
+        
+        [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ △",[_chooseBtn.titleLabel.text substringToIndex:_chooseBtn.titleLabel.text.length - 2]] forState:UIControlStateNormal];
+        //设置按钮标题的颜色
+        [_chooseBtn setTitleColor:UIColorFromRGBA(150, 150, 150, 1) forState:UIControlStateNormal];
+        //显示ToolBar和PickerView
+        _toolBar.hidden = NO;
+        _pickerView.hidden = NO;
+        
+        _roomNameTagView.hidden = YES;
+        _bedTypeTagView.hidden = YES;
+        //调用选择酒店接口
+        [self selectHotel];
+        
+    }else {
+        
+        [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ ▽",[_chooseBtn.titleLabel.text substringToIndex:_chooseBtn.titleLabel.text.length - 2]] forState:UIControlStateNormal];
+        //设置按钮标题的颜色
+        [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
+        //隐藏ToolBar和PickerView
+        _toolBar.hidden = YES;
+        _pickerView.hidden = YES;
+        
+        _roomNameTagView.hidden = YES;
+        _bedTypeTagView.hidden = YES;
+    }
+     flag = !flag;
 }
 
 
 //填写房间名称按钮事件
 - (IBAction)roomNameBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    flag = !flag;
+        [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ ▽",[_chooseBtn.titleLabel.text substringToIndex:_chooseBtn.titleLabel.text.length - 2]] forState:UIControlStateNormal];
+        //设置按钮标题的颜色
+        [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
+        //隐藏ToolBar和PickerView
+        _toolBar.hidden = YES;
+        _pickerView.hidden = YES;
+        _roomNameTagView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        [_scrollView addSubview:_roomNameTagView];
+        _roomNameTagView.hidden = NO;
     
-    [_roomNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-   _roomNameTagView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-   [_scrollView addSubview:_roomNameTagView];
-    _roomNameTagView.hidden = NO;
-
-   
+    
 }
 
-
+//选择房间图片按钮事件
 - (IBAction)roomImgBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
 
 
 //是否含早开关按钮
 - (IBAction)switchAction:(UISwitch *)sender forEvent:(UIEvent *)event {
+    [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ ▽",[_chooseBtn.titleLabel.text substringToIndex:_chooseBtn.titleLabel.text.length - 2]] forState:UIControlStateNormal];
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
+    //隐藏ToolBar和PickerView
+    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
     if (sender.isOn == YES) {
         [_isEarlyBtn setTitle:@"含早" forState:UIControlStateNormal];
     }else {
         [_isEarlyBtn setTitle:@"不含早" forState:UIControlStateNormal];
     }
     [_isEarlyBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _roomNameTagView.hidden = YES;
+    _bedTypeTagView.hidden = YES;
 }
 
 //填写床型按钮事件
 - (IBAction)bedTypeBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    [_bedTypeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    flag = !flag;
+    [_chooseBtn setTitle:[NSString stringWithFormat:@"%@ ▽",[_chooseBtn.titleLabel.text substringToIndex:_chooseBtn.titleLabel.text.length - 2]] forState:UIControlStateNormal];
+    //设置按钮标题的颜色
+    [_chooseBtn setTitleColor:UIColorFromRGBA(0, 120, 255, 1) forState:UIControlStateNormal];
+    //隐藏ToolBar和PickerView
+    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
     _bedTypeTagView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [_scrollView addSubview:_bedTypeTagView];
     _bedTypeTagView.hidden = NO;
+
+    
+    
 }
 
 
