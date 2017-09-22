@@ -58,6 +58,7 @@
 @property(strong,nonatomic)NSArray *aviation;
 @property (strong,nonatomic)NSString *startTime;
 @property (strong,nonatomic)NSString *ToEndTime;
+@property (strong, nonatomic) UIImageView *LookOfferNothingImg;
 @end
 
 @implementation offerViewController
@@ -70,7 +71,7 @@
     _deleteOfferArr = [NSMutableArray new];
     _airlinesArr = [NSMutableArray new];
     [self setRefreshControl];
-    [self lookOfferRequest];
+    [self acquireInitalizeData];
     datetime = 33062449980000;
     NSDate *startDate = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -86,10 +87,13 @@
     _offerTableView.tableFooterView = [UIView new];
     _datePicker.backgroundColor = UIColorFromRGB(235, 235, 241);
     _datePicker.minimumDate = [NSDate date];
+    if(_lookOfferArr.count==0){
+        [self nothingForTableView];
+    }
     _mark = [UIView new];
     _mark.frame = CGRectMake(0, self.offerView.frame.size.height + self.navigationController.navigationBar.frame.size.height  + 30, self.offerTableView.frame.size.width,self.offerView.frame.size.height);
     _mark.backgroundColor = UIColorFromRGBA(104, 104, 104, 0.4);
-    [[UIApplication sharedApplication].keyWindow addSubview:_mark];
+    [self.view addSubview:_mark];
     _mark.hidden  = YES;
     
     
@@ -127,6 +131,8 @@
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     //给按钮添加事件
     [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents: UIControlEventTouchUpInside];
+    [self.view endEditing:YES];
+    _mark.hidden = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
 }
@@ -160,12 +166,20 @@
     [textField resignFirstResponder];
     return YES;
 }
-//键盘收回
+//界外收回
 - (void) touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     //让根视图结束编辑状态来达到收起键盘的目的
     [self.view endEditing:YES];
+    _layerView.hidden = YES;
+    [_DateOfDepartureBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [_DateOfArrivalBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 }
-
+//当tableView没有数据时显示图片的方法
+- (void)nothingForTableView{
+    _LookOfferNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _LookOfferNothingImg.frame = CGRectMake((UI_SCREEN_W - 100) / 2, self.view.frame.size.height-(self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height+_layerView.frame.size.height)+40, 100, 100);
+    [_offerTableView addSubview:_LookOfferNothingImg];
+}
 
 //创建刷新指示器的方法
 - (void)setRefreshControl{
@@ -182,12 +196,16 @@
     [self lookOfferRequest];
     
 }
+
 //第一次进行网络请求的时候需要盖上朦层，所以我们把第一次网络请求和下拉刷新分开
 -(void)acquireInitalizeData{
     _avi = [Utilities getCoverOnView:self.view];
     [self lookOfferRequest];
 }
-
+-(void)offerInitalizeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self offerRequest];
+}
 
 //报价网络请求
 - (void)offerRequest{
@@ -198,7 +216,7 @@
         [_avi stopAnimating];
         NSLog(@"responseOb: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
-            
+            [self lookOfferRequest];
     
             
         }else{
@@ -220,7 +238,7 @@
         
         NSLog(@"查看报价: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
-             NSDictionary *content = responseObject[@"content"];
+             NSArray *content = responseObject[@"content"];
             //下拉刷新的时候不仅要把页码变为1，还有将数组中原来数据清空
           if(PageNum == 1){
                 [_lookOfferArr removeAllObjects];
@@ -228,6 +246,12 @@
             for(NSDictionary *dict in content) {
                 _lookModel = [[lookOfferModel alloc]initWithDict:dict];
                 [_lookOfferArr addObject:_lookModel];
+            }
+            //当数组没有数据时将图片显示，反之隐藏
+            if (_lookOfferArr.count == 0) {
+                _LookOfferNothingImg.hidden = NO;
+            }else{
+                _LookOfferNothingImg.hidden = YES;
             }
             [_offerTableView reloadData];
 
@@ -251,10 +275,12 @@
         [_avi stopAnimating];
         NSLog(@"删除报价: %@", responseObject);
         if ([responseObject[@"result"]intValue] == 1) {
-            
+            [self lookOfferRequest];
+            [_offerTableView reloadData];
         }else{
             [Utilities popUpAlertViewWithMsg:@"请求发生了错误，请稍后再试" andTitle:@"提示" onView:self];
         }
+        
     } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
         [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
@@ -301,13 +327,13 @@
 //细胞长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     _cell = [tableView dequeueReusableCellWithIdentifier:@"OfferCell"forIndexPath:indexPath];
-    lookOfferModel *lookModel = _lookOfferArr[indexPath.row];
+    _lookModel = _lookOfferArr[indexPath.row];
     _cell.originLabel.text = _lookModel.departure;
     _cell.endLabel.text = _lookModel.destination;
-    _cell.companyLabel.text = [NSString stringWithFormat:@"%@%@",lookModel.company,lookModel.cabin];
+    _cell.companyLabel.text = [NSString stringWithFormat:@"%@%@",_lookModel.company,_lookModel.cabin];
     _cell.priceLabel.text = _lookModel.price;
-    NSString *starTimeStr =[Utilities dateStrFromCstampTime:lookModel.startTime withDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSString *endTimeStr = [Utilities dateStrFromCstampTime:lookModel.endTime withDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *starTimeStr =[Utilities dateStrFromCstampTime:_lookModel.startTime withDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *endTimeStr = [Utilities dateStrFromCstampTime:_lookModel.endTime withDateFormat:@"yyyy-MM-dd HH:mm"];
 
     _cell.timeLabel.text =[NSString stringWithFormat:@"%@——%@",starTimeStr,endTimeStr];
     _cell.luggageLabel.text = _lookModel.weight;
@@ -339,10 +365,10 @@
             // 删除模型
             [_lookOfferArr removeObjectAtIndex:indexPath.row];
             
-            // 刷新
+//             刷新
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-          
-            [self lookOfferRequest];
+//            [_offerTableView reloadData];
+            
             
         }];
         UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -379,6 +405,7 @@
 }
 
 - (IBAction)DateOfDepartureAction:(UIButton *)sender forEvent:(UIEvent *)event {
+     [_DateOfDepartureBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
       [self.view endEditing:YES];
     _layerView.hidden = NO;
     flag = 1;
@@ -386,20 +413,22 @@
 }
 
 - (IBAction)DateOfArrivalAction:(UIButton *)sender forEvent:(UIEvent *)event {
+      [_DateOfArrivalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
      [self.view endEditing:YES];
     _layerView.hidden = NO;
       flag = 0;
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     formatter.dateFormat = @"yyyy-MM-dd HH:mm";
     NSDate *date = [formatter dateFromString:_startTime];
-    NSDate *nextDat = [NSDate dateWithTimeInterval:2*60 sinceDate:date];//后一天
+    NSDate *nextDat = [NSDate dateWithTimeInterval:5*60 sinceDate:date];//后五分钟
     _datePicker.minimumDate = nextDat;
     
     }
 
 - (IBAction)determineAction:(UIButton *)sender forEvent:(UIEvent *)event {
- 
+
     if(_ChooseOriginBtn.titleLabel.text.length == 0){
+       
           [Utilities popUpAlertViewWithMsg:@"请选择出发地" andTitle:@"提示" onView:self];
         return;
     }
@@ -438,11 +467,23 @@
         return;
     }
     [self.view endEditing:YES];
-    [self offerRequest];
+    [self offerInitalizeData];
+     [Utilities popUpAlertViewWithMsg:@"你已成功报价" andTitle:@"提示" onView:self];
     
 }
 
 - (IBAction)cancelItm:(UIBarButtonItem *)sender {
+    if([_DateOfDepartureBtn.titleLabel.text isEqualToString:@"选择起飞时间"]){
+        [_DateOfDepartureBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    }else{
+         [_DateOfDepartureBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    if([_DateOfArrivalBtn.titleLabel.text isEqualToString:@"选择到达时间"]){
+        [_DateOfArrivalBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    
+    }else{
+       [_DateOfArrivalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
     _layerView.hidden = YES;
    }
 
@@ -462,7 +503,7 @@
         _startTime = thDate;
         if(followUpTime >= datetime){
              //NSDate *date = [formatter dateFromString:datetime];
-            NSDate *nextDat = [NSDate dateWithTimeInterval:24*60*60 sinceDate:date];//后一天
+            NSDate *nextDat = [NSDate dateWithTimeInterval:2*60*60 sinceDate:date];//后两小时
             NSString *endTime =  [formatter stringFromDate:nextDat];
             [_DateOfArrivalBtn  setTitle:endTime forState:UIControlStateNormal];
             
@@ -485,17 +526,20 @@
     NSString *citystr = name.object;
      if (flag == 1) {
         [_ChooseOriginBtn setTitle:citystr forState:UIControlStateNormal];
+          [_ChooseOriginBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _city = citystr;
     }else if([_city isEqualToString:citystr]){
         
          [Utilities popUpAlertViewWithMsg:@"请正确选择城市" andTitle:nil onView:self];
        
     }else{
+          [_destinationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
      [_destinationBtn setTitle:citystr forState:UIControlStateNormal];
 }
 }
 -(void)changeairlines:(NSNotification *)name{
     NSString *aviationstr = name.object;
+      [_airlinesBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_airlinesBtn setTitle:aviationstr forState:UIControlStateNormal];
 }
 

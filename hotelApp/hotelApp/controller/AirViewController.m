@@ -31,23 +31,24 @@
 @property (strong,nonatomic)NSMutableArray *offerArr;
 @property (strong,nonatomic)NSMutableArray *overdueArr;
 @property (strong,nonatomic)AirlinesOffer *offerModel;
+@property (strong, nonatomic) UIImageView *offerNothingImg;
+@property (strong, nonatomic) UIImageView *overdueNothingImg;
 @end
 
 @implementation AirViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-      [self setSegment];
+    
     offerFlag = 1;
     overdueFlag = 1;
     
     offerPageNum =1;
     overduePageNum = 1;
     //刷新指示器
-    [self setRefreshControl];
-    [self setSegment];
-    [self offerInitalizeData];
-    [self offerRequest];
+    
+    
+    
     _offerArr = [NSMutableArray new];
     _overdueArr = [NSMutableArray new];
 
@@ -57,7 +58,14 @@
     //去掉tableview底部多余的线
     _overdueTableView.tableFooterView = [UIView new];
     _offerTableView.tableFooterView = [UIView new];
-  
+    [self setSegment];
+    [self setRefreshControl];
+    [self offerInitalizeData];
+    //调用tableView没数据时显示图片的方法
+    if (_offerArr.count == 0) {
+        [self nothingForTableView];
+    }
+//    [self overDueInitalizeData];
 
 }
 
@@ -163,16 +171,26 @@
         offerFlag = 0;
         
         NSLog(@"第一次滑动scollview来到已报价");
-        [self offerRequest];
          }
     if (overdueFlag == 1 && page == 1) {
         overdueFlag = 0;
         NSLog(@"第一次滑动scollview来到已过期");
-        [self overdueRequest];
+        [self overDueInitalizeData];
         
     }
     return page;
 
+}
+//当tableView没有数据时显示图片的方法
+- (void)nothingForTableView{
+    _offerNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+     _offerNothingImg.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    
+    _overdueNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _overdueNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    
+    [_aviationScrollView addSubview:_offerNothingImg];
+    [_aviationScrollView addSubview:_overdueNothingImg];
 }
 #pragma mark - request
 //可报价网络请求
@@ -198,6 +216,11 @@
                 _offerModel = [[AirlinesOffer alloc]initWithDict:dict];
             [_offerArr addObject:_offerModel];
                 
+            }
+            if (_offerArr.count == 0) {
+                _offerNothingImg.hidden = NO;
+            }else{
+               _offerNothingImg.hidden = YES;
             }
             [_offerTableView reloadData];
             
@@ -235,6 +258,11 @@
             for(NSDictionary *dict in list){
                 _offerModel = [[AirlinesOffer alloc]initWithDict:dict];
                 [_overdueArr addObject:_offerModel];
+            }
+            if (_overdueArr.count == 0) {
+                _overdueNothingImg.hidden = NO;
+            }else{
+                _overdueNothingImg.hidden = YES;
             }
             [_overdueTableView reloadData];
             
