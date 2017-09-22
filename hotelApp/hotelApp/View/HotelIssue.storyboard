@@ -342,40 +342,17 @@
                                             <constraint firstAttribute="height" constant="1" id="Oze-0P-WEW"/>
                                         </constraints>
                                     </view>
-                                    <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSU-dK-EzD">
-                                        <rect key="frame" x="0.0" y="390" width="375" height="213"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="213" id="cnf-vl-QuN"/>
-                                        </constraints>
-                                    </pickerView>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qv2-Dg-L3d">
                                         <rect key="frame" x="311" y="321" width="51" height="31"/>
                                         <connections>
                                             <action selector="switchAction:forEvent:" destination="Ddo-R0-H9a" eventType="valueChanged" id="CA4-a4-M7w"/>
                                         </connections>
                                     </switch>
-                                    <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="17z-QO-DKR">
-                                        <rect key="frame" x="0.0" y="346" width="375" height="44"/>
-                                        <items>
-                                            <barButtonItem title="取消" id="ges-7m-xXd">
-                                                <connections>
-                                                    <action selector="cancelAction:" destination="Ddo-R0-H9a" id="1XL-92-YSw"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="ZH4-RX-ks9"/>
-                                            <barButtonItem title="确认" id="NvH-4J-dM7">
-                                                <connections>
-                                                    <action selector="confirmAction:" destination="Ddo-R0-H9a" id="6f6-WP-AmI"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </items>
-                                    </toolbar>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="tep-BK-RXO" firstAttribute="top" secondItem="6bd-tW-hEP" secondAttribute="bottom" constant="20" id="1Ra-3J-OCb"/>
                                     <constraint firstAttribute="trailing" secondItem="A0u-Ia-rtJ" secondAttribute="trailing" constant="15" id="1iE-9g-8Og"/>
                                     <constraint firstItem="eab-Ex-Pab" firstAttribute="top" secondItem="A0u-Ia-rtJ" secondAttribute="bottom" constant="25" id="24X-MX-FLd"/>
-                                    <constraint firstItem="DSU-dK-EzD" firstAttribute="centerY" secondItem="HxX-Ly-Aa1" secondAttribute="centerY" id="51K-vr-irt"/>
                                     <constraint firstItem="gKv-Av-tll" firstAttribute="top" secondItem="RBl-fX-KTj" secondAttribute="bottom" constant="15" id="7wr-Y9-kKN"/>
                                     <constraint firstItem="HZf-C8-4ms" firstAttribute="leading" secondItem="Fgf-VP-3EF" secondAttribute="leading" id="99o-jh-5wx"/>
                                     <constraint firstItem="RBl-fX-KTj" firstAttribute="leading" secondItem="Fgf-VP-3EF" secondAttribute="leading" id="9hG-FH-PuF"/>
@@ -387,11 +364,9 @@
                                     <constraint firstItem="Aoa-p0-5ws" firstAttribute="top" secondItem="dQl-vK-Kps" secondAttribute="bottom" constant="5" id="IgM-TJ-ppn"/>
                                     <constraint firstItem="b9g-1y-Kiw" firstAttribute="top" secondItem="DTv-gP-GA5" secondAttribute="bottom" id="JMX-PU-Snc"/>
                                     <constraint firstItem="DTv-gP-GA5" firstAttribute="leading" secondItem="Fgf-VP-3EF" secondAttribute="leading" id="KmC-aw-cP0"/>
-                                    <constraint firstItem="DSU-dK-EzD" firstAttribute="leading" secondItem="7mp-2Y-EhB" secondAttribute="leading" id="M6O-w7-mgZ"/>
                                     <constraint firstItem="RBl-fX-KTj" firstAttribute="top" secondItem="HZf-C8-4ms" secondAttribute="bottom" constant="20" id="MiP-pc-zKj"/>
                                     <constraint firstItem="6bd-tW-hEP" firstAttribute="top" secondItem="yTR-ha-kiy" secondAttribute="bottom" constant="5" id="P2P-yA-tYa"/>
                                     <constraint firstAttribute="trailing" secondItem="DTv-gP-GA5" secondAttribute="trailing" constant="15" id="Rh3-ar-G5D"/>
-                                    <constraint firstItem="17z-QO-DKR" firstAttribute="leading" secondItem="7mp-2Y-EhB" secondAttribute="leading" id="T11-WR-PG8"/>
                                     <constraint firstItem="qv2-Dg-L3d" firstAttribute="centerY" secondItem="gKv-Av-tll" secondAttribute="centerY" id="TVK-bx-Apm"/>
                                     <constraint firstItem="hXg-Jf-PLe" firstAttribute="top" secondItem="gKv-Av-tll" secondAttribute="bottom" id="UIY-3d-iWb"/>
                                     <constraint firstItem="b9g-1y-Kiw" firstAttribute="leading" secondItem="Fgf-VP-3EF" secondAttribute="leading" id="UPW-Ew-xOT"/>
@@ -400,7 +375,6 @@
                                     <constraint firstAttribute="trailing" secondItem="Aoa-p0-5ws" secondAttribute="trailing" constant="15" id="X8d-mB-uO8"/>
                                     <constraint firstAttribute="trailing" secondItem="dQl-vK-Kps" secondAttribute="trailing" constant="15" id="Xh0-6z-gNv"/>
                                     <constraint firstAttribute="trailing" secondItem="Fgf-VP-3EF" secondAttribute="trailing" constant="15" id="Xng-Ea-nla"/>
-                                    <constraint firstAttribute="trailing" secondItem="17z-QO-DKR" secondAttribute="trailing" id="YFw-uv-bef"/>
                                     <constraint firstItem="yTR-ha-kiy" firstAttribute="top" secondItem="b9g-1y-Kiw" secondAttribute="bottom" constant="20" id="Ysa-U5-GNY"/>
                                     <constraint firstAttribute="trailing" secondItem="6bd-tW-hEP" secondAttribute="trailing" constant="15" id="aT3-Y9-ctD"/>
                                     <constraint firstItem="dQl-vK-Kps" firstAttribute="top" secondItem="HxX-Ly-Aa1" secondAttribute="bottom" constant="20" id="aTS-D7-M8I"/>
@@ -412,10 +386,9 @@
                                     <constraint firstItem="hXg-Jf-PLe" firstAttribute="leading" secondItem="Fgf-VP-3EF" secondAttribute="leading" id="gEc-td-HbO"/>
                                     <constraint firstItem="Aoa-p0-5ws" firstAttribute="leading" secondItem="dQl-vK-Kps" secondAttribute="leading" id="hal-VT-3Zf"/>
                                     <constraint firstItem="A0u-Ia-rtJ" firstAttribute="leading" secondItem="7mp-2Y-EhB" secondAttribute="leading" constant="15" id="hfj-vi-sjc"/>
-                                    <constraint firstItem="DSU-dK-EzD" firstAttribute="top" secondItem="17z-QO-DKR" secondAttribute="bottom" id="iWd-Fb-nH2"/>
+                                    <constraint firstAttribute="bottom" secondItem="Aoa-p0-5ws" secondAttribute="bottom" constant="59" id="iEe-0Y-Vp3"/>
                                     <constraint firstItem="A0u-Ia-rtJ" firstAttribute="centerX" secondItem="7mp-2Y-EhB" secondAttribute="centerX" id="jxe-V7-2as"/>
                                     <constraint firstItem="dQl-vK-Kps" firstAttribute="leading" secondItem="Fgf-VP-3EF" secondAttribute="leading" id="l6C-7j-JvD"/>
-                                    <constraint firstAttribute="bottom" secondItem="DSU-dK-EzD" secondAttribute="bottom" id="mwj-5p-UNO"/>
                                     <constraint firstItem="eab-Ex-Pab" firstAttribute="leading" secondItem="RR1-rv-zQ9" secondAttribute="leading" id="nsG-R8-0uK"/>
                                     <constraint firstItem="b9g-1y-Kiw" firstAttribute="width" secondItem="HZf-C8-4ms" secondAttribute="width" id="qOo-fs-FPo"/>
                                     <constraint firstAttribute="trailing" secondItem="tep-BK-RXO" secondAttribute="trailing" constant="15" id="quI-3U-M3s"/>
@@ -423,23 +396,46 @@
                                     <constraint firstAttribute="trailing" secondItem="yTR-ha-kiy" secondAttribute="trailing" constant="15" id="uY8-Bb-JTy"/>
                                     <constraint firstItem="DTv-gP-GA5" firstAttribute="top" secondItem="hXg-Jf-PLe" secondAttribute="bottom" constant="15" id="uho-ot-nSm"/>
                                     <constraint firstItem="HxX-Ly-Aa1" firstAttribute="top" secondItem="tep-BK-RXO" secondAttribute="bottom" constant="5" id="wUW-GO-MIM"/>
-                                    <constraint firstAttribute="trailing" secondItem="DSU-dK-EzD" secondAttribute="trailing" id="wdI-td-AdV"/>
                                     <constraint firstItem="6bd-tW-hEP" firstAttribute="leading" secondItem="yTR-ha-kiy" secondAttribute="leading" id="ygB-kv-9E1"/>
                                     <constraint firstItem="A0u-Ia-rtJ" firstAttribute="top" secondItem="RR1-rv-zQ9" secondAttribute="bottom" constant="15" id="ymx-aW-iSg"/>
                                 </constraints>
                             </scrollView>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSU-dK-EzD">
+                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                            </pickerView>
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="17z-QO-DKR">
+                                <rect key="frame" x="0.0" y="407" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="取消" id="ges-7m-xXd">
+                                        <connections>
+                                            <action selector="cancelAction:" destination="Ddo-R0-H9a" id="1XL-92-YSw"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ZH4-RX-ks9"/>
+                                    <barButtonItem title="确认" id="NvH-4J-dM7">
+                                        <connections>
+                                            <action selector="confirmAction:" destination="Ddo-R0-H9a" id="6f6-WP-AmI"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7mp-2Y-EhB" firstAttribute="top" secondItem="djB-0Y-Gj7" secondAttribute="top" id="0QN-7L-7HN"/>
                             <constraint firstAttribute="trailing" secondItem="7mp-2Y-EhB" secondAttribute="trailing" id="ETi-6L-1fu"/>
+                            <constraint firstItem="nqL-Qf-fq8" firstAttribute="top" secondItem="DSU-dK-EzD" secondAttribute="bottom" id="NyL-vq-CcC"/>
+                            <constraint firstItem="DSU-dK-EzD" firstAttribute="leading" secondItem="djB-0Y-Gj7" secondAttribute="leading" id="Z0s-bf-dpY"/>
+                            <constraint firstItem="DSU-dK-EzD" firstAttribute="top" secondItem="17z-QO-DKR" secondAttribute="bottom" id="hD0-ay-weQ"/>
                             <constraint firstItem="7mp-2Y-EhB" firstAttribute="leading" secondItem="djB-0Y-Gj7" secondAttribute="leading" id="k54-oX-owW"/>
                             <constraint firstAttribute="bottom" secondItem="7mp-2Y-EhB" secondAttribute="bottom" id="mkk-wU-01X"/>
+                            <constraint firstAttribute="trailing" secondItem="17z-QO-DKR" secondAttribute="trailing" id="p6g-k8-72P"/>
+                            <constraint firstAttribute="trailing" secondItem="DSU-dK-EzD" secondAttribute="trailing" id="xjZ-wu-4RZ"/>
+                            <constraint firstItem="17z-QO-DKR" firstAttribute="leading" secondItem="djB-0Y-Gj7" secondAttribute="leading" id="y7S-84-Cxm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="酒店发布" id="Hb9-Qf-Mo9"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addPriceTextField" destination="dQl-vK-Kps" id="dOL-bZ-bCh"/>
                         <outlet property="bedTypeBtn" destination="DTv-gP-GA5" id="deT-BN-F99"/>
@@ -457,7 +453,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQG-qw-p3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1454" y="123"/>
+            <point key="canvasLocation" x="1453.5999999999999" y="122.78860569715144"/>
         </scene>
     </scenes>
     <resources>
