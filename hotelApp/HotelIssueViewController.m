@@ -169,7 +169,7 @@
 //当文本框开始编辑的时候调用
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    CGFloat offset = _scrollView.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 216 + 75);
+    CGFloat offset = _scrollView.frame.size.height - (textField.frame.origin.y + textField.frame.size.height + 216 + 175);
     if (offset <= 0) {
         [UIScrollView animateWithDuration:0.3 animations:^{
             CGRect frame = _scrollView.frame;
